@@ -1,0 +1,40 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+hide enum methods
+hide empty members
+
+class controler.MastermindApp {
+    + {static} main(args : String[])
+}
+
+enum model.Color {
+    RED
+    GREEN
+    YELLOW
+    BLUE
+    BLACK
+    ORANGE
+    PURPLE
+    PINK
+    CYAN
+}
+
+class model.Mastermind {
+    - score : Integer
+}
+
+class model.Hinter {
+    + makeHints(Color[]) : Color[]
+}
+
+
+
+class view.MastermindWindow{
+
+}
+
+model.Mastermind o-u-> "1\n-secretColors" model.Color
+model.Mastermind *-> "1\n-hinter" model.Hinter : Donne des indices <
+
+@enduml
