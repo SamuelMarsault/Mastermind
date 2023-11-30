@@ -4,11 +4,7 @@ skinparam classAttributeIconSize 0
 hide enum methods
 hide empty members
 
-class controler.MastermindApp {
-    + {static} main(args : String[])
-}
-
-enum model.Color {
+enum model.Pawn {
     RED
     GREEN
     YELLOW
@@ -20,54 +16,68 @@ enum model.Color {
     CYAN
 }
 
-class model.Mastermind {
+class model.Round {
+    - {static} attemptNumber : Integer
     - score : Integer
-    + checkColors() : bool
-    + addObserver(observer : MastermindObserver)
-    - notifyAttempt(hints : Color[])<
+    + {static} setAttemptNumber(attemptNumber : Integer)
+    + Round(attemptNumber : Integer, pawnNumber : Integer)
+    + generateHintLine(combination : Combination) : HintLine
+    + checkAttempt(combination : Combination)
+    + getScore() : Integer
+    - createSecretCombination(combinationLenght : Integer, pawnNumber : Integer) : Combination
 }
 
-interface model.Hinter  <<interface>>{
-    + makeHints(colors : Color[]) : Color[]
+class model.Combination {
+    - {static} combinationLenght : Integer
+    + Combination(pawns : Pawn[])
+    + getPawns() : Pawn[]
+    + setPawns(pawns : Pawn[])
 }
 
-class controler.MastermindManager{
-    + checkColors()
+class model.HintLine {
+    + setHints(hints : Hint[])
+    + getHints() : Hint[]
 }
 
-interface model.MastermindObserver <<interface>>{
-    + reactToGame(hints : Color[])
+class model.AttemptLine {
+    + Attempt(combination : Combination, hintLine : HintLine)
+    + setCombination(combination : Combination)
+    + setHintLine(hintLine : HintLine)
+    + getCombination() : Combination
+    + getHintLine() : HintLine
+
 }
 
-class model.Checker {
-    + checkColors() : bool
-}
-
-class view.MastermindGameWindow <<interface>> implements model.MastermindObserver{
-    + reactToAttempt(hints : Color[])
-    + checkColors() : bool
+class model.Game {
     + startGame()
+    + playRound(playerCombination : Combination)
+    - nextRound()
+    + getFinalScore() : Integer
 }
 
-class view.MastermindMenuWindow implements model.MastermindObserver{
-    + reactToAttempt(hints : Color[])
-    + startGame()
+enum model.Hint {
+    RIGHT_PLACE
+    WRONG_PLACE
+    ABSENT
 }
 
-class view.MastermindEndWindow implements model.MastermindObserver{
-    + reactToAttempt(hints : Color[])
-    + startNewGame()
+class model.GameSettings {
+    - roundNumber : Integer
+    - pawnNumber : Integer
+    + getRoundNumber() : Integer
+    + getPawnNumber() : Integer
 }
 
-model.Mastermind o--> "*\\n-observers" model.MastermindObserver : Observe <
-controler.MastermindManager o--> model.Mastermind
-model.Mastermind o--> "*\\n-secretColors" model.Color
-model.Mastermind *-l-> "1\\n-checker" model.Checker : Vérifie la combinaison >
-model.Mastermind *-> "1\\n-hinter" model.Hinter : Donne des indices <
-controler.MastermindApp ..> "<<uses>>" model.Mastermind
-controler.MastermindApp ..> "<<uses>>" view.MastermindGameWindow
-controler.MastermindApp ..> "<<uses>>" view.MastermindEndWindow
-controler.MastermindApp ..> "<<uses>>" view.MastermindMenuWindow
-controler.MastermindApp ..> "<<uses>>" controler.MastermindManager
+model.Round *-> "1\n-secretCombination" model.Combination : conserve >
+model.Round o--> "*\n-attempts" model.AttemptLine : constitue <
+model.AttemptLine o-> "1\n-hintLine" model.HintLine : < compose
+model.Round ..> "<<uses>>" model.HintLine
+model.Round ..> "<<uses>>" model.Hint
+model.Round ..> "<<uses>>" model.Pawn
+model.HintLine o-> "4 .. 8\nhints" model.Hint : contient >
+model.AttemptLine o--> "1\n-playerCombination" model.Combination : compose <
+model.Game *--> "1 .. 5\n-rounds" model.Round : contient >
+model.Game *--> "1\n-settings" model.GameSettings : définit <
+model.Combination o-> "4 .. 8\n-Pawns" model.Pawn : compose <
 
 @enduml
