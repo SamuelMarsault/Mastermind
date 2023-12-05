@@ -5,30 +5,36 @@ hide enum methods
 hide empty members
 
 enum model.Pawn {
-    RED
-    GREEN
-    YELLOW
-    BLUE
-    BLACK
-    ORANGE
-    PURPLE
-    PINK
-    CYAN
+    + RED
+    + GREEN
+    + YELLOW
+    + BLUE
+    + BLACK
+    + ORANGE
+    + PURPLE
+    + PINK
 }
 
 class model.Round {
     - {static} attemptNumber : Integer
+    - {static} pawnNumber : Integer
     - score : Integer
-    + {static} setAttemptNumber(attemptNumber : Integer)
     + Round(attemptNumber : Integer, pawnNumber : Integer)
+    + {static} setAttemptNumber(attemptNumber : Integer)
+    + {static} setPawnNumber(pawnNumber : Integer)
+    + {static} getAttemptNumber() : Integer
+    + {static} getPawnNumber() : Integer
     + generateHintLine(combination : Combination) : HintLine
     + checkAttempt(combination : Combination)
     + getScore() : Integer
     - createSecretCombination(combinationLenght : Integer, pawnNumber : Integer) : Combination
+    - notifyRoundEnd(victory : Boolean)
 }
 
 class model.Combination {
     - {static} combinationLenght : Integer
+    + {static} setCombinationLength(combinationLength : Integer)
+    + {static} getCombinationLength() : Integer
     + Combination(pawns : Pawn[])
     + getPawns() : Pawn[]
     + setPawns(pawns : Pawn[])
@@ -48,36 +54,36 @@ class model.AttemptLine {
 
 }
 
-class model.Game {
+interface model.RoundObserver {
+    + reactToRoundEnd(victory : Boolean)
+}
+
+class model.Game implements model.RoundObserver {
+    - {static} roundNumber : Integer
+    + {static} setRoundNumber(roundNumber : Integer)
+    + {static} getRoundNumber() : Integer
     + startGame()
-    + playRound(playerCombination : Combination)
     - nextRound()
     + getFinalScore() : Integer
+    + reactToRoundEnd(victory : Boolean)
 }
 
 enum model.Hint {
-    RIGHT_PLACE
-    WRONG_PLACE
-    ABSENT
+    + RIGHT_PLACE
+    + WRONG_PLACE
+    + ABSENT
 }
 
-class model.GameSettings {
-    - roundNumber : Integer
-    - pawnNumber : Integer
-    + getRoundNumber() : Integer
-    + getPawnNumber() : Integer
-}
-
+model.Round o-l-> "*\n-observers" model.RoundObserver : Observe <
 model.Round *-> "1\n-secretCombination" model.Combination : conserve >
-model.Round o--> "*\n-attempts" model.AttemptLine : constitue <
+model.Round o--> "10 .. 12\n-attempts" model.AttemptLine : constitue <
 model.AttemptLine o-> "1\n-hintLine" model.HintLine : < compose
 model.Round ..> "<<uses>>" model.HintLine
 model.Round ..> "<<uses>>" model.Hint
 model.Round ..> "<<uses>>" model.Pawn
-model.HintLine o-> "4 .. 8\nhints" model.Hint : contient >
+model.HintLine o-> "4 .. 6\nhints" model.Hint : contient >
 model.AttemptLine o--> "1\n-playerCombination" model.Combination : compose <
-model.Game *--> "1 .. 5\n-rounds" model.Round : contient >
-model.Game *--> "1\n-settings" model.GameSettings : définit <
-model.Combination o-> "4 .. 8\n-Pawns" model.Pawn : compose <
+model.Game *--> "3 .. 5\n-rounds" model.Round : contient >
+model.Combination o-> "4 .. 6\n-Pawns" model.Pawn : compose <
 
 @enduml
