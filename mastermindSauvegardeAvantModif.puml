@@ -7,18 +7,10 @@ hide empty members
 class model.Player {
     - name : String
 }
-note top
-Pour l'instant j'ai fais cela mais en fonction
-des décisions on pourras changer (car Player est vraiment inutile)
-dans CETTE situation
-end note
 
 class controler.GameControler {
 
 }
-note right
-C'est lui qui passe le score à Game ?
-end note
 
 class view.GameWindow
 class view.StartWindow
@@ -33,22 +25,6 @@ enum model.Pawn {
     + ORANGE
     + PURPLE
     + PINK
-}
-
-interface model.HintDisplayStrategie <<interface>>{
-    +switchMode(combination : Combination) : HintLine
-}
-
-class model.Easy implements model.HintDisplayStrategie{
-    +switchMode(combination : Combination) : HintLine
-}
-
-class model.Classic implements model.HintDisplayStrategie{
-    +switchMode(combination : Combination) : HintLine
-}
-
-class model.Digital implements model.HintDisplayStrategie{
-    +switchMode(combination : Combination) : HintLine
 }
 
 class model.Round {
@@ -102,11 +78,7 @@ model.Round ..> "<<uses>>" model.Pawn
 model.HintLine o-> "2 .. 6\n-hints" model.Hint : contient >
 model.Game *--> "1 .. 5\n-rounds" model.Round : contient >
 model.Combination o-> "2 .. 6\n-pawns" model.Pawn : compose <
-model.Round o--> "1\n -modeStrategie" model.HintDisplayStrategie : select >
 controler.GameControler *--> "1\n-game" model.Game
 controler.GameControler o--> "1\n-round" model.Round
-model.HintDisplayStrategie ..> "<<uses>>" Hint
-model.Easy --[hidden]l model.SecretCombination
-model.Game o--r> "1\n -name" model.Player : play <
 
 @enduml
