@@ -4,17 +4,46 @@ skinparam classAttributeIconSize 0
 hide enum methods
 hide empty members
 
-class model.Player {
-    - name : String
-}
-
 class controler.GameControler {
 
 }
 
-class view.GameWindow
-class view.StartWindow
-class view.EndgWindow
+interface model.HintDisplayMode {
+    + convertHintLine(hintLine : HintLine) : Color[]
+}
+
+class view.ClassicMode implements model.HintDisplayMode {
+    + convertHintLine(hintLine : HintLine) : Color[]
+}
+
+class view.NumericMode implements model.HintDisplayMode {
+    + convertHintLine(hintLine : HintLine) : Color[]
+}
+
+class view.EasyMode implements model.HintDisplayMode {
+    + convertHintLine(hintLine : HintLine) : Color[]
+}
+
+enum model.Mode {
+    + EASY
+    + CLASSIC
+    + NUMERIC
+}
+
+class view.GameWindow implements model.RoundObserver{
+
+}
+
+class view.StartWindow {
+}
+
+class view.EndWindow {
+}
+
+interface model.RoundObserver {
+    + reactToAttempt(combination : Combination, hintLine : HintLine)
+    + reactToRoundEnd(roundWon : Boolean, score : Integer)
+}
 
 enum model.Pawn {
     + RED
@@ -28,12 +57,9 @@ enum model.Pawn {
 }
 
 class model.Round {
-    - finished : Boolean
     - combinationLength : Integer
     - attemptNumber : Integer
     + Round(combinationLength : Integer, attemptNumber : Integer, pawnNumber : Integer)
-    + getRoundState() : Boolean
-    + generateHintLine(combination : Combination) : HintLine
     + checkAttempt(combination : Combination) : Boolean
     + computeScore() : Integer
 }
@@ -44,22 +70,25 @@ class model.SecretCombination extends model.Combination{
 
 class model.Combination {
     + Combination(pawns : Pawn[])
-    + getPawns() : Pawn[]
-    + setPawns(pawns : Pawn[])
+    + getPawn(index : Integer) : Pawn
+    + getCombinationLength() : Integer
+    + containsPawn(pawn : Pawn) : Boolean
 }
 
 class model.HintLine {
-    + setHints(hints : Hint[])
-    + getHints() : Hint[]
+    + HintLine(combination : Combination, secretCombination : SecretCombination)
+    + getHint(index : Integer) : Hint
 }
 
 class model.Game {
+    - playerName : String
     - score : Integer
     - attemptNumber : Integer
     - pawnNumber : Integer
     - combinationLength : Integer
     + <<create>> Game()
-    + startGame(roundNumber : Integer, combinationLength : Integer, pawnNumber : Integer, attemptNumber : Integer)
+    + setMode(mode : Mode)
+    + startGame(roundNumber : Integer, combinationLength : Integer, pawnNumber : Integer, attemptNumber : Integer) : Round
     + nextRound() : Round
     + getFinalScore() : Integer
 }
@@ -71,14 +100,19 @@ enum model.Hint {
 }
 
 model.Round *--> "1\n-secretCombination" model.SecretCombination : conserve >
-model.Round o--> "1 .. 12\n-attempts" model.Combination : constitue <
-model.Round o--> "1 .. 12\n-hintLine" model.HintLine : < compose
+model.Round o--> "1 .. 12\n-attempts" model.Combination : garde >
+model.Round o--> "1 .. 12\n-hintLine" model.HintLine : > garde
 model.Round ..> "<<uses>>" model.Hint
-model.Round ..> "<<uses>>" model.Pawn
+model.Game o--> "1\n-mode" model.Mode : inluence <
 model.HintLine o-> "2 .. 6\n-hints" model.Hint : contient >
 model.Game *--> "1 .. 5\n-rounds" model.Round : contient >
 model.Combination o-> "2 .. 6\n-pawns" model.Pawn : compose <
-controler.GameControler *--> "1\n-game" model.Game
-controler.GameControler o--> "1\n-round" model.Round
+controler.GameControler *--> "1\n-game" model.Game : joue >
+controler.GameControler ..> "<<uses>>" view.EndWindow
+controler.GameControler ..> "<<uses>>" view.GameWindow
+controler.GameControler ..> "<<uses>>" view.StartWindow
+model.Round o--> "*\n-observers" model.RoundObserver
+view.GameWindow o--> "1\n-mode" model.HintDisplayMode : utilise >
+
 
 @enduml
