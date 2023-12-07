@@ -14,4 +14,15 @@ public class HintLine {
     public Hint getHint(int index) {
         return hints[index];
     }
+    public boolean perfectMatch(){
+        boolean match = true;
+        for (int i = 0; i < hints.length && match; i++) {
+            if (hints[i]!=Hint.WRONG_PLACE) match = false;
+        }
+        return match;
+    }
+    public int hintLineLength(){
+        return hints.length;
+    }
 }
+

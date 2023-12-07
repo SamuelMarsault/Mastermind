@@ -13,4 +13,8 @@ public class Combination {
             contains = pawns[i].equals(pawn);
         return contains;
     }
+
+    public void setPawns(Pawn[] pawns) {
+        this.pawns = pawns;
+    }
 }

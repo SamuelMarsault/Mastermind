@@ -61,7 +61,7 @@ class model.Round {
     - attemptNumber : Integer
     + Round(combinationLength : Integer, attemptNumber : Integer, pawnNumber : Integer)
     + checkAttempt(combination : Combination) : Boolean
-    + computeScore() : Integer
+    + computeScore(mode : Mode) : Integer
 }
 
 class model.SecretCombination extends model.Combination{
@@ -70,6 +70,7 @@ class model.SecretCombination extends model.Combination{
 
 class model.Combination {
     + Combination(pawns : Pawn[])
+    + setPawns(pawns : Pawn[])
     + getPawn(index : Integer) : Pawn
     + getCombinationLength() : Integer
     + containsPawn(pawn : Pawn) : Boolean
@@ -78,6 +79,8 @@ class model.Combination {
 class model.HintLine {
     + HintLine(combination : Combination, secretCombination : SecretCombination)
     + getHint(index : Integer) : Hint
+    + perfectMatch() : Boolean
+    + hintLineLength() : Integer
 }
 
 class model.Game {
