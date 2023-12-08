@@ -1,0 +1,84 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+hide enum methods
+hide empty members
+
+class model.Player {
+    - name : String
+}
+
+class controler.GameControler {
+
+}
+
+class view.GameWindow
+class view.StartWindow
+class view.EndgWindow
+
+enum model.Pawn {
+    + RED
+    + GREEN
+    + YELLOW
+    + BLUE
+    + BLACK
+    + ORANGE
+    + PURPLE
+    + PINK
+}
+
+class model.Round {
+    - finished : Boolean
+    - combinationLength : Integer
+    - attemptNumber : Integer
+    + Round(combinationLength : Integer, attemptNumber : Integer, pawnNumber : Integer)
+    + getRoundState() : Boolean
+    + generateHintLine(combination : Combination) : HintLine
+    + checkAttempt(combination : Combination) : Boolean
+    + computeScore() : Integer
+}
+
+class model.SecretCombination extends model.Combination{
+    + <<create>> SecretCombination(combinationLength : Integer, pawnNumber : Integer))
+}
+
+class model.Combination {
+    + Combination(pawns : Pawn[])
+    + getPawns() : Pawn[]
+    + setPawns(pawns : Pawn[])
+}
+
+class model.HintLine {
+    + setHints(hints : Hint[])
+    + getHints() : Hint[]
+}
+
+class model.Game {
+    - score : Integer
+    - attemptNumber : Integer
+    - pawnNumber : Integer
+    - combinationLength : Integer
+    + <<create>> Game()
+    + startGame(roundNumber : Integer, combinationLength : Integer, pawnNumber : Integer, attemptNumber : Integer)
+    + nextRound() : Round
+    + getFinalScore() : Integer
+}
+
+enum model.Hint {
+    + RIGHT_PLACE
+    + WRONG_PLACE
+    + ABSENT
+}
+
+model.Round *--> "1\n-secretCombination" model.SecretCombination : conserve >
+model.Round o--> "1 .. 12\n-attempts" model.Combination : constitue <
+model.Round o--> "1 .. 12\n-hintLine" model.HintLine : < compose
+model.Round ..> "<<uses>>" model.Hint
+model.Round ..> "<<uses>>" model.Pawn
+model.HintLine o-> "2 .. 6\n-hints" model.Hint : contient >
+model.Game *--> "1 .. 5\n-rounds" model.Round : contient >
+model.Combination o-> "2 .. 6\n-pawns" model.Pawn : compose <
+controler.GameControler *--> "1\n-game" model.Game
+controler.GameControler o--> "1\n-round" model.Round
+
+@enduml
