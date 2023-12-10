@@ -1,10 +1,8 @@
 package view;
 
-import model.Combination;
-import model.HintLine;
-import model.RoundObserver;
+import model.*;
 
-public class RoundAnnouncer implements RoundObserver {
+public class Announcer implements RoundObserver, GameObserver {
 
     @Override
     public void reactToAttempt(Combination combination, HintLine hintLine) {
@@ -25,5 +23,14 @@ public class RoundAnnouncer implements RoundObserver {
         result = roundWon ? "Bravo vous avez gagné ce round !" : "Vous avez perdu... ";
         System.out.println(result);
         System.out.println("Score : "+score+"\n");
+    }
+    public void reactToModeChanged(Mode mode) {
+
+    }
+
+    @Override
+    public void reactToGameEnd(int score) {
+        System.out.println("Fin de la partie");
+        System.out.println("Voici le score final : "+score);
     }
 }

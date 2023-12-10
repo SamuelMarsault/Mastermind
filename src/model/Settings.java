@@ -15,6 +15,9 @@ public class Settings {
     public int getAttemptNumber() {
         return attemptNumber;
     }
+    public void setMode(Mode mode){
+        this.mode = mode;
+    }
 
     public int getCombinationLength() {
         return combinationLength;

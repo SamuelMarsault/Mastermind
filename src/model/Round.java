@@ -38,6 +38,9 @@ public class Round {
     public void addObserver(RoundObserver observer){
         observers.add(observer);
     }
+    public void setMode(Mode mode){
+        settings.setMode(mode);
+    }
     private void notifyAttempt(){
         int index = combinations.size()-1;
         for (RoundObserver observer:observers) {
@@ -47,6 +50,11 @@ public class Round {
     private void notifyRoundEnd(boolean roundWon, int score){
         for (RoundObserver observer:observers) {
             observer.reactToRoundEnd(roundWon,score);
+        }
+    }
+    private void notifyModeChanged(){
+        for (RoundObserver observer:observers) {
+            observer.reactToModeChanged(settings.getMode());
         }
     }
 }

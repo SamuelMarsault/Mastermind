@@ -7,18 +7,19 @@ public class Game {
     private String playerName;
     private int score;
     private int roundNumber;
-    private List<Round> rounds;
+    private List<Round> rounds = new ArrayList<>();;
     private Mode mode;
     private Settings settings;
-    public Game(){
-        rounds = new ArrayList<>();
-    }
+    private List<GameObserver> observers = new ArrayList<>();
     public void configureGame(Settings settings, int roundNumber){
         this.settings = settings;
         this.roundNumber = roundNumber;
     }
     public Round nextRound(){
-        if (rounds.size()>roundNumber) return null;
+        if (rounds.size()>=roundNumber) {
+            notifyGameEnd();
+            return null;
+        }
         Round round = new Round(settings);
         rounds.add(round);
         return round;
@@ -29,5 +30,14 @@ public class Game {
             score += round.computeScore();
         }
         return score;
+    }
+    public void addObserver(GameObserver observer){
+        observers.add(observer);
+    }
+    private void notifyGameEnd(){
+        int score = getFinalScore();
+        for (GameObserver observer:observers) {
+            observer.reactToGameEnd(score);
+        }
     }
 }
