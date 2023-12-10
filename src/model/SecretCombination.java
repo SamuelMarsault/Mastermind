@@ -8,12 +8,13 @@ import java.util.Random;
 public class SecretCombination extends Combination{
     public SecretCombination(int combinationLength, int pawnNumber){
         super(null);
-        List<Pawn> possiblePawns = new ArrayList<>();
         Pawn[] pawns = new Pawn[combinationLength];
-        possiblePawns.addAll(Arrays.asList(Pawn.values()).subList(0, pawnNumber));
+        List<Pawn> possiblePawns = new ArrayList<>(Arrays.asList(Pawn.values()).subList(0, pawnNumber));
         Random rand = new Random();
         for (int i=0;i<combinationLength;i++){
-            pawns[i] = possiblePawns.get(rand.nextInt(pawnNumber));
+            int index = rand.nextInt(0,possiblePawns.size());
+            pawns[i] = possiblePawns.get(index);
+            possiblePawns.remove(index);
         }
         setPawns(pawns);
     }

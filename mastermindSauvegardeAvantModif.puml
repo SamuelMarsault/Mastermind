@@ -14,7 +14,7 @@ class controler.GameControler {
 
 class view.GameWindow
 class view.StartWindow
-class view.EndgWindow
+class view.EndWindow
 
 enum model.Pawn {
     + RED

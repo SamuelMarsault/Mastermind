@@ -12,15 +12,15 @@ interface model.HintDisplayMode {
     + convertHintLine(hintLine : HintLine) : Color[]
 }
 
-class view.ClassicMode implements model.HintDisplayMode {
+class model.ClassicMode implements model.HintDisplayMode {
     + convertHintLine(hintLine : HintLine) : Color[]
 }
 
-class view.NumericMode implements model.HintDisplayMode {
+class model.NumericMode implements model.HintDisplayMode {
     + convertHintLine(hintLine : HintLine) : Color[]
 }
 
-class view.EasyMode implements model.HintDisplayMode {
+class model.EasyMode implements model.HintDisplayMode {
     + convertHintLine(hintLine : HintLine) : Color[]
 }
 
@@ -57,11 +57,23 @@ enum model.Pawn {
 }
 
 class model.Round {
-    - combinationLength : Integer
-    - attemptNumber : Integer
-    + Round(combinationLength : Integer, attemptNumber : Integer, pawnNumber : Integer)
+    + Round(settings : Settings)
     + checkAttempt(combination : Combination) : Boolean
-    + computeScore(mode : Mode) : Integer
+    + computeScore() : Integer
+    + addObserver(observer : RoundObserver)
+    - notifyAttempt()
+    - notifyRoundEnd(roundWon : Boolean, score : Integer)
+}
+
+class model.Settings {
+    + Settings(attemptNumber : Integer, combinationLength : Integer, pawnNumber : Integer, mode : Mode)
+    - attemptNumber : Integer
+    - combinationLength : Integer
+    - pawnNumber : Integer
+    + getAttemptNumber() : Integer
+    + getCombinationLength() : Integer
+    + getPawnNumber() : Integer
+    + getMode() : Mode
 }
 
 class model.SecretCombination extends model.Combination{
@@ -86,12 +98,9 @@ class model.HintLine {
 class model.Game {
     - playerName : String
     - score : Integer
-    - attemptNumber : Integer
-    - pawnNumber : Integer
-    - combinationLength : Integer
     + <<create>> Game()
     + setMode(mode : Mode)
-    + startGame(roundNumber : Integer, combinationLength : Integer, pawnNumber : Integer, attemptNumber : Integer) : Round
+    + configureGame(settings : Settings, roundNumber : Integer)
     + nextRound() : Round
     + getFinalScore() : Integer
 }
@@ -102,11 +111,23 @@ enum model.Hint {
     + ABSENT
 }
 
+class controler.MastermindApp {
+    + {static} main(args : String[])
+}
+
+class view.RoundAnnouncer implements model.RoundObserver{
+    + reactToAttempt(combination : Combination, hintLine : HintLine)
+    + reactToRoundEnd(roundWon : Boolean, score : Integer)
+}
+
+controler.GameControler ..> "<<uses>>" model.Settings
+model.Game o--> "1\n-settings" model.Settings : Configure <
+model.Settings o--> "1\n-mode" model.Mode : influence <
+model.Round o--> "1\n-settings" model.Settings : Configure <
 model.Round *--> "1\n-secretCombination" model.SecretCombination : conserve >
 model.Round o--> "1 .. 12\n-attempts" model.Combination : garde >
 model.Round o--> "1 .. 12\n-hintLine" model.HintLine : > garde
 model.Round ..> "<<uses>>" model.Hint
-model.Game o--> "1\n-mode" model.Mode : inluence <
 model.HintLine o-> "2 .. 6\n-hints" model.Hint : contient >
 model.Game *--> "1 .. 5\n-rounds" model.Round : contient >
 model.Combination o-> "2 .. 6\n-pawns" model.Pawn : compose <
@@ -114,8 +135,10 @@ controler.GameControler *--> "1\n-game" model.Game : joue >
 controler.GameControler ..> "<<uses>>" view.EndWindow
 controler.GameControler ..> "<<uses>>" view.GameWindow
 controler.GameControler ..> "<<uses>>" view.StartWindow
+controler.MastermindApp ..> "<<uses>>" controler.GameControler
 model.Round o--> "*\n-observers" model.RoundObserver
-view.GameWindow o--> "1\n-mode" model.HintDisplayMode : utilise >
+view.GameWindow o--> "1\n-displayer" model.HintDisplayMode : utilise >
+view.RoundAnnouncer o--> "1\n-displayer" model.HintDisplayMode : utilise >
 
 
 @enduml
