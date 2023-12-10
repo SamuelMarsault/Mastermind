@@ -54,6 +54,7 @@ class model.Round {
     + checkAttempt(combination : Combination) : Boolean
     + computeScore() : Integer
     + addObserver(observer : RoundObserver)
+    + setMode(mode : Mode)
     - notifyAttempt()
     - notifyRoundEnd(roundWon : Boolean, score : Integer)
     - notifyModeChanged()
@@ -65,6 +66,7 @@ class model.Settings {
     - combinationLength : Integer
     - pawnNumber : Integer
     + getAttemptNumber() : Integer
+    + setMode(mode : Mode)
     + getCombinationLength() : Integer
     + getPawnNumber() : Integer
     + getMode() : Mode
@@ -93,7 +95,6 @@ class model.Game {
     - playerName : String
     - score : Integer
     + <<create>> Game()
-    + setMode(mode : Mode)
     + configureGame(settings : Settings, roundNumber : Integer)
     + nextRound() : Round
     + getFinalScore() : Integer
@@ -128,6 +129,7 @@ model.Round *--> "1\n-secretCombination" model.SecretCombination : conserve >
 model.Round o--> "1 .. 12\n-attempts" model.Combination : garde >
 model.Round o--> "1 .. 12\n-hintLine" model.HintLine : > garde
 model.Round ..> "<<uses>>" model.Hint
+model.Round ..> "<<uses>>" model.Mode
 model.HintLine o-> "2 .. 6\n-hints" model.Hint : contient >
 model.Game *--> "1 .. 5\n-rounds" model.Round : contient >
 model.Game o--> "*\n-observers" model.GameObserver
