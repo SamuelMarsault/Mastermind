@@ -1,14 +1,15 @@
 package controler;
 
 import model.*;
-import view.RoundAnnouncer;
+import view.Announcer;
 
 import java.util.Scanner;
 
 public class MastermindApp {
     public static void main(String[] args) {
         Game game = new Game();
-        RoundAnnouncer announcer = new RoundAnnouncer();
+        Announcer announcer = new Announcer();
+        game.addObserver(announcer);
         int combinationLength = 4;
         int roundNumber = 3;
         int attemptNumber = 4;
@@ -32,5 +33,6 @@ public class MastermindApp {
                 roundCount++;
         }while(!(victory = round.checkAttempt(new Combination(pawns))) && roundCount<attemptNumber);
         }
+        game.nextRound();
     }
 }
