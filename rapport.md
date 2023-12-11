@@ -39,3 +39,26 @@ Pour ce qui est du code rendu, le modèle fonctionne. Seulement, le 'main' est c
 
 Enfin, mis à part 'Announcer', aucune autre classe 'vue' de l'UML n'est codée. 
 Elles sont pour le moment simplement représentatives du découpage qui devrait être effectué dans les prochaines semaines.
+
+## Rapport 2 - 11 décembre
+
+Suite au rendu 1, nous nous sommes rendu compte qu'il manquait quelques justifications et corrections que voici :
+
+Lorsque l'on joue, il n'y à que 4 couleurs possibles (pour l'instant) qui doivent être entré dans la console entre 0 et 3 compris séparer par des espaces.
+
+La classe 'SecretCombinaison' n'a pas de variable car elle est contenue dans 'Round'. 
+En effet, il y a une combinaison secrète par manche, et c'est 'Round' qui génère la combinaison seule.
+
+Le constructeur de 'Combinaison' prend en argument une liste de pions car c'est le joueur qui la lui passe 
+lorsqu'il tente une combinaison.
+
+'HintDisplayMode', 'EasyMode' et 'ClassiqueMode' sont déplacés dans le package 'vue' car ils n'ont un rôle que purement graphique.
+
+L'énumération 'Mode' est désormais dissociée de 'EasyMode' et 'ClassiqueMode', car cette énumération permet de définir 
+le mode courant dans le modèle, alors que 'EasyMode' et 'ClassiqueMode' ne sont là que pour l'affichage.
+Cependant, ils sont corrélés dans 'GameController'.
+
+--
+'Announcer' a été retiré car il ne servait que pour l'affichage non graphique dans le rendu 1.
+--
+
