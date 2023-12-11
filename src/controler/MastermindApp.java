@@ -16,8 +16,7 @@ public class MastermindApp {
         int pawnNumber = 4;
         Scanner scanner = new Scanner(System.in);
         Pawn[] pawns = new Pawn[combinationLength];
-        boolean victory;
-        game.configureGame(new Settings(attemptNumber,combinationLength,pawnNumber,Mode.CLASSIC), 3);
+        game.configureGame(new Settings(attemptNumber,combinationLength,pawnNumber,Mode.CLASSIC,"Test"), 3);
         for (int i = 0; i <roundNumber ; i++) {
             int roundCount = 0;
             Round round = game.nextRound();
@@ -31,7 +30,7 @@ public class MastermindApp {
                     c++;
                 }
                 roundCount++;
-        }while(!(victory = round.checkAttempt(new Combination(pawns))) && roundCount<attemptNumber);
+        }while(!round.checkAttempt(new Combination(pawns)) && roundCount<attemptNumber);
         }
         game.nextRound();
     }

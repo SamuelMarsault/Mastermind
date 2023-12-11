@@ -6,7 +6,7 @@ public class HintLine {
         hints = new Hint[secretCombination.getCombinationLength()];
         for (int i = 0; i < hints.length; i++) {
             if(combination.getPawn(i)==secretCombination.getPawn(i)) hints[i] = Hint.RIGHT_PLACE;
-            else if (combination.containsPawn(secretCombination.getPawn(i))) hints[i] = Hint.WRONG_PLACE;
+            else if (secretCombination.containsPawn(combination.getPawn(i))) hints[i] = Hint.WRONG_PLACE;
             else hints[i] = Hint.ABSENT;
         }
     }
@@ -25,4 +25,3 @@ public class HintLine {
         return hints.length;
     }
 }
-

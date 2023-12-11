@@ -1,4 +1,6 @@
-package model;
+package view;
+
+import model.HintLine;
 
 import java.awt.*;
 
