@@ -23,10 +23,11 @@ enum model.Mode {
 }
 
 class controller.GameController {
-    + reStartGame()
+    + startGame()
 }
 
 class controller.RoundController {
+    + setRound(round : Round)
     + changeMode()
     + launchAttempt()
     + giveUpRound()
@@ -40,10 +41,11 @@ class view.GamePanel implements model.RoundObserver{
 }
 
 class view.StartPanel {
-
+    + StartPanel(manager : GameManager)
 }
 
 class view.EndPanel {
+    + EndPanel(manager : GameManager)
 }
 
 interface model.RoundObserver {
@@ -107,13 +109,12 @@ class model.HintLine {
 }
 
 class model.Game {
-    - playerName : String
     - score : Integer
-    + <<create>> Game()
-    + configureGame(settings : Settings, roundNumber : Integer)
+    + Game(settings : Settings, roundNumber : Integer)
     + nextRound() : Round
     + getFinalScore() : Integer
     + addObserver(observer : GameObserver)
+    - notifyGameStart()
     - notifyGameEnd()
 }
 
@@ -123,46 +124,55 @@ enum model.Hint {
     + ABSENT
 }
 
-class controller.MastermindApp {
-    + {static} main(args : String[])
-}
-
 class view.Announcer implements model.RoundObserver, model.GameObserver{
     + reactToAttempt(combination : Combination, hintLine : HintLine)
+    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer)
     + reactToRoundEnd(roundWon : Boolean, score : Integer)
 }
 
 class model.GameObserver {
+    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer)
     + reactToGameEnd(score : Integer)
 }
 
 class view.MastermindWindow implements model.GameObserver {
+    + MastermindApp(roundManager : RoundController, gameManager : GameController)
+    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer)
     + reactToGameEnd(score : Integer)
 }
 
-controller.MastermindApp ..> "<<uses>>" model.Settings
+class MastermindApp {
+    + {static} main(args : String[])
+}
+
 model.Game o--> "1\n-settings" model.Settings : Configure <
-model.Settings o--> "1\n-mode" model.Mode : influence <
+model.Game *---> "1 .. 5\n-rounds" model.Round : contient >
+model.Game o--> "*\n-observers" model.GameObserver
 model.Round o--> "1\n-settings" model.Settings : Configure <
 model.Round *--> "1\n-secretCombination" model.SecretCombination : conserve >
 model.Round o--> "1 .. 12\n-attempts" model.Combination : garde >
-model.Round o--> "1 .. 12\n-hintLine" model.HintLine : > garde
-model.Round ..> "<<uses>>" model.Hint
+model.Round o-> "1 .. 12\n-hintLines" model.HintLine : > garde
+model.Round .> "<<uses>>" model.Hint
 model.Round ..> "<<uses>>" model.Mode
-model.HintLine o-> "2 .. 6\n-hints" model.Hint : contient >
-model.Game *--> "1 .. 5\n-rounds" model.Round : contient >
-model.Game o--> "*\n-observers" model.GameObserver
-model.Combination o-> "2 .. 6\n-pawns" model.Pawn : compose <
-controller.MastermindApp *--> "1\n-game" model.Game : joue >
-controller.MastermindApp ..> "<<uses>>" view.EndPanel
-controller.MastermindApp ..> "<<uses>>" view.GamePanel
-controller.MastermindApp ..> "<<uses>>" view.StartPanel
 model.Round o--> "*\n-observers" model.RoundObserver
+model.Settings o--> "1\n-mode" model.Mode : influence <
+model.HintLine o-> "2 .. 6\n-hints" model.Hint : contient >
+model.Combination o-> "2 .. 6\n-pawns" model.Pawn : compose <
+
+controller.GameController ..> "<<uses>>" model.Settings
+controller.GameController *--> "1\n-roundController" controller.RoundController
+controller.GameController *-> "1\n-game" model.Game : gère >
+controller.RoundController o-> "1\n-round" model.Round : gère >
+
 view.GamePanel o--> "1\n-displayer" view.HintDisplayMode : utilise >
 view.Announcer o--> "1\n-displayer" view.HintDisplayMode : utilise >
-controller.GameController *--> "1\n-roundController" controller.RoundController
-view.MastermindWindow *--> "1\n-gamePanel" view.GamePanel : contient >
-view.MastermindWindow *--> "1\n-startPanel" view.StartPanel : contient >
+view.MastermindWindow *-> "1\n-gamePanel" view.GamePanel : contient >
+view.MastermindWindow *-> "1\n-startPanel" view.StartPanel : contient >
 view.MastermindWindow *--> "1\n-endPanel" view.EndPanel : contient >
+view.StartPanel ..> "<<uses>>" model.Mode
+
+MastermindApp  ..> "<<uses>>" view.MastermindWindow
+MastermindApp ..> "<<uses>>" model.Game
+MastermindApp ..> "<<uses>>" controller.GameController 
 
 @enduml

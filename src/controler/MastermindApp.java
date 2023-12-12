@@ -7,16 +7,15 @@ import java.util.Scanner;
 
 public class MastermindApp {
     public static void main(String[] args) {
-        Game game = new Game();
         Announcer announcer = new Announcer();
-        game.addObserver(announcer);
         int combinationLength = 4;
         int roundNumber = 3;
         int attemptNumber = 4;
         int pawnNumber = 4;
         Scanner scanner = new Scanner(System.in);
         Pawn[] pawns = new Pawn[combinationLength];
-        game.configureGame(new Settings(attemptNumber,combinationLength,pawnNumber,Mode.CLASSIC,"Test"), 3);
+        Game game = new Game(new Settings(attemptNumber,combinationLength,pawnNumber,Mode.CLASSIC,"Test"), 3);
+        game.addObserver(announcer);
         for (int i = 0; i <roundNumber ; i++) {
             int roundCount = 0;
             Round round = game.nextRound();

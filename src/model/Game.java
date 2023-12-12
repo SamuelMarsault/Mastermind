@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private String playerName;
     private int score;
     private int roundNumber;
-    private List<Round> rounds = new ArrayList<>();;
-    private Mode mode;
+    private List<Round> rounds = new ArrayList<>();
     private Settings settings;
     private List<GameObserver> observers = new ArrayList<>();
-    public void configureGame(Settings settings, int roundNumber){
+    public Game(Settings settings, int roundNumber){
         this.settings = settings;
         this.roundNumber = roundNumber;
     }
