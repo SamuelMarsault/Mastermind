@@ -35,6 +35,9 @@ public class Round {
         if (settings.getMode()==Mode.CLASSIC) score+=4;
         return score;
     }
+    public void giveUpRound(){
+        notifyRoundEnd(false,computeScore());
+    }
     public void addObserver(RoundObserver observer){
         observers.add(observer);
     }
