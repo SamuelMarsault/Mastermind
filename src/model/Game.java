@@ -9,9 +9,15 @@ public class Game {
     private List<Round> rounds = new ArrayList<>();
     private Settings settings;
     private List<GameObserver> observers = new ArrayList<>();
-    public Game(Settings settings, int roundNumber){
+    public Game(){
+        rounds = new ArrayList<>();
+        observers = new ArrayList<>();
+    }
+    public void configureGame(Settings settings, int roundNumber){
         this.settings = settings;
         this.roundNumber = roundNumber;
+        rounds = new ArrayList<>();
+        observers = new ArrayList<>();
     }
     public Round nextRound(){
         if (rounds.size()>=roundNumber) {
@@ -32,6 +38,13 @@ public class Game {
     public void addObserver(GameObserver observer){
         observers.add(observer);
     }
+
+    private void notifyGameStart(){
+        for (GameObserver observer:observers){
+            observer.reactToGameStart(roundNumber, settings.getAttemptNumber(),settings.getPawnNumber());
+        }
+    }
+
     private void notifyGameEnd(){
         int score = getFinalScore();
         for (GameObserver observer:observers) {

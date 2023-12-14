@@ -23,27 +23,32 @@ enum model.Mode {
 }
 
 class controller.GameController {
-    + startGame()
+    + GameController(roundController : RoundController, game : Game)
+    + startGame(attemptNumber : Integer, combinationLength : Integer, pawnNumber : Integer, mode : Mode, playerName String)
 }
 
 class controller.RoundController {
     + setRound(round : Round)
-    + launchAttempt(combination : Combination)
+    + launchAttempt(pawns : Pawn[])
     + giveUpRound()
 }
 
-class view.GamePanel implements model.RoundObserver{
-    + GamePanel(roundManager : RoundController, gameManager : GameController)
+class view.GamePanel implements model.RoundObserver, model.GameObserver{
+    + GamePanel(roundController : RoundController, gameController : GameController)
     + reactToAttempt(combination : Combination, hintLine : HintLine)
     + reactToRoundEnd(roundWon : Boolean, score : Integer)
+    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer)
+    + reactToGameEnd(score : Integer)
 }
 
 class view.StartPanel {
-    + StartPanel(manager : GameManager)
+    + StartPanel(manager : GameController)
 }
 
-class view.EndPanel {
-    + EndPanel(manager : GameManager)
+class view.EndPanel implements model.GameObserver {
+    + EndPanel(manager : GameController)
+    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer)
+    + reactToGameEnd(score : Integer)
 }
 
 interface model.RoundObserver {
@@ -66,14 +71,14 @@ class model.Round {
     + Round(settings : Settings)
     + checkAttempt(combination : Combination) : Boolean
     + computeScore() : Integer
-    + addObserver(observer : RoundObserver)
     + giveUpRound()
+    + addObserver(observer : RoundObserver)
     - notifyAttempt()
     - notifyRoundEnd(roundWon : Boolean, score : Integer)
 }
 
 class model.Settings {
-    + Settings(attemptNumber : Integer, combinationLength : Integer, pawnNumber : Integer, mode : Mode)
+    + Settings(attemptNumber : Integer, combinationLength : Integer, pawnNumber : Integer, mode : Mode, playerName String)
     - attemptNumber : Integer
     - combinationLength : Integer
     - pawnNumber : Integer
@@ -105,6 +110,7 @@ class model.HintLine {
 
 class model.Game {
     - score : Integer
+    - roundNumber : Integer
     + Game(settings : Settings, roundNumber : Integer)
     + nextRound() : Round
     + getFinalScore() : Integer
@@ -119,21 +125,16 @@ enum model.Hint {
     + ABSENT
 }
 
-class view.Announcer implements model.RoundObserver, model.GameObserver{
-    + reactToAttempt(combination : Combination, hintLine : HintLine)
-    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer)
-    + reactToRoundEnd(roundWon : Boolean, score : Integer)
-}
-
 class model.GameObserver {
     + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer)
     + reactToGameEnd(score : Integer)
 }
 
-class view.MastermindWindow implements model.GameObserver {
-    + MastermindApp(roundManager : RoundController, gameManager : GameController)
-    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer)
-    + reactToGameEnd(score : Integer)
+class view.MastermindWindow {
+    + MastermindWindow(endPanel : EndPanel, gamePanel : GamePanel, startPanel : StartPanel)
+    + showStartPanel()
+    + showGamePanel()
+    + showEndPanel()
 }
 
 class MastermindApp {
@@ -147,27 +148,32 @@ model.Round o--> "1\n-settings" model.Settings : Configure <
 model.Round *--> "1\n-secretCombination" model.SecretCombination : conserve >
 model.Round o--> "1 .. 12\n-attempts" model.Combination : garde >
 model.Round o-> "1 .. 12\n-hintLines" model.HintLine : > garde
-model.Round .> "<<uses>>" model.Hint
+model.Round ..> "<<uses>>" model.Hint
 model.Round ..> "<<uses>>" model.Mode
 model.Round o--> "*\n-observers" model.RoundObserver
 model.Settings o--> "1\n-mode" model.Mode : influence <
 model.HintLine o-> "2 .. 6\n-hints" model.Hint : contient >
-model.Combination o-> "2 .. 6\n-pawns" model.Pawn : compose <
+model.Combination o--> "2 .. 6\n-pawns" model.Pawn : compose <
 
 controller.GameController ..> "<<uses>>" model.Settings
-controller.GameController *--> "1\n-roundController" controller.RoundController
-controller.GameController *-> "1\n-game" model.Game : gère >
+controller.GameController o--> "1\n-roundController" controller.RoundController
+controller.GameController o-> "1\n-game" model.Game : gère >
 controller.RoundController o-> "1\n-round" model.Round : gère >
+controller.RoundController ..> "<<uses>>" model.Combination
+controller.RoundController ..> "<<uses>>" model.Pawn
 
 view.GamePanel o--> "1\n-displayer" view.HintDisplayMode : utilise >
-view.Announcer o--> "1\n-displayer" view.HintDisplayMode : utilise >
-view.MastermindWindow *-> "1\n-gamePanel" view.GamePanel : contient >
-view.MastermindWindow *-> "1\n-startPanel" view.StartPanel : contient >
-view.MastermindWindow *--> "1\n-endPanel" view.EndPanel : contient >
+view.MastermindWindow o-> "1\n-gamePanel" view.GamePanel : contient >
+view.MastermindWindow o-> "1\n-startPanel" view.StartPanel : contient >
+view.MastermindWindow o--> "1\n-endPanel" view.EndPanel : contient >
 view.StartPanel ..> "<<uses>>" model.Mode
 
-MastermindApp  ..> "<<uses>>" view.MastermindWindow
+MastermindApp ..> "<<uses>>" view.MastermindWindow
+MastermindApp ..> "<<uses>>" view.EndPanel
+MastermindApp ..> "<<uses>>" view.StartPanel
+MastermindApp ..> "<<uses>>" view.GamePanel
 MastermindApp ..> "<<uses>>" model.Game
-MastermindApp ..> "<<uses>>" controller.GameController 
+MastermindApp ..> "<<uses>>" controller.GameController
+MastermindApp ..> "<<uses>>" controller.RoundController
 
 @enduml

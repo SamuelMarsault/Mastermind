@@ -5,18 +5,18 @@ import java.util.List;
 
 public class Round {
     private SecretCombination secretCombination;
-    private List<Combination> combinations;
+    private List<Combination> attemps;
     private List<HintLine> hintLines;
     private List<RoundObserver> observers = new ArrayList<>();
     private Settings settings;
     public Round(Settings settings){
         secretCombination = new SecretCombination(settings.getCombinationLength(), settings.getPawnNumber());
-        combinations = new ArrayList<>();
+        attemps = new ArrayList<>();
         hintLines = new ArrayList<>();
         this.settings = settings;
     }
     public boolean checkAttempt(Combination combination){
-        combinations.add(combination);
+        attemps.add(combination);
         HintLine hintLine = new HintLine(combination,secretCombination);
         hintLines.add(hintLine);
         boolean perfectMatch = hintLine.perfectMatch();
@@ -38,26 +38,21 @@ public class Round {
     public void giveUpRound(){
         notifyRoundEnd(false,computeScore());
     }
+
     public void addObserver(RoundObserver observer){
         observers.add(observer);
     }
-    public void setMode(Mode mode){
-        settings.setMode(mode);
-    }
+
     private void notifyAttempt(){
-        int index = combinations.size()-1;
+        int index = attemps.size()-1;
         for (RoundObserver observer:observers) {
-            observer.reactToAttempt(combinations.get(index),hintLines.get(index));
+            observer.reactToAttempt(attemps.get(index),hintLines.get(index));
         }
     }
+
     private void notifyRoundEnd(boolean roundWon, int score){
         for (RoundObserver observer:observers) {
             observer.reactToRoundEnd(roundWon,score);
-        }
-    }
-    private void notifyModeChanged(){
-        for (RoundObserver observer:observers) {
-            observer.reactToModeChanged(settings.getMode());
         }
     }
 }

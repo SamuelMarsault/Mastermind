@@ -29,6 +29,11 @@ public class Announcer implements RoundObserver, GameObserver {
     }
 
     @Override
+    public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber) {
+
+    }
+
+    @Override
     public void reactToGameEnd(int score) {
         System.out.println("Fin de la partie");
         System.out.println("Voici le score final : "+score);
