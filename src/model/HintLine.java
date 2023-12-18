@@ -14,6 +14,7 @@ public class HintLine {
     public Hint getHint(int index) {
         return hints[index];
     }
+    
     public boolean perfectMatch(){
         boolean match = true;
         for (int i = 0; i < hints.length && match; i++) {

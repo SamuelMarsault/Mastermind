@@ -14,11 +14,12 @@ public class MastermindWindow extends JFrame {
     public MastermindWindow(EndPanel endPanel, GamePanel gamePanel, StartPanel startPanel){
         super("Mastermind");
         setSize( 500, 600 );
+        setLocation(500,200);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.startPanel = startPanel;
         this.gamePanel = gamePanel;
         this.endPanel = endPanel;
-        add(startPanel, BorderLayout.CENTER);
+        add(startPanel);
         setVisible(true);
     }
     public void showStartPanel(){
