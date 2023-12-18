@@ -84,6 +84,7 @@ public class StartPanel extends JPanel {
         JList<String> modeList = new JList<>(mode);
         modeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modeList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        modeList.setSelectedIndex(1);
         settingPanel.add(modeList, settingGrid);
         settingGrid.gridwidth = 1; 
 
@@ -91,7 +92,12 @@ public class StartPanel extends JPanel {
 
         JButton button = new JButton("Next");
         button.addActionListener(actionEvent -> {
-            gameController.startGame(attemptSlider.getValue(), pawnLenghtSlider.getValue(), pawnSlider.getValue(), Mode.CLASSIC, nameTextField.getText(), roundSlider.getValue());
+            String name = nameTextField.getName();
+            if (name == " " || name == "" || name == null){
+                name = "anonyme";
+            }
+            System.out.println(name);
+            gameController.startGame(attemptSlider.getValue(), pawnLenghtSlider.getValue(), pawnSlider.getValue(), getMode(modeList.getLeadSelectionIndex()), name, roundSlider.getValue());
         });
         add(button, BorderLayout.SOUTH);
         setVisible(true);
@@ -103,5 +109,18 @@ public class StartPanel extends JPanel {
         slider.setPaintTrack(true);
         slider.setMajorTickSpacing(1); 
         slider.setMinorTickSpacing(1); 
+    }
+
+    public Mode getMode(int indexCB){
+        switch (indexCB) {
+            case 0:
+                return Mode.EASY;
+            
+            case 1:
+                return Mode.CLASSIC;
+        
+            default:
+                return Mode.NUMERIC;
+        }
     }
 }
