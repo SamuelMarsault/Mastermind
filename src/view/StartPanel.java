@@ -5,16 +5,17 @@ import model.Mode;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class StartPanel extends JPanel {
     public StartPanel(GameController gameController) {
         setLayout(new BorderLayout());
 
-        JPanel northLabel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JLabel startLabel = new JLabel("StartPanel");
         startLabel.setFont(new Font("Arial", Font.PLAIN, 20)); // Définir une taille de police pour le label
-        northLabel.add(startLabel);
-        add(northLabel, BorderLayout.NORTH);
+        northPanel.add(startLabel);
+        add(northPanel, BorderLayout.NORTH);
 
         JPanel settingPanel = new JPanel(new GridBagLayout());
         GridBagConstraints settingGrid = new GridBagConstraints();
@@ -92,8 +93,8 @@ public class StartPanel extends JPanel {
 
         JButton button = new JButton("Next");
         button.addActionListener(actionEvent -> {
-            String name = nameTextField.getName();
-            if (name == " " || name == "" || name == null){
+            String name = nameTextField.getText();
+            if (name.isEmpty() || name.isBlank()){
                 name = "anonyme";
             }
             System.out.println(name);
