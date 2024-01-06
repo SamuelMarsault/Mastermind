@@ -62,7 +62,7 @@ public class StartPanel extends JPanel {
         // Number of pawn length
         settingGrid.gridx = 0;
         settingGrid.gridy = 3;
-        JLabel nbPawnLengthLabel = new JLabel("Number of pawn Length :");
+        JLabel nbPawnLengthLabel = new JLabel("Combinaison Lenght :");
         nbPawnLengthLabel.setFont(labelFont);
         settingPanel.add(nbPawnLengthLabel, settingGrid);
         settingGrid.gridx = 1;
