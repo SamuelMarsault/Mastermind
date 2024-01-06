@@ -52,13 +52,14 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
         JPanel combinaisonsPanel = new JPanel();
         combinaisonsPanel.setLayout(new GridLayout(0,2));
         //Dans la boucle du nombre de tentatives : + rendre valeurs différentes longueur cobinaisons
+        //Bordure provisoires à modifier + tard et régler problèmes centrage
         JPanel oneCombinaison = new JPanel();
         oneCombinaison.setLayout(new FlowLayout());
-        //Les mettres dans une liste de liste pour pouvoir changer leurs couleurs quand possible
         for (int i = 0; i < 4; i++) {
             JPanel possibilitie = createRoundPanel(25, Color.LIGHT_GRAY, 0);
             oneCombinaison.add(possibilitie);
         }
+        oneCombinaison.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         combinaisonsPanel.add(oneCombinaison);
 
         JPanel oneHint = new JPanel();
@@ -69,6 +70,7 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
             hintPanel.add(hint);
             oneHint.add(hintPanel);
         }
+        oneHint.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         combinaisonsPanel.add(oneHint);
         //!! A definir comment on veux que les pions soit, c'est à dire plein de pannel dans le pannel en FlowLayout... et pareil pour les indices et définir combien on en vois
         //!! On peux aussi faire 2 composant coller un pour la combinaison et l'autre pour les indices au lieu d'un seul qui en à 2. du coup gridwitch serais à 2 et pas 3
