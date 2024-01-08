@@ -28,7 +28,7 @@ public class Announcer implements RoundObserver, GameObserver {
     }
 
     @Override
-    public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght) {
+    public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght, Mode mode) {
 
     }
 

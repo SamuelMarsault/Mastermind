@@ -11,7 +11,9 @@ import java.awt.*;
 public class GamePanel extends JPanel implements RoundObserver,GameObserver {
     private Color selectedColor;
     private JPanel gamePanel;
-    private GameBoard gameBoardPanel;
+    private GameBoard gameBoard;
+    private JLabel currentRoundLabel;
+    private HintDisplayMode displayMode;
     public GamePanel(RoundController roundController, GameController gameController){
         setLayout(new BorderLayout());
 
@@ -41,7 +43,7 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
         gamePanel.add(scoreLabel, gameConstraints);
 
         gameConstraints.gridx = 2;
-        JLabel currentRoundLabel = new JLabel("1/ (a faire)");
+        currentRoundLabel = new JLabel();
         //a faire modifier quand finis design
         gamePanel.add(currentRoundLabel, gameConstraints);
 
@@ -75,20 +77,16 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
         gamePanel.add(ColorPossibilities, gameConstraints);
         */
         gameConstraints.gridx = 2;
-        Button ValidateButton = new Button("Valider");
+        Button validateButton = new Button("Valider");
+        validateButton.addActionListener(actionEvent -> roundController.launchAttempt(gameBoard.getCombination()));
         //Ajouter action quand le reste sera présent
-        gamePanel.add(ValidateButton, gameConstraints);
+        gamePanel.add(validateButton, gameConstraints);
 
         //!! La disposition n'est pas top on est d'accord, tu voie si j'ai oublier un composant à part la combinaison et aide ?
 
         //Je modifierais la position et complèterais quand on auras vu pour les question au dessus
 
         add(gamePanel, BorderLayout.CENTER);
-
-        Button buttonNext = new Button("Next");
-        buttonNext.setFont( new Font("Arial", Font.PLAIN, 20));
-        buttonNext.addActionListener(actionEvent -> roundController.launchAttempt(new Pawn[]{}));
-        add(buttonNext,BorderLayout.SOUTH);
         setVisible(true);
     }
     
@@ -98,24 +96,31 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
 
     @Override
     public void reactToAttempt(int attemptId, HintLine hintLine) {
-
+        gameBoard.setHints(attemptId, displayMode.convertHintLine(hintLine));
+        gameBoard.prepareAttempt(attemptId);
     }
 
     @Override
     public void reactToRoundEnd(boolean roundWon, int score) {
-
+        for (Component component : getComponents())
+            component.setVisible(false);
     }
 
     @Override
-    public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght) {
+    public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght, Mode mode) {
         GridBagConstraints gameConstraints = new GridBagConstraints();
         gameConstraints.fill = GridBagConstraints.BOTH;
         gameConstraints.gridx = 0;
         gameConstraints.gridy = 1;
         gameConstraints.gridwidth = 5;
-        gameBoardPanel = new GameBoard(combinationLenght, attemptNumber, pawnNumber);
-        gameBoardPanel.prepareAttempt(0);
-        gamePanel.add(gameBoardPanel, gameConstraints);
+        if(mode==Mode.CLASSIC)
+            displayMode = new ClassicMode();
+        else
+            displayMode = new EasyMode();
+        gameBoard = new GameBoard(combinationLenght, attemptNumber, pawnNumber);
+        gameBoard.prepareAttempt(0);
+         currentRoundLabel.setText("0 / "+roundNumber);
+        gamePanel.add(gameBoard, gameConstraints);
     }
 
     @Override

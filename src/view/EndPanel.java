@@ -2,6 +2,7 @@ package view;
 
 import controler.GameController;
 import model.GameObserver;
+import model.Mode;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,7 +56,7 @@ public class EndPanel extends JPanel implements GameObserver {
     }
 
     @Override
-    public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght) {
+    public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght, Mode mode) {
 
     }
 

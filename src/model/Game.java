@@ -39,7 +39,7 @@ public class Game {
 
     private void notifyGameStart(){
         for (GameObserver observer:observers){
-            observer.reactToGameStart(roundNumber, settings.getAttemptNumber(), settings.getPawnNumber(), settings.getCombinationLength());
+            observer.reactToGameStart(roundNumber, settings.getAttemptNumber(), settings.getPawnNumber(), settings.getCombinationLength(), settings.getMode());
         }
     }
 

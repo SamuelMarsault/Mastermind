@@ -12,19 +12,19 @@ public class CombinationBox extends JPanel {
     public CombinationBox(int combinationLenght, Color defaultColor){
         this.defaultColor = defaultColor;
         setLayout(new FlowLayout());
+        int diameter = 25;
         for (int i = 0; i < combinationLenght; i++) {
-            createRoundPanel(25, defaultColor, 0);
+            Circle circle = new Circle(diameter, defaultColor);
+            circle.setPreferredSize(new Dimension(diameter, diameter));
+            add(circle);
         }
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
-    public void createRoundPanel(int diameter, Color color, int option) {
-        Circle circle = new Circle(diameter, color);
-        circle.setPreferredSize(new Dimension(diameter, diameter));
-        add(circle);
-    }
     public void setPawnColor(int n, Color color){
-        Circle circle = (Circle) getComponent(n);
-        circle.setColor(color);
+        if(n<getComponents().length){
+            Circle circle = (Circle) getComponent(n);
+            circle.setColor(color);
+        }
     }
     public void setClickEvent(MouseAdapter mouseAdapter){
         for (Component component : getComponents()){

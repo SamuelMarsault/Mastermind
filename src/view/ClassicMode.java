@@ -15,11 +15,12 @@ public class ClassicMode implements HintDisplayMode{
                 case RIGHT_PLACE -> rightPawns++;
                 case WRONG_PLACE -> wrongPawns++;
             }
+            System.out.println(hintLine.getHint(i));
         }
         for(int i=0;i<colors.length;i++){
             if(i<rightPawns) colors[i] = Color.BLACK;
             else if (i<wrongPawns+rightPawns) colors[i] = Color.WHITE;
-            else colors[i] = null;
+            else colors[i] = Color.LIGHT_GRAY;
         }
         return colors;
     }
