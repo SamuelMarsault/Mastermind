@@ -33,9 +33,6 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
 
         gameConstraints.gridx = 0;
         gameConstraints.gridy = 0;
-        Button resetButton = new Button("reset Combinaison");
-        //Ajouter action quand le reste sera présent
-        gamePanel.add(resetButton, gameConstraints);
 
         gameConstraints.gridx = 1;
         JLabel scoreLabel = new JLabel("0");
@@ -60,22 +57,6 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
         //Ajouter action quand le reste sera présent
         gamePanel.add(giveUpButton, gameConstraints);
 
-        gameConstraints.gridx = 1;
-        //!! On met un FlowLayout ici pour contenir les choix de couleur possible ?
-        /*JPanel ColorPossibilities = new JPanel();
-        ColorPossibilities.setLayout(new FlowLayout());
-
-        for (int i = 0; i < 2; i++) {
-            JPanel possibilitie = createRoundPanel(25, Color.BLUE, 2);
-            ColorPossibilities.add(possibilitie);
-        }
-         for (int i = 0; i < 2; i++) {
-            JPanel possibilitie = createRoundPanel(25, Color.RED, 2);
-            ColorPossibilities.add(possibilitie);
-        }
-
-        gamePanel.add(ColorPossibilities, gameConstraints);
-        */
         gameConstraints.gridx = 2;
         Button validateButton = new Button("Valider");
         validateButton.addActionListener(actionEvent -> roundController.launchAttempt(gameBoard.getCombination()));
@@ -102,8 +83,7 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
 
     @Override
     public void reactToRoundEnd(boolean roundWon, int score) {
-        for (Component component : getComponents())
-            component.setVisible(false);
+        gameBoard.resetBoard();
     }
 
     @Override

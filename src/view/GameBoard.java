@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 
 public class GameBoard extends JPanel {
     private Color selectedColor;
@@ -40,7 +41,8 @@ public class GameBoard extends JPanel {
             constraints.gridwidth = 1;
             constraints.gridx = 2;
             constraints.weightx = 0;
-            attemptPanel.add(new ClassicHintBox(combinationLenght), constraints);
+            HintBox hintBox = new ClassicHintBox(combinationLenght);
+            attemptPanel.add(hintBox, constraints);
         }
         constraints.gridwidth = 3;
         constraints.gridy = attemptNumber;
@@ -87,7 +89,7 @@ public class GameBoard extends JPanel {
         currentAttempt = attemptPanel.getComponents().length-3-attemptId*2;
         if(currentAttempt<0)
             return;
-        System.out.println(currentAttempt);
+        System.out.println("currentAttempt : "+currentAttempt);
         CombinationBox combinationBox = (CombinationBox) attemptPanel.getComponent(currentAttempt);
         for (int i = 0; i < combinationBox.getComponents().length; i++)
             combinationBox.setPawnColor(i,defaultColor);
@@ -105,9 +107,9 @@ public class GameBoard extends JPanel {
             }
         });
 
-        for (int i = currentAttempt; i < attemptPanel.getComponents().length-1; i+=2) {
+        for (int i = currentAttempt+2; i < attemptPanel.getComponents().length-1; i+=2) {
             combinationBox = (CombinationBox) attemptPanel.getComponent(i);
-            combinationBox.setClickEvent(null);
+            combinationBox.unsetClickEvent();
         }
     }
 
@@ -145,5 +147,24 @@ public class GameBoard extends JPanel {
                 pawns[i] = Pawn.BLACK;
         }
         return pawns;
+    }
+    public void resetBoard(){
+        for (int i = 0; i < attemptPanel.getComponents().length-1; i++) {
+            if (attemptPanel.getComponent(i).getClass()==CombinationBox.class){
+                System.out.println("Combi");
+                CombinationBox combinationBox = (CombinationBox) attemptPanel.getComponent(i);
+                for (int j = 0; j < combinationBox.getComponents().length; j++)
+                    combinationBox.setPawnColor(j,inactiveColor);
+                    combinationBox.setClickEvent(null);
+            }
+            else {
+                System.out.println("Hints");
+                HintBox hintBox = (HintBox) attemptPanel.getComponent(i);
+                Color[] colors = new Color[hintBox.getComponents().length];
+                Arrays.fill(colors, inactiveColor);
+                hintBox.setHintsColor(colors);
+            }
+        }
+        prepareAttempt(0);
     }
 }

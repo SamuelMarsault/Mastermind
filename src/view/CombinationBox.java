@@ -5,6 +5,7 @@ import javax.swing.border.AbstractBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 
 public class CombinationBox extends JPanel {
@@ -12,7 +13,7 @@ public class CombinationBox extends JPanel {
     public CombinationBox(int combinationLenght, Color defaultColor){
         this.defaultColor = defaultColor;
         setLayout(new FlowLayout());
-        int diameter = 25;
+        int diameter = 30;
         for (int i = 0; i < combinationLenght; i++) {
             Circle circle = new Circle(diameter, defaultColor);
             circle.setPreferredSize(new Dimension(diameter, diameter));
@@ -27,8 +28,13 @@ public class CombinationBox extends JPanel {
         }
     }
     public void setClickEvent(MouseAdapter mouseAdapter){
-        for (Component component : getComponents()){
+        for (Component component : getComponents())
             component.addMouseListener(mouseAdapter);
+    }
+    public void unsetClickEvent(){
+        for (Component component : getComponents()) {
+            for (MouseListener l : component.getMouseListeners())
+                component.removeMouseListener(l);
         }
     }
 
