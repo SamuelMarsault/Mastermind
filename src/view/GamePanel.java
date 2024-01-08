@@ -32,7 +32,7 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
 
         gameConstraints.gridx = 0;
         gameConstraints.gridy = 0;
-        Button resetButton = new Button("reset Combinaison");
+        JButton resetButton = new JButton(resizeImage(new ImageIcon("image_jeu/restart.png"),25,25));
         //Ajouter action quand le reste sera présent
         gamePanel.add(resetButton, gameConstraints);
 
@@ -79,7 +79,7 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
         gameConstraints.gridx = 0;
         gameConstraints.gridy = 2;
         gameConstraints.gridwidth = 1;
-        Button giveUpButton = new Button("abandonner la manche");
+        JButton giveUpButton = new JButton(resizeImage(new ImageIcon("image_jeu/give_up.png"),25,25));
         //Ajouter action quand le reste sera présent
         gamePanel.add(giveUpButton, gameConstraints);
 
@@ -100,9 +100,9 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
         gamePanel.add(ColorPossibilities, gameConstraints);
 
         gameConstraints.gridx = 2;
-        Button ValidateButton = new Button("Valider");
+        JButton validateButton = new JButton(resizeImage(new ImageIcon("image_jeu/check.png"),25,25));
         //Ajouter action quand le reste sera présent
-        gamePanel.add(ValidateButton, gameConstraints);
+        gamePanel.add(validateButton, gameConstraints);
 
         //!! La disposition n'est pas top on est d'accord, tu voie si j'ai oublier un composant à part la combinaison et aide ?
 
@@ -140,7 +140,7 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
                     Graphics2D g2d = (Graphics2D) g.create();
                     g2d.setColor(Color.BLACK);
                     g2d.setStroke(new BasicStroke(1));
-                    g2d.drawOval(x, y, width - 1, height - 1);
+                    g2d.drawOval(x, y, width-1, height-1);
                     g2d.dispose();
                 }
     
@@ -171,11 +171,16 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
     
         return roundPanel;
     }
-    
-    
-    
-    
-    
+
+    private ImageIcon resizeImage(ImageIcon image,int height, int width){
+        Image originalImage = image.getImage();
+
+        int newWidth = width;
+        int newHeight = height;
+        Image resizedImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+
+        return new ImageIcon(resizedImage);
+    }
 
     @Override
     public void reactToAttempt(Combination combination, HintLine hintLine) {
