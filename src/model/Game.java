@@ -6,18 +6,16 @@ import java.util.List;
 public class Game {
     private int score;
     private int roundNumber;
-    private List<Round> rounds = new ArrayList<>();
+    private List<Round> rounds;
     private Settings settings;
     private List<GameObserver> observers = new ArrayList<>();
     public Game(){
-        rounds = new ArrayList<>();
-        observers = new ArrayList<>();
     }
     public void configureGame(Settings settings, int roundNumber){
         this.settings = settings;
         this.roundNumber = roundNumber;
         rounds = new ArrayList<>();
-        observers = new ArrayList<>();
+        notifyGameStart();
     }
     public Round nextRound(){
         if (rounds.size()>=roundNumber) {
@@ -41,7 +39,7 @@ public class Game {
 
     private void notifyGameStart(){
         for (GameObserver observer:observers){
-            observer.reactToGameStart(roundNumber, settings.getAttemptNumber(),settings.getPawnNumber());
+            observer.reactToGameStart(roundNumber, settings.getAttemptNumber(), settings.getPawnNumber(), settings.getCombinationLength(), settings.getMode());
         }
     }
 

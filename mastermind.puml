@@ -37,7 +37,7 @@ class view.GamePanel implements model.RoundObserver, model.GameObserver{
     + GamePanel(roundController : RoundController, gameController : GameController)
     + reactToAttempt(combination : Combination, hintLine : HintLine)
     + reactToRoundEnd(roundWon : Boolean, score : Integer)
-    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer)
+    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer, combinationLength : Integer)
     + reactToGameEnd(score : Integer)
 }
 
@@ -47,7 +47,7 @@ class view.StartPanel {
 
 class view.EndPanel implements model.GameObserver {
     + EndPanel(manager : GameController)
-    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer)
+    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer, combinationLength : Integer)
     + reactToGameEnd(score : Integer)
 }
 
@@ -126,7 +126,7 @@ enum model.Hint {
 }
 
 class model.GameObserver {
-    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer)
+    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer, combinationLength : Integer)
     + reactToGameEnd(score : Integer)
 }
 
@@ -135,6 +135,35 @@ class view.MastermindWindow {
     + showStartPanel()
     + showGamePanel()
     + showEndPanel()
+}
+
+class view.GameBoard {
+    + GameBoard(attemptNumber : Integer, pawnNumber : Integer, combinationLength : Integer)
+}
+
+abstract class view.HintBox extends view.MastermindBox{
+
+}
+
+class view.NumericHintBox extends view.HintBox {
+    + NumericHintBox(int combinationLenght)
+}
+
+class view.ClassicHintBox extends view.HintBox {
+    + ClassicHintBox(int combinationLenght)
+}
+
+class view.EasyHintBox extends view.HintBox {
+    + EasyHintBox(int combinationLenght)
+}
+
+class view.CombinationBox extends view.MastermindBox {
+    + CombinationBox(int combinationLenght)
+}
+
+class view.MastermindBox {
+    + {static} defaultColor : Integer
+    + createRoundPanel(diameter : Integer, color : Integer, option : Integer) : JPanel
 }
 
 class MastermindApp {
@@ -167,6 +196,8 @@ view.MastermindWindow o-> "1\n-gamePanel" view.GamePanel : contient >
 view.MastermindWindow o-> "1\n-startPanel" view.StartPanel : contient >
 view.MastermindWindow o--> "1\n-endPanel" view.EndPanel : contient >
 view.StartPanel ..> "<<uses>>" model.Mode
+view.GameBoard *--> "*\n-attempts" CombinationBox
+view.GameBoard *--> "*\n-hints" HintBox
 
 MastermindApp ..> "<<uses>>" view.MastermindWindow
 MastermindApp ..> "<<uses>>" view.EndPanel

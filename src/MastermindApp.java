@@ -4,14 +4,13 @@ import model.*;
 import view.*;
 
 import javax.swing.*;
-import java.util.Scanner;
 
 public class MastermindApp {
     public static void main(String[] args) {
         try {            
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
             SwingUtilities.updateComponentTreeUI(new JFrame());
-            
+
             Game game = new Game();
 
             RoundController roundController = new RoundController();

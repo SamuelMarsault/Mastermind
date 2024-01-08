@@ -21,7 +21,7 @@ public class Round {
         hintLines.add(hintLine);
         boolean perfectMatch = hintLine.perfectMatch();
         notifyAttempt();
-        if (perfectMatch) notifyRoundEnd(perfectMatch,computeScore());
+        if (perfectMatch) notifyRoundEnd(true,computeScore());
         return perfectMatch;
     }
     public int computeScore(){
@@ -46,7 +46,7 @@ public class Round {
     private void notifyAttempt(){
         int index = attemps.size()-1;
         for (RoundObserver observer:observers) {
-            observer.reactToAttempt(attemps.get(index),hintLines.get(index));
+            observer.reactToAttempt(index+1,hintLines.get(index));
         }
     }
 

@@ -5,11 +5,10 @@ import model.*;
 public class Announcer implements RoundObserver, GameObserver {
 
     @Override
-    public void reactToAttempt(Combination combination, HintLine hintLine) {
+    public void reactToAttempt(int attemptId, HintLine hintLine) {
         StringBuilder combinationString = new StringBuilder();
         StringBuilder hintsString = new StringBuilder();
-        for (int i = 0; i < combination.getCombinationLength(); i++) {
-            combinationString.append(combination.getPawn(i)).append(" ");
+        for (int i = 0; i < hintLine.hintLineLength(); i++) {
             hintsString.append(hintLine.getHint(i)).append(" ");
         }
         System.out.println("Combinaison jouée : "+combinationString);
@@ -29,7 +28,7 @@ public class Announcer implements RoundObserver, GameObserver {
     }
 
     @Override
-    public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber) {
+    public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght, Mode mode) {
 
     }
 

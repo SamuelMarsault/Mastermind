@@ -20,6 +20,7 @@ public class GameController {
 
     public void startGame(int attemptNumber, int combinationLength, int pawnNumber, Mode mode, String playerName, int roundNumber){
         game.configureGame(new Settings(attemptNumber,combinationLength,pawnNumber,mode,playerName), roundNumber);
+        roundController.setRound(game.nextRound());
         window.showGamePanel();
     }
 }
