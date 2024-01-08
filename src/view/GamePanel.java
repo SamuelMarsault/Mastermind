@@ -77,12 +77,8 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
         gamePanel.add(ColorPossibilities, gameConstraints);
         */
         gameConstraints.gridx = 2;
-<<<<<<< HEAD
         JButton validateButton = new JButton(resizeImage(new ImageIcon("image_jeu/check.png"),25,25));
-=======
-        Button validateButton = new Button("Valider");
         validateButton.addActionListener(actionEvent -> roundController.launchAttempt(gameBoard.getCombination()));
->>>>>>> d467a47cc708be590bb3d5b4b2943377ea776eb8
         //Ajouter action quand le reste sera présent
         gamePanel.add(validateButton, gameConstraints);
 
