@@ -32,7 +32,7 @@ public class StartPanel extends JPanel {
         settingGrid.gridy = 0;
         JTextField nameTextField = new JTextField();
         nameTextField.setColumns(13); 
-        nameTextField.setText("Anonymous");
+        nameTextField.setText("Anonyme");
         settingPanel.add(nameTextField, settingGrid);
 
         // Number of Round

@@ -6,7 +6,7 @@ import java.awt.*;
 public class ClassicHintBox extends HintBox{
     public ClassicHintBox(int combinationLenght) {
         setLayout(new FlowLayout());
-        int diameter = 20;
+        int diameter = 25;
         for (int i = 0; i < combinationLenght; i++) {
             Circle circle = new Circle(diameter, defaultColor);
             circle.setPreferredSize(new Dimension(diameter, diameter));

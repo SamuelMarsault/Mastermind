@@ -13,7 +13,7 @@ public class CombinationBox extends JPanel {
     public CombinationBox(int combinationLenght, Color defaultColor){
         this.defaultColor = defaultColor;
         setLayout(new FlowLayout());
-        int diameter = 30;
+        int diameter = 35;
         for (int i = 0; i < combinationLenght; i++) {
             Circle circle = new Circle(diameter, defaultColor);
             circle.setPreferredSize(new Dimension(diameter, diameter));

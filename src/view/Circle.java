@@ -18,7 +18,7 @@ public class Circle extends JPanel {
                 public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
                     Graphics2D g2d = (Graphics2D) g.create();
                     g2d.setColor(Color.BLACK);
-                    g2d.setStroke(new BasicStroke(1));
+                    g2d.setStroke(new BasicStroke(2));
                     g2d.drawOval(x, y, width - 1, height - 1);
                     g2d.dispose();
                 }

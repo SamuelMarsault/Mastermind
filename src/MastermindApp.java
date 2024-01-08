@@ -3,25 +3,35 @@ import controler.RoundController;
 import model.*;
 import view.*;
 
-import java.util.Scanner;
+import javax.swing.*;
 
 public class MastermindApp {
     public static void main(String[] args) {
-        Game game = new Game();
+        try {            
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+            SwingUtilities.updateComponentTreeUI(new JFrame());
 
-        RoundController roundController = new RoundController();
-        GameController gameController = new GameController(roundController, game);
+            Game game = new Game();
 
-        StartPanel startPanel = new StartPanel(gameController);
-        GamePanel gamePanel = new GamePanel(roundController,gameController);
-        EndPanel endPanel = new EndPanel(gameController);
-        MastermindWindow window = new MastermindWindow(endPanel,gamePanel,startPanel);
+            RoundController roundController = new RoundController();
+            GameController gameController = new GameController(roundController, game);
 
-        gameController.setWindow(window);
-        roundController.setWindow(window);
-        roundController.setGamePanel(gamePanel);
+            StartPanel startPanel = new StartPanel(gameController);
+            GamePanel gamePanel = new GamePanel(roundController, gameController);
+            EndPanel endPanel = new EndPanel(gameController);
 
-        game.addObserver(gamePanel);
-        game.addObserver(endPanel);
+            MastermindWindow window = new MastermindWindow(endPanel, gamePanel, startPanel);
+
+            gameController.setWindow(window);
+            roundController.setWindow(window);
+            roundController.setGamePanel(gamePanel);
+
+            game.addObserver(gamePanel);
+            game.addObserver(endPanel);
+
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+            // Gérer l'exception de manière appropriée
+        }
     }
 }

@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
         gameConstraints.gridy = 0;
 
         gameConstraints.gridx = 1;
-        JLabel scoreLabel = new JLabel("0");
+        JLabel scoreLabel = new JLabel("score : 0");
         scoreLabel.setFont(labelFont);
         gamePanel.add(scoreLabel, gameConstraints);
 
@@ -53,12 +53,12 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
         gameConstraints.gridx = 0;
         gameConstraints.gridy = 2;
         gameConstraints.gridwidth = 1;
-        Button giveUpButton = new Button("abandonner la manche");
+        JButton giveUpButton = new JButton(resizeImage(new ImageIcon("image_jeu/give_up.png"),25,25));
         //Ajouter action quand le reste sera présent
         gamePanel.add(giveUpButton, gameConstraints);
 
         gameConstraints.gridx = 2;
-        Button validateButton = new Button("Valider");
+        JButton validateButton = new JButton(resizeImage(new ImageIcon("image_jeu/check.png"),25,25));
         validateButton.addActionListener(actionEvent -> roundController.launchAttempt(gameBoard.getCombination()));
         //Ajouter action quand le reste sera présent
         gamePanel.add(validateButton, gameConstraints);
@@ -70,10 +70,16 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
         add(gamePanel, BorderLayout.CENTER);
         setVisible(true);
     }
-    
-    
-    
-    
+
+    private ImageIcon resizeImage(ImageIcon image,int height, int width){
+    Image originalImage = image.getImage();
+
+    int newWidth = width;
+    int newHeight = height;
+    Image resizedImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+
+    return new ImageIcon(resizedImage);
+    }
 
     @Override
     public void reactToAttempt(int attemptId, HintLine hintLine) {
