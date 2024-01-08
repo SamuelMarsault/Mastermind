@@ -55,7 +55,7 @@ public class EndPanel extends JPanel implements GameObserver {
     }
 
     @Override
-    public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber) {
+    public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght) {
 
     }
 

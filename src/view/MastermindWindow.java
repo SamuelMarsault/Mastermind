@@ -20,11 +20,12 @@ public class MastermindWindow extends JFrame {
         this.startPanel = startPanel;
         this.gamePanel = gamePanel;
         this.endPanel = endPanel;
-        add(startPanel);
+        showStartPanel();
         setVisible(true);
     }
 
     public void showStartPanel(){
+        add(startPanel);
         startPanel.setVisible(true);
         gamePanel.setVisible(false);
         endPanel.setVisible(false);

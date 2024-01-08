@@ -46,7 +46,7 @@ public class Round {
     private void notifyAttempt(){
         int index = attemps.size()-1;
         for (RoundObserver observer:observers) {
-            observer.reactToAttempt(attemps.get(index),hintLines.get(index));
+            observer.reactToAttempt(index,hintLines.get(index));
         }
     }
 

@@ -5,14 +5,13 @@ import controler.RoundController;
 import model.*;
 
 import javax.swing.*;
-import javax.swing.border.AbstractBorder;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class GamePanel extends JPanel implements RoundObserver,GameObserver {
-    Color selectedColor = Color.WHITE;
+    private Color selectedColor;
+    private JPanel gamePanel;
+    private GameBoard gameBoardPanel;
     public GamePanel(RoundController roundController, GameController gameController){
         setLayout(new BorderLayout());
 
@@ -24,9 +23,9 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
 
         Font labelFont = new Font("Arial", Font.PLAIN, 10);
         
-        JPanel gamePanel = new JPanel(new GridBagLayout());
+        gamePanel = new JPanel(new GridBagLayout());
         GridBagConstraints gameConstraints = new GridBagConstraints();
-        gameConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gameConstraints.fill = GridBagConstraints.BOTH;
 
         //Pour les boutton on mettra surement des images à la fin et pas du texte mais la c'est pour commencer 
 
@@ -46,35 +45,11 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
         //a faire modifier quand finis design
         gamePanel.add(currentRoundLabel, gameConstraints);
 
-        gameConstraints.gridx = 0;
-        gameConstraints.gridy = 1;
-        gameConstraints.gridwidth = 3;
-        JPanel combinaisonsPanel = new JPanel();
-        combinaisonsPanel.setLayout(new GridLayout(0,2));
         //Dans la boucle du nombre de tentatives : + rendre valeurs différentes longueur cobinaisons
         //Bordure provisoires à modifier + tard et régler problèmes centrage
-        JPanel oneCombinaison = new JPanel();
-        oneCombinaison.setLayout(new FlowLayout());
-        for (int i = 0; i < 4; i++) {
-            JPanel possibilitie = createRoundPanel(25, Color.LIGHT_GRAY, 0);
-            oneCombinaison.add(possibilitie);
-        }
-        oneCombinaison.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        combinaisonsPanel.add(oneCombinaison);
 
-        JPanel oneHint = new JPanel();
-        oneHint.setLayout(new GridLayout(0,2));
-        for (int i = 0; i < 4; i++) {
-            JPanel hintPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            JPanel hint = createRoundPanel(15, Color.LIGHT_GRAY, 1);
-            hintPanel.add(hint);
-            oneHint.add(hintPanel);
-        }
-        oneHint.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        combinaisonsPanel.add(oneHint);
         //!! A definir comment on veux que les pions soit, c'est à dire plein de pannel dans le pannel en FlowLayout... et pareil pour les indices et définir combien on en vois
         //!! On peux aussi faire 2 composant coller un pour la combinaison et l'autre pour les indices au lieu d'un seul qui en à 2. du coup gridwitch serais à 2 et pas 3
-        gamePanel.add(combinaisonsPanel, gameConstraints);
 
         gameConstraints.gridx = 0;
         gameConstraints.gridy = 2;
@@ -85,7 +60,7 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
 
         gameConstraints.gridx = 1;
         //!! On met un FlowLayout ici pour contenir les choix de couleur possible ?
-        JPanel ColorPossibilities = new JPanel();
+        /*JPanel ColorPossibilities = new JPanel();
         ColorPossibilities.setLayout(new FlowLayout());
 
         for (int i = 0; i < 2; i++) {
@@ -95,10 +70,10 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
          for (int i = 0; i < 2; i++) {
             JPanel possibilitie = createRoundPanel(25, Color.RED, 2);
             ColorPossibilities.add(possibilitie);
-        }        
+        }
 
         gamePanel.add(ColorPossibilities, gameConstraints);
-
+        */
         gameConstraints.gridx = 2;
         Button ValidateButton = new Button("Valider");
         //Ajouter action quand le reste sera présent
@@ -116,69 +91,13 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
         add(buttonNext,BorderLayout.SOUTH);
         setVisible(true);
     }
-
-   
-    private JPanel createRoundPanel(int diameter, Color color, int option) {
-        final Color[] ovalColor = {color}; // Utilisation d'un tableau pour stocker une variable "effectivement finale"
-    
-        JPanel roundPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                int x = (getWidth() - diameter) / 2;
-                int y = (getHeight() - diameter) / 2;
-                g.setColor(ovalColor[0]);
-                g.fillOval(x, y, diameter, diameter);
-            }
-        };
-        roundPanel.setPreferredSize(new Dimension(diameter, diameter));
-    
-        if (option == 0 || option == 2) {
-            roundPanel.setBorder(new AbstractBorder() {
-                @Override
-                public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-                    Graphics2D g2d = (Graphics2D) g.create();
-                    g2d.setColor(Color.BLACK);
-                    g2d.setStroke(new BasicStroke(1));
-                    g2d.drawOval(x, y, width - 1, height - 1);
-                    g2d.dispose();
-                }
-    
-                @Override
-                public Insets getBorderInsets(Component c) {
-                    return new Insets(2, 2, 2, 2);
-                }
-    
-                @Override
-                public Insets getBorderInsets(Component c, Insets insets) {
-                    insets.left = insets.top = insets.right = insets.bottom = 2;
-                    return insets;
-                }
-            });
-    
-            roundPanel.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    if (option == 0) {
-                        ovalColor[0] = selectedColor;
-                        roundPanel.repaint();
-                    } else {
-                        selectedColor = ovalColor[0];
-                    }
-                }
-            });
-        }
-    
-        return roundPanel;
-    }
-    
     
     
     
     
 
     @Override
-    public void reactToAttempt(Combination combination, HintLine hintLine) {
+    public void reactToAttempt(int attemptId, HintLine hintLine) {
 
     }
 
@@ -188,8 +107,15 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
     }
 
     @Override
-    public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber) {
-
+    public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght) {
+        GridBagConstraints gameConstraints = new GridBagConstraints();
+        gameConstraints.fill = GridBagConstraints.BOTH;
+        gameConstraints.gridx = 0;
+        gameConstraints.gridy = 1;
+        gameConstraints.gridwidth = 5;
+        gameBoardPanel = new GameBoard(combinationLenght, attemptNumber, pawnNumber);
+        gameBoardPanel.prepareAttempt(0);
+        gamePanel.add(gameBoardPanel, gameConstraints);
     }
 
     @Override
