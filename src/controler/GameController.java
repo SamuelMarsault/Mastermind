@@ -26,4 +26,8 @@ public class GameController {
     public void nextRound(){
         roundController.setRound(game.nextRound());
     }
+    public void giveUpRound(){
+        roundController.giveUpRound();
+        nextRound();
+    }
 }

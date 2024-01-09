@@ -65,6 +65,7 @@ public class GameBoard extends JPanel {
                         combinationBox.setPawnColor(i,defaultColor);
                 }
         );
+        this.prepareAttempt(0);
         add(resetComb,BorderLayout.NORTH);
         add(attemptPanel,BorderLayout.CENTER);
     }
@@ -91,7 +92,6 @@ public class GameBoard extends JPanel {
         int oldAttempt = attemptPanel.getComponents().length-3-(attemptId-1)*2;
         if(currentAttempt<0)
             return;
-            System.out.println("currentAttempt : " + currentAttempt);
             CombinationBox combinationBox = (CombinationBox) attemptPanel.getComponent(currentAttempt);
             CombinationBox oldCombinationBox = (CombinationBox) attemptPanel.getComponent(oldAttempt);
             
@@ -102,6 +102,7 @@ public class GameBoard extends JPanel {
                     combinationBox.setPawnColor(i, defaultColor);
                 } else {
                     combinationBox.setPawnColor(i, circle.getColor());
+                    oldCombinationBox.unsetClickEvent();
                 }
             }
             
@@ -118,11 +119,6 @@ public class GameBoard extends JPanel {
                 }
             }
         });
-
-        for (int i = currentAttempt+2; i < attemptPanel.getComponents().length-1; i+=2) {
-            combinationBox = (CombinationBox) attemptPanel.getComponent(i);
-            combinationBox.unsetClickEvent();
-        }
     }
 
     public void setHints(int hintsId, Color[] colors){
@@ -171,27 +167,25 @@ public class GameBoard extends JPanel {
         return color;
     }
 
-    public String resetBoard(String currentRound){
+    public void resetBoard(){
         for (int i = 0; i < attemptPanel.getComponents().length-1; i++) {
             if (attemptPanel.getComponent(i).getClass()==CombinationBox.class){
-                System.out.println("Combi");
                 CombinationBox combinationBox = (CombinationBox) attemptPanel.getComponent(i);
                 for (int j = 0; j < combinationBox.getComponents().length; j++)
                     combinationBox.setPawnColor(j,inactiveColor);
                     combinationBox.setClickEvent(null);
             }
             else {
-                System.out.println("Hints");
                 HintBox hintBox = (HintBox) attemptPanel.getComponent(i);
                 Color[] colors = new Color[hintBox.getComponents().length];
                 Arrays.fill(colors, inactiveColor);
                 hintBox.setHintsColor(colors);
             }
         }
+        for (int i = 0; i < attemptPanel.getComponents().length-1; i+=2) {
+            CombinationBox combinationBox = (CombinationBox) attemptPanel.getComponent(i);
+            combinationBox.unsetClickEvent();
+        }
         prepareAttempt(0);
-        int currentRoundNumber = Integer.parseInt(currentRound.substring(0,1));
-        String totalRound = currentRound.substring(2);
-        currentRoundNumber++;
-        return currentRoundNumber+" "+totalRound;
     }
 }

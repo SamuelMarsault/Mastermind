@@ -26,11 +26,12 @@ public class Round {
     }
     public int computeScore(){
         int score = 0;
-        System.out.println();
-        HintLine hintLine = hintLines.get(hintLines.size()-1);
-        for (int i = 0; i < hintLine.hintLineLength(); i++) {
-            if (hintLine.getHint(i)==Hint.RIGHT_PLACE) score+=3;
-            else if (hintLine.getHint(i)==Hint.WRONG_PLACE) score+=1;
+        if(hintLines.size()-1>=0){
+            HintLine hintLine = hintLines.get(hintLines.size()-1);
+            for (int i = 0; i < hintLine.hintLineLength(); i++) {
+                if (hintLine.getHint(i)==Hint.RIGHT_PLACE) score+=3;
+                else if (hintLine.getHint(i)==Hint.WRONG_PLACE) score+=1;
+            }
         }
         if (settings.getMode()==Mode.CLASSIC) score+=4;
         return score;

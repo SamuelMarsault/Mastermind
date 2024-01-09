@@ -21,11 +21,14 @@ public class RoundController {
 
     public void setRound(Round round){
         this.round = round;
+        System.out.println("changement de round\n---------------\n------------");
         round.addObserver(gamePanel);
     }
 
     public void launchAttempt(Pawn[] pawns){
-        round.checkAttempt(new Combination(pawns));
+        System.out.println(round);
+        if(round!=null)
+            round.checkAttempt(new Combination(pawns));
     }
     
     public void giveUpRound(){

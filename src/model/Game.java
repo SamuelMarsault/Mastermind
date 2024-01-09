@@ -18,13 +18,15 @@ public class Game {
         notifyGameStart();
     }
     public Round nextRound(){
-        if (rounds.size()>=roundNumber) {
-            notifyGameEnd();
-            return null;
+        if(rounds.size()<roundNumber){
+            Round round = new Round(settings);
+            rounds.add(round);
+            return round;
         }
-        Round round = new Round(settings);
-        rounds.add(round);
-        return round;
+        else if (rounds.size()==roundNumber) {
+            notifyGameEnd();
+        }
+        return null;
     }
     public int getFinalScore(){
         int score = 0;

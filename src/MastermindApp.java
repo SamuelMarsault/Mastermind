@@ -6,7 +6,7 @@ import view.*;
 import javax.swing.*;
 
 public class MastermindApp {
-    public static void main(String[] args) {
+    public static void main(String[] args) {    
         try {            
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
             SwingUtilities.updateComponentTreeUI(new JFrame());

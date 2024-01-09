@@ -8,14 +8,23 @@ import javax.swing.*;
 
 import java.awt.*;
 
-public class GamePanel extends JPanel implements RoundObserver,GameObserver {
+public class GamePanel extends JLayeredPane implements RoundObserver,GameObserver {
     private Color selectedColor;
     private JPanel gamePanel;
     private GameBoard gameBoard;
     private JLabel currentRoundLabel;
+    private JLabel scoreLabel;
     private HintDisplayMode displayMode;
+    private JPanel popUp;
     public GamePanel(RoundController roundController, GameController gameController){
         setLayout(new BorderLayout());
+        JLayeredPane jLayeredPane = new JLayeredPane();
+        popUp = new StartPanel(null);
+        jLayeredPane.add(popUp);
+        add(jLayeredPane,BorderLayout.CENTER);
+        jLayeredPane.setLayer(popUp, 1);
+
+
 
         JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JLabel gameLabel = new JLabel("GameLabel");
@@ -33,7 +42,7 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
 
         gameConstraints.gridy = 0;
         gameConstraints.gridx = 0;
-        JLabel scoreLabel = new JLabel("score : 0");
+        scoreLabel = new JLabel("score : 0");
         scoreLabel.setFont(labelFont);
         gamePanel.add(scoreLabel, gameConstraints);
 
@@ -52,7 +61,9 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
         gameConstraints.gridy = 2;
         gameConstraints.gridwidth = 1;
         JButton giveUpButton = new JButton(resizeImage(new ImageIcon("image_jeu/give_up.png"),25,25));
-        //Ajouter action quand le reste sera présent
+        giveUpButton.addActionListener(actionEvent -> {
+            gameController.giveUpRound();
+        });
         gamePanel.add(giveUpButton, gameConstraints);
 
         gameConstraints.gridx = 2;
@@ -114,7 +125,21 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
 
     @Override
     public void reactToRoundEnd(boolean roundWon, int score) {
-        currentRoundLabel.setText(gameBoard.resetBoard(currentRoundLabel.getText()));
+        gameBoard.resetBoard();
+        StringBuilder roundNumber = new StringBuilder();;
+        String[] oldRoundNumber = currentRoundLabel.getText().split(" ");
+        roundNumber.append(Integer.parseInt(oldRoundNumber[0])+1);
+        for (int i=1;i<oldRoundNumber.length;i++)
+            roundNumber.append(" "+oldRoundNumber[i]);
+        currentRoundLabel.setText(roundNumber.toString());
+
+        StringBuilder scoreString = new StringBuilder();
+        String[] oldScoreString = scoreLabel.getText().split(" ");
+        for (int i=0;i<oldScoreString.length-1;i++)
+            scoreString.append(oldScoreString[i]+" ");
+        scoreString.append(Integer.parseInt(oldScoreString[oldScoreString.length-1])+score);
+        scoreLabel.setText(scoreString.toString());
+
     }
 
     @Override
@@ -129,7 +154,6 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
         else
             displayMode = new EasyMode();
         gameBoard = new GameBoard(combinationLenght, attemptNumber, pawnNumber);
-        gameBoard.prepareAttempt(0);
         currentRoundLabel.setText("0 / "+roundNumber);
         currentRoundLabel.setFont(new Font("Arial",Font.PLAIN,15));
         gamePanel.add(gameBoard, gameConstraints);
