@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
         northPanel.add(gameLabel);
         add(northPanel, BorderLayout.NORTH);
 
-        Font labelFont = new Font("Arial", Font.PLAIN, 10);
+        Font labelFont = new Font("Arial", Font.PLAIN, 15);
         
         gamePanel = new JPanel(new GridBagLayout());
         GridBagConstraints gameConstraints = new GridBagConstraints();
@@ -31,19 +31,17 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
 
         //Pour les boutton on mettra surement des images à la fin et pas du texte mais la c'est pour commencer 
 
-        gameConstraints.gridx = 0;
         gameConstraints.gridy = 0;
-
-        gameConstraints.gridx = 1;
+        gameConstraints.gridx = 0;
         JLabel scoreLabel = new JLabel("score : 0");
         scoreLabel.setFont(labelFont);
         gamePanel.add(scoreLabel, gameConstraints);
 
-        gameConstraints.gridx = 2;
-        currentRoundLabel = new JLabel();
+        gameConstraints.gridx = 3;
+        currentRoundLabel = new JLabel("text");
+        currentRoundLabel.setFont(labelFont);
         //a faire modifier quand finis design
         gamePanel.add(currentRoundLabel, gameConstraints);
-
         //Dans la boucle du nombre de tentatives : + rendre valeurs différentes longueur cobinaisons
         //Bordure provisoires à modifier + tard et régler problèmes centrage
 
@@ -59,7 +57,34 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
 
         gameConstraints.gridx = 2;
         JButton validateButton = new JButton(resizeImage(new ImageIcon("image_jeu/check.png"),25,25));
-        validateButton.addActionListener(actionEvent -> roundController.launchAttempt(gameBoard.getCombination()));
+        validateButton.addActionListener(actionEvent -> {
+            Color[] colors = gameBoard.getColor();
+            boolean hasIncompleteCombination = false;
+        
+            for (int i = 0; i < colors.length; i++) {
+                if (colors[i].equals(Color.WHITE) || colors[i].equals(Color.LIGHT_GRAY)) {
+                    hasIncompleteCombination = true;
+                    break;
+                }
+            }
+            if (hasIncompleteCombination) {
+                int result = JOptionPane.showOptionDialog(
+                        this,
+                        "Attention ! Vous n'avez pas complété entièrement la combinaison.",
+                        "Erreur combinaison",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.ERROR_MESSAGE,
+                        null,
+                        new Object[]{"OK"},
+                        "OK"
+                );
+                if (result == 0) {
+                    return;
+                }
+            }
+            roundController.launchAttempt(gameBoard.getCombination());
+        });
+        
         //Ajouter action quand le reste sera présent
         gamePanel.add(validateButton, gameConstraints);
 
@@ -83,13 +108,13 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
 
     @Override
     public void reactToAttempt(int attemptId, HintLine hintLine) {
-        gameBoard.setHints(attemptId, displayMode.convertHintLine(hintLine));
+        gameBoard.setHints(attemptId-1, displayMode.convertHintLine(hintLine));
         gameBoard.prepareAttempt(attemptId);
     }
 
     @Override
     public void reactToRoundEnd(boolean roundWon, int score) {
-        gameBoard.resetBoard();
+        currentRoundLabel.setText(gameBoard.resetBoard(currentRoundLabel.getText()));
     }
 
     @Override
@@ -105,7 +130,8 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
             displayMode = new EasyMode();
         gameBoard = new GameBoard(combinationLenght, attemptNumber, pawnNumber);
         gameBoard.prepareAttempt(0);
-         currentRoundLabel.setText("0 / "+roundNumber);
+        currentRoundLabel.setText("0 / "+roundNumber);
+        currentRoundLabel.setFont(new Font("Arial",Font.PLAIN,15));
         gamePanel.add(gameBoard, gameConstraints);
     }
 

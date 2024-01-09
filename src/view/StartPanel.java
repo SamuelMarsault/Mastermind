@@ -93,6 +93,7 @@ public class StartPanel extends JPanel {
         settingGrid.gridy = 5;
         String[] mode = {"Easy", "Classique", "Numerique"};
         JList<String> modeList = new JList<>(mode);
+        modeList.setFont(new Font("Arial",Font.PLAIN,15));
         modeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modeList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         modeList.setSelectedIndex(1);
@@ -106,6 +107,9 @@ public class StartPanel extends JPanel {
             String name = nameTextField.getText();
             if (name.isEmpty() || name.isBlank()){
                 name = "anonyme";
+            }
+            if (pawnSlider.getValue()<pawnLenghtSlider.getValue()){
+                pawnSlider.setValue(pawnLenghtSlider.getValue());
             }
             gameController.startGame(attemptSlider.getValue(), pawnLenghtSlider.getValue(), pawnSlider.getValue(), getMode(modeList.getLeadSelectionIndex()), name, roundSlider.getValue());
         });
