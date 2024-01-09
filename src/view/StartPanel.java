@@ -93,6 +93,7 @@ public class StartPanel extends JPanel {
         settingGrid.gridy = 5;
         String[] mode = {"Easy", "Classique", "Numerique"};
         JList<String> modeList = new JList<>(mode);
+        modeList.setFont(new Font("Arial",Font.PLAIN,15));
         modeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modeList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         modeList.setSelectedIndex(1);

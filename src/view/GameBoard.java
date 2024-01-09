@@ -56,7 +56,8 @@ public class GameBoard extends JPanel {
             }
         });
         attemptPanel.add(palette,constraints);
-        Button resetComb = new Button("Reset combinaison");
+        JButton resetComb = new JButton("Reset combinaison");
+        resetComb.setFont(new Font("Arial",Font.PLAIN,15));
         resetComb.addActionListener(
                 actionEvent -> {
                     CombinationBox combinationBox = (CombinationBox) attemptPanel.getComponent(currentAttempt);
@@ -87,12 +88,23 @@ public class GameBoard extends JPanel {
     }
     public void prepareAttempt(int attemptId){
         currentAttempt = attemptPanel.getComponents().length-3-attemptId*2;
+        int oldAttempt = attemptPanel.getComponents().length-3-(attemptId-1)*2;
         if(currentAttempt<0)
             return;
-        System.out.println("currentAttempt : "+currentAttempt);
-        CombinationBox combinationBox = (CombinationBox) attemptPanel.getComponent(currentAttempt);
-        for (int i = 0; i < combinationBox.getComponents().length; i++)
-            combinationBox.setPawnColor(i,defaultColor);
+            System.out.println("currentAttempt : " + currentAttempt);
+            CombinationBox combinationBox = (CombinationBox) attemptPanel.getComponent(currentAttempt);
+            CombinationBox oldCombinationBox = (CombinationBox) attemptPanel.getComponent(oldAttempt);
+            
+            for (int i = 0; i < combinationBox.getComponents().length; i++) {
+                Circle circle = (Circle) oldCombinationBox.getComponent(i);
+            
+                if (attemptId == 0) {
+                    combinationBox.setPawnColor(i, defaultColor);
+                } else {
+                    combinationBox.setPawnColor(i, circle.getColor());
+                }
+            }
+            
         combinationBox.setClickEvent(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -143,11 +155,22 @@ public class GameBoard extends JPanel {
                 pawns[i] = Pawn.PURPLE;
             else if (circle.getColor().equals(Color.PINK))
                 pawns[i] = Pawn.PINK;
-            else
+            else if (circle.getColor().equals(Color.BLACK))
                 pawns[i] = Pawn.BLACK;
         }
         return pawns;
     }
+
+    public Color[] getColor(){
+        CombinationBox combinationBox = (CombinationBox) attemptPanel.getComponent(currentAttempt);
+        Color[] color = new Color[combinationBox.getComponents().length];
+        for (int i=0;i<combinationBox.getComponents().length;i++){
+            Circle circle = (Circle) combinationBox.getComponent(i);
+            color[i] = circle.getColor();
+        }
+        return color;
+    }
+
     public void resetBoard(){
         for (int i = 0; i < attemptPanel.getComponents().length-1; i++) {
             if (attemptPanel.getComponent(i).getClass()==CombinationBox.class){
