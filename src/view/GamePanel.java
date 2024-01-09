@@ -67,12 +67,11 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
                     break;
                 }
             }
-        
             if (hasIncompleteCombination) {
                 int result = JOptionPane.showOptionDialog(
                         this,
                         "Attention ! Vous n'avez pas complété entièrement la combinaison.",
-                        "Erreur",
+                        "Erreur combinaison",
                         JOptionPane.DEFAULT_OPTION,
                         JOptionPane.ERROR_MESSAGE,
                         null,
@@ -83,8 +82,6 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
                     return;
                 }
             }
-        
-            // Si la combinaison est complète, lancer l'essai
             roundController.launchAttempt(gameBoard.getCombination());
         });
         
@@ -117,7 +114,7 @@ public class GamePanel extends JPanel implements RoundObserver,GameObserver {
 
     @Override
     public void reactToRoundEnd(boolean roundWon, int score) {
-        gameBoard.resetBoard();
+        currentRoundLabel.setText(gameBoard.resetBoard(currentRoundLabel.getText()));
     }
 
     @Override

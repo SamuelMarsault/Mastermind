@@ -108,6 +108,9 @@ public class StartPanel extends JPanel {
             if (name.isEmpty() || name.isBlank()){
                 name = "anonyme";
             }
+            if (pawnSlider.getValue()<pawnLenghtSlider.getValue()){
+                pawnSlider.setValue(pawnLenghtSlider.getValue());
+            }
             gameController.startGame(attemptSlider.getValue(), pawnLenghtSlider.getValue(), pawnSlider.getValue(), getMode(modeList.getLeadSelectionIndex()), name, roundSlider.getValue());
         });
         add(button, BorderLayout.SOUTH);

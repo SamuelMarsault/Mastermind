@@ -171,7 +171,7 @@ public class GameBoard extends JPanel {
         return color;
     }
 
-    public void resetBoard(){
+    public String resetBoard(String currentRound){
         for (int i = 0; i < attemptPanel.getComponents().length-1; i++) {
             if (attemptPanel.getComponent(i).getClass()==CombinationBox.class){
                 System.out.println("Combi");
@@ -189,5 +189,9 @@ public class GameBoard extends JPanel {
             }
         }
         prepareAttempt(0);
+        int currentRoundNumber = Integer.parseInt(currentRound.substring(0,1));
+        String totalRound = currentRound.substring(2);
+        currentRoundNumber++;
+        return currentRoundNumber+" "+totalRound;
     }
 }
