@@ -38,13 +38,12 @@ public class Game {
         }
         return score;
     }
+    public void restartGame(){
+        configureGame(settings, roundNumber);
+    }
     
     public void addObserver(GameObserver observer){
         observers.add(observer);
-    }
-
-    public int getRoundNumber(){
-        return this.roundNumber;
     }
 
     private void notifyGameStart(){

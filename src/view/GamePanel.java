@@ -51,7 +51,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         gamePanel.add(scoreLabel, gameConstraints);
 
         gameConstraints.gridx = 3;
-        currentRoundLabel = new JLabel("text");
+        currentRoundLabel = new JLabel();
         currentRoundLabel.setFont(labelFont);
         //a faire modifier quand finis design
         gamePanel.add(currentRoundLabel, gameConstraints);
@@ -158,9 +158,11 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
             displayMode = new ClassicMode();
         else
             displayMode = new EasyMode();
+        if(gameBoard!=null)
+            gamePanel.remove(gameBoard);
         gameBoard = new GameBoard(combinationLenght, attemptNumber, pawnNumber);
         currentRoundLabel.setText("1 / "+roundNumber);
-        currentRoundLabel.setFont(new Font("Arial",Font.PLAIN,15));
+        scoreLabel.setText("score : 0");
         gamePanel.add(gameBoard, gameConstraints);
     }
 
