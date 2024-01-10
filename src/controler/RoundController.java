@@ -22,7 +22,8 @@ public class RoundController {
     public void setRound(Round round){
         this.round = round;
         System.out.println("changement de round\n---------------\n------------");
-        round.addObserver(gamePanel);
+        if (round != null)
+            round.addObserver(gamePanel);
     }
 
     public void launchAttempt(Pawn[] pawns){

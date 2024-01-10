@@ -9,6 +9,7 @@ public class GameController {
     private Game game;
     private RoundController roundController;
     private MastermindWindow window;
+
     public GameController(RoundController roundController, Game game){
         this.roundController = roundController;
         this.game = game;
@@ -23,11 +24,16 @@ public class GameController {
         nextRound();
         window.showGamePanel();
     }
+
     public void nextRound(){
         roundController.setRound(game.nextRound());
     }
+
     public void giveUpRound(){
         roundController.giveUpRound();
-        nextRound();
+    }
+
+    public void endGame(){
+        window.showEndPanel();
     }
 }

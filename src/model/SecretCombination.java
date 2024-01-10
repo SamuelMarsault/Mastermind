@@ -14,8 +14,14 @@ public class SecretCombination extends Combination{
         for (int i=0;i<combinationLength;i++){
             int index = rand.nextInt(0,possiblePawns.size());
             pawns[i] = possiblePawns.get(index);
-            possiblePawns.remove(index);
+            //possiblePawns.remove(index);
         }
+        /*
+        pawns[0] = possiblePawns.get(1);
+        pawns[1] = possiblePawns.get(3);
+        pawns[2] = possiblePawns.get(2);
+        pawns[3] = possiblePawns.get(3);
+        */
         setPawns(pawns);
     }
 }

@@ -8,7 +8,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class EndPanel extends JPanel implements GameObserver {
+    private JLabel scoreLabel;
+    private GameController gameController;
+
     public EndPanel(GameController gameController){
+        this.gameController = gameController;
         setLayout(new BorderLayout());
 
         JPanel northPanel = new JPanel(new GridLayout(0, 1));
@@ -36,7 +40,7 @@ public class EndPanel extends JPanel implements GameObserver {
         add(northPanel, BorderLayout.NORTH);
 
         JPanel scorePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel scoreLabel = new JLabel("SCORE : xxx");
+        this.scoreLabel = new JLabel("SCORE : xxx");
         scoreLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         scorePanel.add(scoreLabel);
         scorePanel.setBorder(BorderFactory.createEmptyBorder(300, 0, 0, 0));
@@ -44,12 +48,17 @@ public class EndPanel extends JPanel implements GameObserver {
 
         //Mettre potentiellement les stats ici
 
-        Button menuButton = new Button("Menu");
-        Button restartButton = new Button("Restart");
-
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton menuButton = new JButton("Menu");
+        menuButton.addActionListener(actionEvent -> {
+            
+        });
         buttonPanel.add(menuButton);
-        buttonPanel.add(Box.createHorizontalStrut(573)); //Trouver meilleure méthode plus tard et augmenter taille boutton
+        JButton restartButton = new JButton("Restart");
+        restartButton.addActionListener(actionEvent -> {
+            
+        });
+        buttonPanel.add(Box.createHorizontalStrut(541)); //Trouver meilleure méthode plus tard et augmenter taille boutton
         buttonPanel.add(restartButton);
         add(buttonPanel, BorderLayout.SOUTH);
         setVisible(true);
@@ -62,6 +71,6 @@ public class EndPanel extends JPanel implements GameObserver {
 
     @Override
     public void reactToGameEnd(int score) {
-
+         scoreLabel.setText("SCORE : "+score);
     }
 }

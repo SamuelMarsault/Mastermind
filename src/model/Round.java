@@ -9,21 +9,26 @@ public class Round {
     private List<HintLine> hintLines;
     private List<RoundObserver> observers = new ArrayList<>();
     private Settings settings;
+
     public Round(Settings settings){
         secretCombination = new SecretCombination(settings.getCombinationLength(), settings.getPawnNumber());
         attemps = new ArrayList<>();
         hintLines = new ArrayList<>();
         this.settings = settings;
     }
+
     public boolean checkAttempt(Combination combination){
         attemps.add(combination);
         HintLine hintLine = new HintLine(combination,secretCombination);
         hintLines.add(hintLine);
         boolean perfectMatch = hintLine.perfectMatch();
         notifyAttempt();
-        if (perfectMatch || attemps.size()>=settings.getAttemptNumber()) notifyRoundEnd(perfectMatch,computeScore());
+        if (perfectMatch || attemps.size()>=settings.getAttemptNumber()){
+            notifyRoundEnd(perfectMatch,computeScore());
+        }
         return perfectMatch;
     }
+    
     public int computeScore(){
         int score = 0;
         if(hintLines.size()-1>=0){

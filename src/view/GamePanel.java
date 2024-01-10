@@ -16,6 +16,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
     private JLabel scoreLabel;
     private HintDisplayMode displayMode;
     private JPanel popUp;
+    private GameController gameController;
     public GamePanel(RoundController roundController, GameController gameController){
         setLayout(new BorderLayout());
         JLayeredPane jLayeredPane = new JLayeredPane();
@@ -104,6 +105,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         //Je modifierais la position et complèterais quand on auras vu pour les question au dessus
 
         add(gamePanel, BorderLayout.CENTER);
+        this.gameController = gameController;
         setVisible(true);
     }
 
@@ -126,7 +128,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
     @Override
     public void reactToRoundEnd(boolean roundWon, int score) {
         gameBoard.resetBoard();
-        StringBuilder roundNumber = new StringBuilder();;
+        StringBuilder roundNumber = new StringBuilder();
         String[] oldRoundNumber = currentRoundLabel.getText().split(" ");
         roundNumber.append(Integer.parseInt(oldRoundNumber[0])+1);
         for (int i=1;i<oldRoundNumber.length;i++)
@@ -139,7 +141,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
             scoreString.append(oldScoreString[i]+" ");
         scoreString.append(Integer.parseInt(oldScoreString[oldScoreString.length-1])+score);
         scoreLabel.setText(scoreString.toString());
-
+        this.gameController.nextRound();
     }
 
     @Override
@@ -154,13 +156,13 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         else
             displayMode = new EasyMode();
         gameBoard = new GameBoard(combinationLenght, attemptNumber, pawnNumber);
-        currentRoundLabel.setText("0 / "+roundNumber);
+        currentRoundLabel.setText("1 / "+roundNumber);
         currentRoundLabel.setFont(new Font("Arial",Font.PLAIN,15));
         gamePanel.add(gameBoard, gameConstraints);
     }
 
     @Override
     public void reactToGameEnd(int score) {
-
+        gameController.endGame();
     }
 }

@@ -69,6 +69,7 @@ public class GameBoard extends JPanel {
         add(resetComb,BorderLayout.NORTH);
         add(attemptPanel,BorderLayout.CENTER);
     }
+
     public void setUpPalette(CombinationBox palette){
         Color color;
         for (int i=0;i<Pawn.values().length;i++){
@@ -87,6 +88,7 @@ public class GameBoard extends JPanel {
             palette.setPawnColor(i,color);
         }
     }
+    
     public void prepareAttempt(int attemptId){
         currentAttempt = attemptPanel.getComponents().length-3-attemptId*2;
         int oldAttempt = attemptPanel.getComponents().length-3-(attemptId-1)*2;

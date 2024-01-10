@@ -11,12 +11,14 @@ public class Game {
     private List<GameObserver> observers = new ArrayList<>();
     public Game(){
     }
+
     public void configureGame(Settings settings, int roundNumber){
         this.settings = settings;
         this.roundNumber = roundNumber;
         rounds = new ArrayList<>();
         notifyGameStart();
     }
+
     public Round nextRound(){
         if(rounds.size()<roundNumber){
             Round round = new Round(settings);
@@ -28,6 +30,7 @@ public class Game {
         }
         return null;
     }
+
     public int getFinalScore(){
         int score = 0;
         for (Round round:rounds) {
@@ -35,6 +38,7 @@ public class Game {
         }
         return score;
     }
+    
     public void addObserver(GameObserver observer){
         observers.add(observer);
     }
