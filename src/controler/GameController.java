@@ -9,6 +9,7 @@ public class GameController {
     private Game game;
     private RoundController roundController;
     private MastermindWindow window;
+    private Settings oldSettings;
 
     public GameController(RoundController roundController, Game game){
         this.roundController = roundController;
@@ -20,7 +21,18 @@ public class GameController {
     }
 
     public void startGame(int attemptNumber, int combinationLength, int pawnNumber, Mode mode, String playerName, int roundNumber){
-        game.configureGame(new Settings(attemptNumber,combinationLength,pawnNumber,mode,playerName), roundNumber);
+        this.oldSettings = new Settings(attemptNumber,combinationLength,pawnNumber,mode,playerName);
+        game.configureGame(oldSettings, roundNumber);
+        nextRound();
+        window.showGamePanel();
+    }
+
+    public void resetGame(){
+        int roundNumber = this.game.getRoundNumber();
+        this.game = new Game();
+        game.addObserver(window.getGamePanel());
+        game.addObserver(window.getEndPanel());
+        game.configureGame(oldSettings, roundNumber);
         nextRound();
         window.showGamePanel();
     }

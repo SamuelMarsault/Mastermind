@@ -7,7 +7,6 @@ import java.awt.*;
 public class EasyMode implements HintDisplayMode{
     @Override
     public Color[] convertHintLine(HintLine hintLine) {
-        System.out.println("test");
         Color[] colors = new Color[hintLine.hintLineLength()];
         for(int i=0;i<colors.length;i++){
             switch (hintLine.getHint(i)){

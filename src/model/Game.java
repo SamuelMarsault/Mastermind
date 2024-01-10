@@ -43,6 +43,10 @@ public class Game {
         observers.add(observer);
     }
 
+    public int getRoundNumber(){
+        return this.roundNumber;
+    }
+
     private void notifyGameStart(){
         for (GameObserver observer:observers){
             observer.reactToGameStart(roundNumber, settings.getAttemptNumber(), settings.getPawnNumber(), settings.getCombinationLength(), settings.getMode());

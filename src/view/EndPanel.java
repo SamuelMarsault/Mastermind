@@ -53,10 +53,11 @@ public class EndPanel extends JPanel implements GameObserver {
         menuButton.addActionListener(actionEvent -> {
             
         });
+
         buttonPanel.add(menuButton);
         JButton restartButton = new JButton("Restart");
         restartButton.addActionListener(actionEvent -> {
-            
+            gameController.resetGame();
         });
         buttonPanel.add(Box.createHorizontalStrut(541)); //Trouver meilleure méthode plus tard et augmenter taille boutton
         buttonPanel.add(restartButton);

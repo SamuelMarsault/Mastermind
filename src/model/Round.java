@@ -23,9 +23,7 @@ public class Round {
         hintLines.add(hintLine);
         boolean perfectMatch = hintLine.perfectMatch();
         notifyAttempt();
-        if (perfectMatch || attemps.size()>=settings.getAttemptNumber()){
-            notifyRoundEnd(perfectMatch,computeScore());
-        }
+        if (perfectMatch || attemps.size()>=settings.getAttemptNumber()) notifyRoundEnd(perfectMatch,computeScore());
         return perfectMatch;
     }
     
