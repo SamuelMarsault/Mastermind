@@ -1,20 +1,19 @@
 package view;
 
 import controler.GameController;
-import model.GameObserver;
-import model.Mode;
-import model.Round;
+import model.*;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class EndPanel extends JPanel implements GameObserver {
+public class EndPanel extends JPanel implements GameObserver, RoundObserver {
     private GameController gameController;
     private JLabel scoreLabel;
     private JLabel ggLabel;
+    private JPanel scrollPanel;
 
     public EndPanel(GameController gameController){
         this.gameController = gameController;
@@ -44,11 +43,16 @@ public class EndPanel extends JPanel implements GameObserver {
 
         add(northPanel, BorderLayout.NORTH);
 
-        JPanel scorePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        this.scoreLabel = new JLabel("SCORE : xxx");
+        JPanel scorePanel = new JPanel();
+        scorePanel.setLayout(new BoxLayout(scorePanel,BoxLayout.Y_AXIS));
+        scrollPanel = new JPanel();
+        scrollPanel.setLayout(new GridLayout(0,2));
+        scoreLabel = new JLabel();
         scoreLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //scorePanel.setBorder(BorderFactory.createEmptyBorder(300, 0, 0, 0));
+        scorePanel.add(new JScrollPane(scrollPanel));
         scorePanel.add(scoreLabel);
-        scorePanel.setBorder(BorderFactory.createEmptyBorder(300, 0, 0, 0));
         add(scorePanel, BorderLayout.CENTER);
 
         //Mettre potentiellement les stats ici
@@ -56,7 +60,7 @@ public class EndPanel extends JPanel implements GameObserver {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton menuButton = new JButton(resizeImage(new ImageIcon("image_jeu/house.png"),40,40));
         menuButton.addActionListener(actionEvent -> {
-            
+            gameController.returnToMenu();
         });
 
         buttonPanel.add(menuButton);
@@ -82,12 +86,34 @@ public class EndPanel extends JPanel implements GameObserver {
 
     @Override
     public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght, Mode mode) {
-
+        scrollPanel.removeAll();
     }
 
     @Override
     public void reactToGameEnd(int score, List<Round> rounds, String playeurName) {
          scoreLabel.setText("SCORE : "+score);
          ggLabel.setText("GG "+playeurName);
+    }
+
+    @Override
+    public void reactToAttempt(int attemptId, HintLine hintLine) {}
+
+    @Override
+    public void reactToRoundEnd(boolean roundWon, int score, Combination secretCombination) {
+        Color[] colors = new Color[secretCombination.getCombinationLength()];
+        for (int i=0;i<colors.length;i++){
+            switch (secretCombination.getPawn(i)){
+                case RED -> colors[i] = Color.RED;
+                case GREEN -> colors[i] = Color.GREEN;
+                case BLUE -> colors[i] = Color.BLUE;
+                case YELLOW -> colors[i] = Color.YELLOW;
+                case BLACK -> colors[i] = Color.BLACK;
+                case ORANGE -> colors[i] = Color.ORANGE;
+                case PURPLE -> colors[i] = Color.MAGENTA;
+                case PINK -> colors[i] = Color.PINK;
+                default -> colors[i] = Color.WHITE;
+            }
+        }
+        scrollPanel.add(new RecapRound(scrollPanel.getComponentCount()+1, colors, score, roundWon));
     }
 }

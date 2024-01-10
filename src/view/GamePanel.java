@@ -4,7 +4,6 @@ import controler.GameController;
 import controler.RoundController;
 import model.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
@@ -82,6 +81,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
                     break;
                 }
             }
+
             if (hasIncompleteCombination) {
                 int result = JOptionPane.showOptionDialog(
                         this,
@@ -129,7 +129,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
     }
 
     @Override
-    public void reactToRoundEnd(boolean roundWon, int score) {
+    public void reactToRoundEnd(boolean roundWon, int score, Combination secretCombination) {
         gameBoard.resetBoard();
         StringBuilder roundNumber = new StringBuilder();
         String[] oldRoundNumber = currentRoundLabel.getText().split(" ");

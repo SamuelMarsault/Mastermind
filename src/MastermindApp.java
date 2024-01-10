@@ -24,7 +24,8 @@ public class MastermindApp {
 
             gameController.setWindow(window);
             roundController.setWindow(window);
-            roundController.setGamePanel(gamePanel);
+            roundController.addRoundObserver(gamePanel);
+            roundController.addRoundObserver(endPanel);
 
             game.addObserver(gamePanel);
             game.addObserver(endPanel);

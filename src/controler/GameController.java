@@ -44,4 +44,7 @@ public class GameController {
     public void endGame(){
         window.showEndPanel();
     }
+    public void returnToMenu(){
+        window.showStartPanel();
+    }
 }

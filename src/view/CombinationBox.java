@@ -1,5 +1,7 @@
 package view;
 
+import model.Combination;
+
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
 import java.awt.*;
@@ -21,6 +23,18 @@ public class CombinationBox extends JPanel {
         }
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
+
+    public CombinationBox(Color[] colors) {
+        setLayout(new FlowLayout());
+        int diameter = 35;
+        for (int i = 0; i < colors.length; i++) {
+            Circle circle = new Circle(diameter, colors[i]);
+            circle.setPreferredSize(new Dimension(diameter, diameter));
+            add(circle);
+        }
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    }
+
     public void setPawnColor(int n, Color color){
         if(n<getComponents().length){
             Circle circle = (Circle) getComponent(n);

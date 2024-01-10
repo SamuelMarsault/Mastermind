@@ -18,7 +18,7 @@ public class Announcer implements RoundObserver, GameObserver {
     }
 
     @Override
-    public void reactToRoundEnd(boolean roundWon, int score) {
+    public void reactToRoundEnd(boolean roundWon, int score, Combination secretCombination) {
         System.out.println("Fin du round !!");
         String result;
         result = roundWon ? "Bravo vous avez gagné ce round !" : "Vous avez perdu... ";

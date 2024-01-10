@@ -56,7 +56,7 @@ public class Round {
 
     private void notifyRoundEnd(boolean roundWon, int score){
         for (RoundObserver observer:observers) {
-            observer.reactToRoundEnd(roundWon,score);
+            observer.reactToRoundEnd(roundWon,score, secretCombination);
         }
     }
 }
