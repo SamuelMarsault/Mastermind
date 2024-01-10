@@ -28,11 +28,7 @@ public class GameController {
     }
 
     public void resetGame(){
-        int roundNumber = this.game.getRoundNumber();
-        this.game = new Game();
-        game.addObserver(window.getGamePanel());
-        game.addObserver(window.getEndPanel());
-        game.configureGame(oldSettings, roundNumber);
+        game.restartGame();
         nextRound();
         window.showGamePanel();
     }
