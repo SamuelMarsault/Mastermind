@@ -3,13 +3,18 @@ package view;
 import controler.GameController;
 import model.GameObserver;
 import model.Mode;
+import model.Round;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class EndPanel extends JPanel implements GameObserver {
-    private JLabel scoreLabel;
     private GameController gameController;
+    private JLabel scoreLabel;
+    private JLabel ggLabel;
 
     public EndPanel(GameController gameController){
         this.gameController = gameController;
@@ -26,7 +31,7 @@ public class EndPanel extends JPanel implements GameObserver {
         // Ajout d'un espace vertical entre les deux labels
         endLabelPanel.add(Box.createVerticalStrut(10));
 
-        JLabel ggLabel = new JLabel("GG nom joueur");
+        this.ggLabel = new JLabel("GG Joueur");
         ggLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
         // Centrer verticalement chaque composant dans le GridLayout
@@ -49,20 +54,30 @@ public class EndPanel extends JPanel implements GameObserver {
         //Mettre potentiellement les stats ici
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton menuButton = new JButton("Menu");
+        JButton menuButton = new JButton(resizeImage(new ImageIcon("image_jeu/house.png"),40,40));
         menuButton.addActionListener(actionEvent -> {
             
         });
 
         buttonPanel.add(menuButton);
-        JButton restartButton = new JButton("Restart");
+        JButton restartButton = new JButton(resizeImage(new ImageIcon("image_jeu/restart.png"),40,40));
         restartButton.addActionListener(actionEvent -> {
             gameController.resetGame();
         });
-        buttonPanel.add(Box.createHorizontalStrut(541)); //Trouver meilleure méthode plus tard et augmenter taille boutton
+        buttonPanel.add(Box.createHorizontalStrut(530)); //Trouver meilleure méthode plus tard et augmenter taille boutton
         buttonPanel.add(restartButton);
         add(buttonPanel, BorderLayout.SOUTH);
         setVisible(true);
+    }
+
+    private ImageIcon resizeImage(ImageIcon image,int height, int width){
+        Image originalImage = image.getImage();
+
+        int newWidth = width;
+        int newHeight = height;
+        Image resizedImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+
+        return new ImageIcon(resizedImage);
     }
 
     @Override
@@ -71,7 +86,8 @@ public class EndPanel extends JPanel implements GameObserver {
     }
 
     @Override
-    public void reactToGameEnd(int score) {
+    public void reactToGameEnd(int score, List<Round> rounds, String playeurName) {
          scoreLabel.setText("SCORE : "+score);
+         ggLabel.setText("GG "+playeurName);
     }
 }

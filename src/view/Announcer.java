@@ -1,5 +1,7 @@
 package view;
 
+import java.util.List;
+
 import model.*;
 
 public class Announcer implements RoundObserver, GameObserver {
@@ -33,8 +35,10 @@ public class Announcer implements RoundObserver, GameObserver {
     }
 
     @Override
-    public void reactToGameEnd(int score) {
+    public void reactToGameEnd(int score, List<Round> rounds, String playeurName) {
         System.out.println("Fin de la partie");
+        System.out.println("Bravo "+playeurName);
         System.out.println("Voici le score final : "+score);
+
     }
 }

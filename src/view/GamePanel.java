@@ -4,6 +4,9 @@ import controler.GameController;
 import controler.RoundController;
 import model.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 
 import java.awt.*;
@@ -110,13 +113,13 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
     }
 
     private ImageIcon resizeImage(ImageIcon image,int height, int width){
-    Image originalImage = image.getImage();
+        Image originalImage = image.getImage();
 
-    int newWidth = width;
-    int newHeight = height;
-    Image resizedImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+        int newWidth = width;
+        int newHeight = height;
+        Image resizedImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
 
-    return new ImageIcon(resizedImage);
+        return new ImageIcon(resizedImage);
     }
 
     @Override
@@ -162,7 +165,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
     }
 
     @Override
-    public void reactToGameEnd(int score) {
+    public void reactToGameEnd(int score, List<Round> rounds, String playeurName) {
         gameController.endGame();
     }
 }
