@@ -12,7 +12,7 @@ public class StartPanel extends JPanel {
         setLayout(new BorderLayout());
 
         JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel startLabel = new JLabel("StartPanel");
+        JLabel startLabel = new JLabel("Mastermind");
         startLabel.setFont(new Font("Arial", Font.PLAIN, 30)); // Définir une taille de police pour le label
         northPanel.add(startLabel);
         add(northPanel, BorderLayout.NORTH);
@@ -24,10 +24,12 @@ public class StartPanel extends JPanel {
         Font labelFont = new Font("Arial", Font.PLAIN, 20);
 
         // Name of player
+        settingGrid.gridwidth = 1;
         settingGrid.gridx = 0;
         settingGrid.gridy = 0;
-        JLabel nameLabel = new JLabel("Name :");
+        JLabel nameLabel = new JLabel("Nom :");
         nameLabel.setFont(labelFont);
+        nameLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
         settingPanel.add(nameLabel, settingGrid);
         settingGrid.gridx = 1;
         settingGrid.gridy = 0;
@@ -39,7 +41,7 @@ public class StartPanel extends JPanel {
         // Number of Round
         settingGrid.gridx = 0;
         settingGrid.gridy = 1;
-        JLabel nbRoundLabel = new JLabel("Number of Round :");
+        JLabel nbRoundLabel = new JLabel("Nombre de rounds :");
         nbRoundLabel.setFont(labelFont);
         settingPanel.add(nbRoundLabel, settingGrid);
         settingGrid.gridx = 1;
@@ -51,7 +53,7 @@ public class StartPanel extends JPanel {
         // Number of Pawn
         settingGrid.gridx = 0;
         settingGrid.gridy = 2;
-        JLabel nbPawnLabel = new JLabel("Number of Pawn :");
+        JLabel nbPawnLabel = new JLabel("Nombre de pions :");
         nbPawnLabel.setFont(labelFont);
         settingPanel.add(nbPawnLabel, settingGrid);
         settingGrid.gridx = 1;
@@ -63,7 +65,7 @@ public class StartPanel extends JPanel {
         // Number of pawn length
         settingGrid.gridx = 0;
         settingGrid.gridy = 3;
-        JLabel nbPawnLengthLabel = new JLabel("Combinaison Lenght :");
+        JLabel nbPawnLengthLabel = new JLabel("Taille de la combinaison :");
         nbPawnLengthLabel.setFont(labelFont);
         settingPanel.add(nbPawnLengthLabel, settingGrid);
         settingGrid.gridx = 1;
@@ -75,7 +77,7 @@ public class StartPanel extends JPanel {
         // Number of attempts
         settingGrid.gridx = 0;
         settingGrid.gridy = 4;
-        JLabel nbAttemptsLabel = new JLabel("Number of attempts :");
+        JLabel nbAttemptsLabel = new JLabel("Nombre de tentatives :");
         nbAttemptsLabel.setFont(labelFont);
         settingPanel.add(nbAttemptsLabel, settingGrid);
         settingGrid.gridx = 1;

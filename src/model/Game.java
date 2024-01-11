@@ -56,7 +56,7 @@ public class Game {
     private void notifyGameEnd(){
         int score = getFinalScore();
         for (GameObserver observer:observers) {
-            observer.reactToGameEnd(score, rounds, settings.getPlayerName());
+            observer.reactToGameEnd(score, settings.getPlayerName());
         }
     }
 }

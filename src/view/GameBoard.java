@@ -1,5 +1,6 @@
 package view;
 
+import model.Mode;
 import model.Pawn;
 
 import javax.swing.*;
@@ -15,7 +16,7 @@ public class GameBoard extends JPanel {
     private JPanel attemptPanel;
     private int currentAttempt;
     
-    public GameBoard(int combinationLenght, int attemptNumber, int pawnNumber) {
+    public GameBoard(int combinationLenght, int attemptNumber, int pawnNumber, Mode mode) {
         setLayout(new BorderLayout());
 
         //Les tentatives
@@ -40,7 +41,9 @@ public class GameBoard extends JPanel {
             constraints.gridwidth = 1;
             constraints.gridx = 2;
             constraints.weightx = 0;
-            HintBox hintBox = new ClassicHintBox(combinationLenght);
+            HintBox hintBox;
+            if(mode==Mode.NUMERIC) hintBox = new NumericHintBox(Color.BLACK, Color.WHITE);
+            else hintBox = new ClassicHintBox(combinationLenght);
             attemptPanel.add(hintBox, constraints);
         }
         constraints.gridwidth = 3;

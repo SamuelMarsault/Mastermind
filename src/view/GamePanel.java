@@ -4,8 +4,6 @@ import controler.GameController;
 import controler.RoundController;
 import model.*;
 
-import java.util.List;
-
 import javax.swing.*;
 
 import java.awt.*;
@@ -26,14 +24,6 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         jLayeredPane.add(popUp);
         add(jLayeredPane,BorderLayout.CENTER);
         jLayeredPane.setLayer(popUp, 1);
-
-
-
-        JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel gameLabel = new JLabel("GameLabel");
-        gameLabel.setFont(new Font("Arial", Font.PLAIN, 30)); // Définir une taille de police pour le label
-        northPanel.add(gameLabel);
-        add(northPanel, BorderLayout.NORTH);
 
         Font labelFont = new Font("Arial", Font.PLAIN, 15);
         
@@ -160,14 +150,14 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
             displayMode = new EasyMode();
         if(gameBoard!=null)
             gamePanel.remove(gameBoard);
-        gameBoard = new GameBoard(combinationLenght, attemptNumber, pawnNumber);
+        gameBoard = new GameBoard(combinationLenght, attemptNumber, pawnNumber, mode);
         currentRoundLabel.setText("1 / "+roundNumber);
         scoreLabel.setText("score : 0");
         gamePanel.add(gameBoard, gameConstraints);
     }
 
     @Override
-    public void reactToGameEnd(int score, List<Round> rounds, String playeurName) {
+    public void reactToGameEnd(int score, String playeurName) {
         gameController.endGame();
     }
 }

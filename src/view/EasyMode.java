@@ -13,7 +13,7 @@ public class EasyMode implements HintDisplayMode{
             switch (hintLine.getHint(i)){
                 case RIGHT_PLACE -> colors[i] = Color.BLACK;
                 case WRONG_PLACE -> colors[i] = Color.WHITE;
-                default -> colors[i] = null;
+                default -> colors[i] = Color.LIGHT_GRAY;
             }
         }
         return colors;

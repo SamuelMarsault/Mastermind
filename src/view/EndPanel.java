@@ -3,8 +3,6 @@ package view;
 import controler.GameController;
 import model.*;
 
-import java.util.List;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,7 +15,7 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
         setLayout(new BorderLayout());
 
         JPanel northPanel = new JPanel(new GridLayout(0, 1));
-        JLabel endLabel = new JLabel("EndPanel - VICTORY or DEFEAT");
+        JLabel endLabel = new JLabel("Fin de la partie !");
         endLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 
         // Centrer verticalement chaque composant dans le GridLayout
@@ -104,7 +102,7 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
     }
 
     @Override
-    public void reactToGameEnd(int score, List<Round> rounds, String playeurName) {
+    public void reactToGameEnd(int score, String playeurName) {
          scoreLabel.setText("SCORE : "+score);
          ggLabel.setText("GG "+playeurName);
     }
