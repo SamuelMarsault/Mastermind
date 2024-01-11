@@ -48,8 +48,7 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
         scoreLabel = new JLabel();
         scoreLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        scorePanel.add(new JScrollPane(scrollPanel));
+
         scorePanel.add(scoreLabel);
         add(scorePanel, BorderLayout.CENTER);
         
@@ -92,12 +91,7 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
 
     @Override
     public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght, Mode mode) {
-        if (roundNumber == 5){
-                scrollPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 100, 0));
-        }
-        else{
-                scrollPanel.setBorder(BorderFactory.createEmptyBorder(160, 0, 160, 0));
-        }
+        scrollPanel.setBorder(BorderFactory.createEmptyBorder(160, 0, 160, 0));
         scrollPanel.removeAll();
     }
 
