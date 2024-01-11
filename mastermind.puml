@@ -4,56 +4,82 @@ skinparam classAttributeIconSize 0
 hide enum methods
 hide empty members
 
-interface view.HintDisplayMode {
-    + convertHintLine(hintLine : HintLine) : Color[]
+class MastermindApp {
+    + {static} main(args : String[])
 }
 
-class view.ClassicMode implements view.HintDisplayMode {
-    + convertHintLine(hintLine : HintLine) : Color[]
+class controller.GameController {
+    + GameController(roundController : RoundController, game : Game)
+    + setWindow(window : MastermindWindow)
+    + startGame(attemptNumber : Integer, combinationLength : Integer, pawnNumber : Integer, mode : Mode, playerName String, roundNumber Integer)
+    + resetGame()
+    + nextRound()
+    + giveUpRound()
+    + endGame()
+    + returnToMenu()
+    + getRoundNumber() : Integer
 }
 
-class view.EasyMode implements view.HintDisplayMode {
-    + convertHintLine(hintLine : HintLine) : Color[]
+class controller.RoundController {
+    + addRoundObserveur((observer : RoundObserver)
+    + setRound(round : Round)
+    + launchAttempt(pawns : Pawn[])
+    + giveUpRound()
+}
+note right{
+Je ne suis pas sure du lien pour :
+private ArrayList<RoundObserver> roundObservers
+}
+
+class model.Combination {
+    + Combination(pawns : Pawn[])
+    + setPawns(pawns : Pawn[])
+    + getPawn(index : Integer) : Pawn
+    + getCombinationLength() : Integer
+    + containsPawn(pawn : Pawn) : Boolean
+}
+
+class model.Game {
+    - roundNumber : Integer
+    + Game()
+    + configureGame(settings : Settings, roundNumber : Integer)
+    + nextRound() : Round
+    + getFinalScore() : Integer
+    + restartGame()
+    + addObserver(observer : GameObserver)
+    - notifyGameStart()
+    - notifyGameEnd()
+    + getRoundNumber() : Integer
+}
+
+class model.GameObserver {
+    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer, combinationLength : Integer, mode Mode)
+    + reactToGameEnd(score : Integer, rounds Rounds[], playerName String)
+}
+note bottom{
+Je ne suis pas sûre pour le Rounds[]
+dans le code c'est :
+List<Round> rounds
+(si il faut changer c'est aussi à faire dans EndPanel)
+}
+
+enum model.Hint {
+    + RIGHT_PLACE
+    + WRONG_PLACE
+    + ABSENT
+}
+
+class model.HintLine {
+    + HintLine(combination : Combination, secretCombination : SecretCombination)
+    + getHint(index : Integer) : Hint
+    + perfectMatch() : Boolean
+    + hintLineLength() : Integer
 }
 
 enum model.Mode {
     + EASY
     + CLASSIC
     + NUMERIC
-}
-
-class controller.GameController {
-    + GameController(roundController : RoundController, game : Game)
-    + startGame(attemptNumber : Integer, combinationLength : Integer, pawnNumber : Integer, mode : Mode, playerName String)
-}
-
-class controller.RoundController {
-    + setRound(round : Round)
-    + launchAttempt(pawns : Pawn[])
-    + giveUpRound()
-}
-
-class view.GamePanel implements model.RoundObserver, model.GameObserver{
-    + GamePanel(roundController : RoundController, gameController : GameController)
-    + reactToAttempt(combination : Combination, hintLine : HintLine)
-    + reactToRoundEnd(roundWon : Boolean, score : Integer)
-    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer, combinationLength : Integer)
-    + reactToGameEnd(score : Integer)
-}
-
-class view.StartPanel {
-    + StartPanel(manager : GameController)
-}
-
-class view.EndPanel implements model.GameObserver {
-    + EndPanel(manager : GameController)
-    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer, combinationLength : Integer)
-    + reactToGameEnd(score : Integer)
-}
-
-interface model.RoundObserver {
-    + reactToAttempt(combination : Combination, hintLine : HintLine)
-    + reactToRoundEnd(roundWon : Boolean, score : Integer)
 }
 
 enum model.Pawn {
@@ -77,57 +103,27 @@ class model.Round {
     - notifyRoundEnd(roundWon : Boolean, score : Integer)
 }
 
-class model.Settings {
-    + Settings(attemptNumber : Integer, combinationLength : Integer, pawnNumber : Integer, mode : Mode, playerName String)
-    - attemptNumber : Integer
-    - combinationLength : Integer
-    - pawnNumber : Integer
-    - playerName : String
-    + getAttemptNumber() : Integer
-    + getCombinationLength() : Integer
-    + getPawnNumber() : Integer
-    + getMode() : Mode
+interface model.RoundObserver {
+    + reactToAttempt(attemptID Integer, hintLine : HintLine)
+    + reactToRoundEnd(roundWon : Boolean, score : Integer, secretCombination Combination)
 }
 
 class model.SecretCombination extends model.Combination{
     + <<create>> SecretCombination(combinationLength : Integer, pawnNumber : Integer))
 }
 
-class model.Combination {
-    + Combination(pawns : Pawn[])
-    + setPawns(pawns : Pawn[])
-    + getPawn(index : Integer) : Pawn
+class model.Settings {
+    - attemptNumber : Integer
+    - combinationLength : Integer
+    - pawnNumber : Integer
+    - playerName : String
+    + Settings(attemptNumber : Integer, combinationLength : Integer, pawnNumber : Integer, mode : Mode, playerName String)
+    + getAttemptNumber() : Integer
+    + getPlayeurName() : String
+    + setMode(mode : Mode)
     + getCombinationLength() : Integer
-    + containsPawn(pawn : Pawn) : Boolean
-}
-
-class model.HintLine {
-    + HintLine(combination : Combination, secretCombination : SecretCombination)
-    + getHint(index : Integer) : Hint
-    + perfectMatch() : Boolean
-    + hintLineLength() : Integer
-}
-
-class model.Game {
-    - score : Integer
-    - roundNumber : Integer
-    + Game(settings : Settings, roundNumber : Integer)
-    + nextRound() : Round
-    + getFinalScore() : Integer
-    + addObserver(observer : GameObserver)
-    - notifyGameStart()
-    - notifyGameEnd()
-}
-
-enum model.Hint {
-    + RIGHT_PLACE
-    + WRONG_PLACE
-    + ABSENT
-}
-
-class model.GameObserver {
-    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer, combinationLength : Integer)
-    + reactToGameEnd(score : Integer)
+    + getPawnNumber() : Integer
+    + getMode() : Mode
 }
 
 class view.MastermindWindow {
@@ -135,69 +131,111 @@ class view.MastermindWindow {
     + showStartPanel()
     + showGamePanel()
     + showEndPanel()
+    + getStartPanel() : StartPanel
+    + getGamePanel() : GamePanel
+    + getEndPanel() : EndPanel
+}
+
+class view.StartPanel {
+    + StartPanel(gameController : GameController)
+    + setSlider(slider Jslider)
+    + getMode(indexCB : Integer) : Mode
+}
+note left{
+je suis pas sûre pour le setSlider comme il à un Jslider en argument
+}
+
+class view.GamePanel implements model.RoundObserver, model.GameObserver{
+    + GamePanel(roundController : RoundController, gameController : GameController)
+    - resizeImage(image : ImageICon, height : Integer, width : Integer) : ImageICon
+    + reactToAttempt(attemptId : Integer, hintLine : HintLine)
+    + reactToRoundEnd(roundWon : Boolean, score : Integer, secretCombination, Combination)
+    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer, combinationLength : Integer, mode : Mode)
+    + reactToGameEnd(score : Integer, rounds Round[], playeurName : String)
+}
+
+class view.EndPanel implements model.GameObserver, model.RoundObserver {
+    + EndPanel(gameController : GameController)
+    - resizeImage(image : ImageICon, height : Integer, width : Integer) : ImageICon
+    + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer, combinationLength : Integer, mode : Mode)
+    + reactToGameEnd(score : Integer, rounds : Rounds[], playeurName : String)
+    + reactToAttempt(attemptId : Integer, hintLine : HintLine)
+    + reactToRoundEnd(roundWon : Boolean, score : Integer, secretCombination : Combination)
 }
 
 class view.GameBoard {
-    + GameBoard(attemptNumber : Integer, pawnNumber : Integer, combinationLength : Integer)
+    - selectedColor : Color
+    - inactiveColor : Color
+    - defaultColor : Color
+    - currentAttempt : Integer
+    + GameBoard(combinationLength : Integerattempt, attemptNumber : Integer, pawnNumber : Integer)
+    + setUpPalette(palette : CombinationBox)
+    + prepareAttempt(attemptId : Integer)
+    + setHints(hintsId : Integer, colors : Color[])
+    + getCombination() : Pawn[]
+    + getColor() : Color[]
+    + resetBoard()
+
 }
 
-abstract class view.HintBox extends view.MastermindBox{
+class view.RecapRound{
+    + RecapRound(roundId : Integer, colors : Color[], score : Integer, victory : Boolean)
+}
 
+class view.Circle {
+    - color : Color
+    - diameter : Integer
+    + Circle(diameter : Integer, color : Color)
+    + setColor(color : Color)
+    + getColor() : Color
+}
+note bottom{
+Alors est-ce que l'on met la méthode dans la méthode ?
+du type dans Circle on a une méthode paintBorder ou encore getBorderInsets et autre...
+et je suppose que l'on ne mais pas la méthode paintComponent qui est @Override de Jpanel
+}
+
+abstract class view.HintBox {
+    {static} + defaultColor : Color
+    {abstract} + setHintsColor(colors : Color[])
 }
 
 class view.NumericHintBox extends view.HintBox {
-    + NumericHintBox(int combinationLenght)
+    + NumericHintBox(combinationLenght : Integer)
 }
 
 class view.ClassicHintBox extends view.HintBox {
-    + ClassicHintBox(int combinationLenght)
+    + ClassicHintBox(combinationLenght : Integer)
+    + setHintsColors(colors : Color[])
 }
 
 class view.EasyHintBox extends view.HintBox {
-    + EasyHintBox(int combinationLenght)
+    + EasyHintBox(combinationLenght : Integer)
 }
 
-class view.CombinationBox extends view.MastermindBox {
-    + CombinationBox(int combinationLenght)
+class view.CombinationBox {
+    + CombinationBox(combinationLenght : Integer, defaultColor : Color)
+    + CombinationBox(colors : Color[])
+    + setPawnColor(n : Integer, color : Color)
+    + setClickEvent(mouseAdapteur : MouseAdapteur)
+    + unsetClickEvent()
+}
+note bottom{
+J'ai mis setClickEvent et unsetClickEvent car il ne sont pas Override
+mais pour setEnable comme il est Override je l'ai pas mis mais je ne suis pas sûre à 100%
 }
 
-class view.MastermindBox {
-    + {static} defaultColor : Integer
-    + createRoundPanel(diameter : Integer, color : Integer, option : Integer) : JPanel
+interface view.HintDisplayMode {
+    + convertHintLine(hintLine : HintLine) : Color[]
 }
 
-class MastermindApp {
-    + {static} main(args : String[])
+class view.ClassicMode implements view.HintDisplayMode {
+    + convertHintLine(hintLine : HintLine) : Color[]
 }
 
-model.Game o--> "1\n-settings" model.Settings : Configure <
-model.Game *---> "1 .. 5\n-rounds" model.Round : contient >
-model.Game o--> "*\n-observers" model.GameObserver
-model.Round o--> "1\n-settings" model.Settings : Configure <
-model.Round *--> "1\n-secretCombination" model.SecretCombination : conserve >
-model.Round o--> "1 .. 12\n-attempts" model.Combination : garde >
-model.Round o-> "1 .. 12\n-hintLines" model.HintLine : > garde
-model.Round ..> "<<uses>>" model.Hint
-model.Round ..> "<<uses>>" model.Mode
-model.Round o--> "*\n-observers" model.RoundObserver
-model.Settings o--> "1\n-mode" model.Mode : influence <
-model.HintLine o-> "2 .. 6\n-hints" model.Hint : contient >
-model.Combination o--> "2 .. 6\n-pawns" model.Pawn : compose <
-
-controller.GameController ..> "<<uses>>" model.Settings
-controller.GameController o--> "1\n-roundController" controller.RoundController
-controller.GameController o-> "1\n-game" model.Game : gère >
-controller.RoundController o-> "1\n-round" model.Round : gère >
-controller.RoundController ..> "<<uses>>" model.Combination
-controller.RoundController ..> "<<uses>>" model.Pawn
-
-view.GamePanel o--> "1\n-displayer" view.HintDisplayMode : utilise >
-view.MastermindWindow o-> "1\n-gamePanel" view.GamePanel : contient >
-view.MastermindWindow o-> "1\n-startPanel" view.StartPanel : contient >
-view.MastermindWindow o--> "1\n-endPanel" view.EndPanel : contient >
-view.StartPanel ..> "<<uses>>" model.Mode
-view.GameBoard *--> "*\n-attempts" CombinationBox
-view.GameBoard *--> "*\n-hints" HintBox
+class view.EasyMode implements view.HintDisplayMode {
+    + convertHintLine(hintLine : HintLine) : Color[]
+}
 
 MastermindApp ..> "<<uses>>" view.MastermindWindow
 MastermindApp ..> "<<uses>>" view.EndPanel
@@ -206,5 +244,46 @@ MastermindApp ..> "<<uses>>" view.GamePanel
 MastermindApp ..> "<<uses>>" model.Game
 MastermindApp ..> "<<uses>>" controller.GameController
 MastermindApp ..> "<<uses>>" controller.RoundController
+
+controller.GameController ..> "<<uses>>" model.Settings
+controller.GameController o--> "1\n-roundController" controller.RoundController : voie >
+controller.GameController o--> "1\n-window" view.MastermindWindow : dirige >
+controller.GameController o-> "1\n-game" model.Game : gère >
+controller.RoundController o-> "1\n-round" model.Round : gère >
+controller.RoundController ..> "<<uses>>" model.Combination
+controller.RoundController ..> "<<uses>>" model.Pawn
+
+model.Game o--> "1\n-settings" model.Settings : Configure <
+model.Game *---> "1 .. 5\n-rounds" model.Round : contient >
+model.Game o--> "*\n-observers" model.GameObserver
+model.Round o--> "1\n-settings" model.Settings : Configure <
+model.Round *--> "1\n-secretCombination" model.SecretCombination : conserve >
+model.Round o--> "1 .. 12\n-attempts" model.Combination : garde >
+model.Round o--> "1 .. 12\n-hintLines" model.HintLine : > garde
+model.Round ..> "<<uses>>" model.Hint
+model.Round ..> "<<uses>>" model.Mode
+model.Round o--> "*\n-observers" model.RoundObserver
+model.Settings o--> "1\n-mode" model.Mode : influence <
+model.HintLine o-> "2 .. 6\n-hints" model.Hint : contient >
+model.Combination o--> "2 .. 6\n-pawns" model.Pawn : compose <
+
+view.MastermindWindow o-> "1\n-gamePanel" view.GamePanel : contient >
+view.MastermindWindow o-> "1\n-startPanel" view.StartPanel : contient >
+view.MastermindWindow o--> "1\n-endPanel" view.EndPanel : contient >
+view.StartPanel ..> "<<uses>>" model.Mode
+view.EndPanel ..> "<<uses>>" view.RecapRound
+view.EndPanel o--> "1\n-gameControlleur" controller.GameController : utilise >
+note right{
+On doit aussi mettre un uses avec rounds ? car on à List<Round> rounds à un moment ?
+}
+view.GamePanel o--> "1\n-displayer" view.HintDisplayMode : utilise >
+view.GamePanel o--> "1\n-gameBoard" view.GameBoard : utilise >
+view.GamePanel o--> "1\n-gameControlleur" controller.GameController : utilise >
+view.GamePanel ..> "<<uses>>" controller.RoundController
+view.GameBoard ..> "<<uses>>" view.Circle
+view.GameBoard ..> "<<uses>>" model.Pawn
+view.GameBoard *--> "*\n-attempts" CombinationBox
+view.GameBoard *--> "*\n-hints" HintBox
+view.ClassicHintBox ..> "uses" view.Circle
 
 @enduml

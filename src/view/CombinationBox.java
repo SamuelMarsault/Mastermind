@@ -1,17 +1,13 @@
 package view;
 
-import model.Combination;
-
 import javax.swing.*;
-import javax.swing.border.AbstractBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.List;
 
 public class CombinationBox extends JPanel {
     private Color defaultColor;
+
     public CombinationBox(int combinationLenght, Color defaultColor){
         this.defaultColor = defaultColor;
         setLayout(new FlowLayout());
@@ -26,7 +22,7 @@ public class CombinationBox extends JPanel {
 
     public CombinationBox(Color[] colors) {
         setLayout(new FlowLayout());
-        int diameter = 35;
+        int diameter = 32;
         for (int i = 0; i < colors.length; i++) {
             Circle circle = new Circle(diameter, colors[i]);
             circle.setPreferredSize(new Dimension(diameter, diameter));
@@ -41,10 +37,12 @@ public class CombinationBox extends JPanel {
             circle.setColor(color);
         }
     }
+
     public void setClickEvent(MouseAdapter mouseAdapter){
         for (Component component : getComponents())
             component.addMouseListener(mouseAdapter);
     }
+
     public void unsetClickEvent(){
         for (Component component : getComponents()) {
             for (MouseListener l : component.getMouseListeners())

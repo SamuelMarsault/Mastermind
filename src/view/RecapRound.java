@@ -1,11 +1,10 @@
 package view;
 
-import model.Combination;
-
 import javax.swing.*;
 import java.awt.*;
 
 public class RecapRound extends JPanel {
+    
     public RecapRound(int roundId, Color[] colors, int score, boolean victory){
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -17,7 +16,7 @@ public class RecapRound extends JPanel {
         constraints.gridy = 0;
         JLabel roundLabel = new JLabel("Round "+roundId);
         roundLabel.setHorizontalAlignment(JLabel.CENTER);
-        roundLabel.setFont(new Font("Arial",Font.PLAIN,22));
+        roundLabel.setFont(new Font("Arial",Font.PLAIN,20));
         add(roundLabel, constraints);
         constraints.gridwidth = 3;
         constraints.gridx = 0;
@@ -28,13 +27,13 @@ public class RecapRound extends JPanel {
         constraints.gridy = 2;
         JLabel scoreLabel = new JLabel("score : "+score);
         scoreLabel.setHorizontalAlignment(JLabel.CENTER);
-        scoreLabel.setFont(new Font("Arial",Font.PLAIN,16));
+        scoreLabel.setFont(new Font("Arial",Font.PLAIN,14));
         add(scoreLabel, constraints);
         constraints.gridy = 3;
         JLabel victoryLabel = new JLabel();
         if(victory) victoryLabel.setText("Victoire");
         else victoryLabel.setText("Défaite");
-        victoryLabel.setFont(new Font("Arial",Font.PLAIN,20));
+        victoryLabel.setFont(new Font("Arial",Font.PLAIN,18));
         victoryLabel.setHorizontalAlignment(JLabel.CENTER);
         add(victoryLabel, constraints);
         setVisible(true);

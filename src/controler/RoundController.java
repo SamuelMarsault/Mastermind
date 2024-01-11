@@ -13,11 +13,6 @@ import java.util.List;
 public class RoundController {
     private Round round;
     private ArrayList<RoundObserver> roundObservers = new ArrayList<>();
-    private MastermindWindow window;
-
-    public void setWindow(MastermindWindow window){
-        this.window = window;
-    }
 
     public void addRoundObserver(RoundObserver observer) { roundObservers.add(observer);}
 

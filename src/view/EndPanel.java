@@ -3,17 +3,16 @@ package view;
 import controler.GameController;
 import model.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class EndPanel extends JPanel implements GameObserver, RoundObserver {
-    private GameController gameController;
     private JLabel scoreLabel;
     private JLabel ggLabel;
     private JPanel scrollPanel;
+    private GameController gameController;
 
     public EndPanel(GameController gameController){
         this.gameController = gameController;
@@ -44,16 +43,20 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
         add(northPanel, BorderLayout.NORTH);
 
         JPanel scorePanel = new JPanel();
-        scorePanel.setLayout(new BoxLayout(scorePanel,BoxLayout.Y_AXIS));
+        scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.Y_AXIS));
         scrollPanel = new JPanel();
-        scrollPanel.setLayout(new GridLayout(0,2));
+        GridLayout gridLayout = new GridLayout(0, 2);
+        gridLayout.setHgap(8);
+        scrollPanel.setLayout(gridLayout);
+        
         scoreLabel = new JLabel();
         scoreLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        //scorePanel.setBorder(BorderFactory.createEmptyBorder(300, 0, 0, 0));
+        
         scorePanel.add(new JScrollPane(scrollPanel));
         scorePanel.add(scoreLabel);
         add(scorePanel, BorderLayout.CENTER);
+        
 
         //Mettre potentiellement les stats ici
 
@@ -62,13 +65,20 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
         menuButton.addActionListener(actionEvent -> {
             gameController.returnToMenu();
         });
-
         buttonPanel.add(menuButton);
+
+        JButton exitButton = new JButton(resizeImage(new ImageIcon("image_jeu/exit.png"),40,40));
+        exitButton.addActionListener(actionEvent -> {
+            System.exit(0);
+        });
+        buttonPanel.add(Box.createHorizontalStrut(223)); //Trouver meilleure méthode plus tard et augmenter taille boutton
+        buttonPanel.add(exitButton);
+        
         JButton restartButton = new JButton(resizeImage(new ImageIcon("image_jeu/restart.png"),40,40));
         restartButton.addActionListener(actionEvent -> {
             gameController.resetGame();
         });
-        buttonPanel.add(Box.createHorizontalStrut(530)); //Trouver meilleure méthode plus tard et augmenter taille boutton
+        buttonPanel.add(Box.createHorizontalStrut(223)); //Trouver meilleure méthode plus tard et augmenter taille boutton
         buttonPanel.add(restartButton);
         add(buttonPanel, BorderLayout.SOUTH);
         setVisible(true);
@@ -86,6 +96,12 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
 
     @Override
     public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght, Mode mode) {
+        if (gameController.getRoundNumber() == 5){
+                scrollPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 100, 0));
+        }
+        else{
+                scrollPanel.setBorder(BorderFactory.createEmptyBorder(160, 0, 160, 0));
+        }
         scrollPanel.removeAll();
     }
 

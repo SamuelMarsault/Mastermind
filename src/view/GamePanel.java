@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JLayeredPane implements RoundObserver,GameObserver {
-    private Color selectedColor;
     private JPanel gamePanel;
     private GameBoard gameBoard;
     private JLabel currentRoundLabel;
@@ -19,6 +18,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
     private HintDisplayMode displayMode;
     private JPanel popUp;
     private GameController gameController;
+    
     public GamePanel(RoundController roundController, GameController gameController){
         setLayout(new BorderLayout());
         JLayeredPane jLayeredPane = new JLayeredPane();

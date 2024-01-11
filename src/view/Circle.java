@@ -3,13 +3,11 @@ package view;
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class Circle extends JPanel {
     private Color color;
     private int diameter;
+
     public Circle(int diameter, Color color){
         this.color = color;
         this.diameter = diameter;
@@ -35,6 +33,7 @@ public class Circle extends JPanel {
                 }
             });
     }
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

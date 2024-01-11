@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private int score;
     private int roundNumber;
     private List<Round> rounds;
     private Settings settings;
     private List<GameObserver> observers = new ArrayList<>();
+
     public Game(){
     }
 
@@ -38,6 +38,7 @@ public class Game {
         }
         return score;
     }
+    
     public void restartGame(){
         configureGame(settings, roundNumber);
     }
@@ -57,5 +58,9 @@ public class Game {
         for (GameObserver observer:observers) {
             observer.reactToGameEnd(score, rounds, settings.getPlayerName());
         }
+    }
+
+    public int getRoundNumber(){
+        return this.roundNumber;
     }
 }

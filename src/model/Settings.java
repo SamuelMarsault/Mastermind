@@ -6,6 +6,7 @@ public class Settings {
     private int pawnNumber;
     private Mode mode;
     private String playerName;
+    
     public Settings(int attemptNumber, int combinationLength, int pawnNumber, Mode mode, String playerName){
         this.attemptNumber = attemptNumber;
         this.combinationLength = combinationLength;

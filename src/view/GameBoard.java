@@ -1,7 +1,5 @@
 package view;
 
-import model.Combination;
-import model.HintLine;
 import model.Pawn;
 
 import javax.swing.*;
@@ -16,6 +14,7 @@ public class GameBoard extends JPanel {
     private Color defaultColor = Color.WHITE;
     private JPanel attemptPanel;
     private int currentAttempt;
+    
     public GameBoard(int combinationLenght, int attemptNumber, int pawnNumber) {
         setLayout(new BorderLayout());
 

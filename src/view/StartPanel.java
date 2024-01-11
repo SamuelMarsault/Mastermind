@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class StartPanel extends JPanel {
+    
     public StartPanel(GameController gameController) {
         setLayout(new BorderLayout());
 
