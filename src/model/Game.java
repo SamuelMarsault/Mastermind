@@ -59,8 +59,4 @@ public class Game {
             observer.reactToGameEnd(score, rounds, settings.getPlayerName());
         }
     }
-
-    public int getRoundNumber(){
-        return this.roundNumber;
-    }
 }

@@ -46,8 +46,4 @@ public class GameController {
     public void returnToMenu(){
         window.showStartPanel();
     }
-
-    public int getRoundNumber(){
-        return game.getRoundNumber();
-    }
 }

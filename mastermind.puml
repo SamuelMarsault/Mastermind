@@ -17,7 +17,6 @@ class controller.GameController {
     + giveUpRound()
     + endGame()
     + returnToMenu()
-    + getRoundNumber() : Integer
 }
 
 class controller.RoundController {
@@ -49,7 +48,6 @@ class model.Game {
     + addObserver(observer : GameObserver)
     - notifyGameStart()
     - notifyGameEnd()
-    + getRoundNumber() : Integer
 }
 
 class model.GameObserver {
@@ -272,7 +270,7 @@ view.MastermindWindow o-> "1\n-startPanel" view.StartPanel : contient >
 view.MastermindWindow o--> "1\n-endPanel" view.EndPanel : contient >
 view.StartPanel ..> "<<uses>>" model.Mode
 view.EndPanel ..> "<<uses>>" view.RecapRound
-view.EndPanel o--> "1\n-gameControlleur" controller.GameController : utilise >
+view.EndPanel ..> "<<uses>>" controller.GameController
 note right{
 On doit aussi mettre un uses avec rounds ? car on à List<Round> rounds à un moment ?
 }

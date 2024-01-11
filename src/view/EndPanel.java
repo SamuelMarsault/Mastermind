@@ -12,10 +12,8 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
     private JLabel scoreLabel;
     private JLabel ggLabel;
     private JPanel scrollPanel;
-    private GameController gameController;
 
     public EndPanel(GameController gameController){
-        this.gameController = gameController;
         setLayout(new BorderLayout());
 
         JPanel northPanel = new JPanel(new GridLayout(0, 1));
@@ -96,7 +94,7 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
 
     @Override
     public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght, Mode mode) {
-        if (gameController.getRoundNumber() == 5){
+        if (roundNumber == 5){
                 scrollPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 100, 0));
         }
         else{
