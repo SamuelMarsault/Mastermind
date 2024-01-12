@@ -6,6 +6,10 @@ import model.Mode;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import java.awt.*;
 
@@ -160,8 +164,22 @@ public class StartPanel extends JPanel {
         slider.setPaintTicks(true);
         slider.setPaintTrack(true);
         slider.setMajorTickSpacing(1); 
-        slider.setMinorTickSpacing(1); 
-        slider.setSnapToTicks(true);
+        slider.setSnapToTicks(false);
+        slider.setMinorTickSpacing(1);
+        slider.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    int mouseX = e.getX();
+                    int totalTicks = slider.getMaximum() - slider.getMinimum();
+                    int tickSpacing = slider.getMajorTickSpacing();
+                    int selectedTick = Math.round((float) mouseX / (float) slider.getWidth() * totalTicks / tickSpacing);
+                    int value = slider.getMinimum() + selectedTick * tickSpacing;
+    
+                    slider.setValue(value);
+                }
+            }
+        });
     }
 
     public Mode getMode(int indexCB){
