@@ -42,14 +42,16 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
         scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.Y_AXIS));
         scrollPanel = new JPanel();
         GridLayout gridLayout = new GridLayout(0, 2);
-        gridLayout.setHgap(8);
+        gridLayout.setHgap(20);
         scrollPanel.setLayout(gridLayout);
         
         scoreLabel = new JLabel();
         scoreLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        scorePanel.add(new JScrollPane(scrollPanel));
+        JScrollPane jScrollPane = new JScrollPane(scrollPanel);
+        jScrollPane.setBorder(BorderFactory.createEmptyBorder(0,50,0,50));
+        scorePanel.add(jScrollPane);
         add(scorePanel, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -91,13 +93,7 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
 
     @Override
     public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght, Mode mode) {
-        if (roundNumber == 5){
-            scrollPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 100, 0));
-        }
-        else{
-            scrollPanel.setBorder(BorderFactory.createEmptyBorder(160, 0, 160, 0));
-        }
-        scrollPanel.setBorder(BorderFactory.createEmptyBorder(160, 0, 160, 0));
+        scrollPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 100, 0));
         scrollPanel.removeAll();
     }
 

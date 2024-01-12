@@ -230,7 +230,6 @@ public class StartPanel extends JPanel {
                 .addComponent(nbPawnLengthLabel)
                 .addComponent(nbAttemptsLabel)
                 .addComponent(modeLabel))
-        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                 .addComponent(nameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addComponent(roundSlider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
