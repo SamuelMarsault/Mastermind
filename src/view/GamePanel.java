@@ -54,6 +54,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         gameConstraints.gridy = 2;
         gameConstraints.gridwidth = 1;
         JButton giveUpButton = new JButton(resizeImage(new ImageIcon("image_jeu/give_up.png"),25,25));
+        giveUpButton.setCursor(new Cursor(12));
         giveUpButton.addActionListener(actionEvent -> {
             gameController.giveUpRound();
         });
@@ -61,6 +62,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
 
         gameConstraints.gridx = 2;
         JButton validateButton = new JButton(resizeImage(new ImageIcon("image_jeu/check.png"),25,25));
+        validateButton.setCursor(new Cursor(12));
         validateButton.addActionListener(actionEvent -> {
             Color[] colors = gameBoard.getColor();
             boolean hasIncompleteCombination = false;

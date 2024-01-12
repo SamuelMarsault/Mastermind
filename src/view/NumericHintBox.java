@@ -8,6 +8,7 @@ public class NumericHintBox extends HintBox{
     private JLabel wrongPlacedPawns = new JLabel("0");
     private Color rightPlacedColor;
     private Color wrongPlacedColor;
+
     public NumericHintBox(Color rightPlacedColor, Color wrongPlacedColor) {
         setLayout(new FlowLayout());
         this.rightPlacedColor = rightPlacedColor;
@@ -19,6 +20,7 @@ public class NumericHintBox extends HintBox{
         add(wrongPlacedPawns);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
+    
     @Override
     public void setHintsColor(Color[] colors) {
         int rightPlaced = 0;

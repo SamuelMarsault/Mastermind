@@ -199,7 +199,10 @@ abstract class view.HintBox {
 }
 
 class view.NumericHintBox extends view.HintBox {
-    + NumericHintBox(combinationLenght : Integer)
+    - rightPlacedColor : Color
+    - wrongPlacedColor : Color
+    + NumericHintBox(rightPlacedColor : Color, wrongPlacedColor : Color)
+    + setHintsColors(colors : Color[])
 }
 
 class view.ClassicHintBox extends view.HintBox {

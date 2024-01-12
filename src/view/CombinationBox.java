@@ -6,14 +6,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 
 public class CombinationBox extends JPanel {
-    private Color defaultColor;
 
     public CombinationBox(int combinationLenght, Color defaultColor){
-        this.defaultColor = defaultColor;
         setLayout(new FlowLayout());
         int diameter = 35;
         for (int i = 0; i < combinationLenght; i++) {
             Circle circle = new Circle(diameter, defaultColor);
+            circle.setCursor(new Cursor(12));
             circle.setPreferredSize(new Dimension(diameter, diameter));
             add(circle);
         }
