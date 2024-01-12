@@ -207,9 +207,9 @@ public class StartPanel extends JPanel {
         modeList.setFixedCellHeight(21);
         modeList.setVisibleRowCount(mode.length);
         modeList.setSelectionBackground(Color.LIGHT_GRAY);
-        //modeList.setPreferredSize();
-        modeList.setSize(new Dimension(200, modeList.getPreferredSize().height));
-
+        modeList.setPreferredSize(new Dimension(200, modeList.getPreferredSize().height));
+        modeList.setValueIsAdjusting(true);
+        modeList.setFixedCellWidth(200);
 
         JButton button = new JButton("Next");
         button.setFont(new Font("Arial", Font.PLAIN, 20));
