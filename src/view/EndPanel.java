@@ -49,20 +49,19 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
         scoreLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        scorePanel.add(scoreLabel);
+        scorePanel.add(new JScrollPane(scrollPanel));
         add(scorePanel, BorderLayout.CENTER);
-        
-
-        //Mettre potentiellement les stats ici
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton menuButton = new JButton(resizeImage(new ImageIcon("image_jeu/house.png"),40,40));
+        menuButton.setCursor(new Cursor(12));
         menuButton.addActionListener(actionEvent -> {
             gameController.returnToMenu();
         });
         buttonPanel.add(menuButton);
 
         JButton exitButton = new JButton(resizeImage(new ImageIcon("image_jeu/exit.png"),40,40));
+        exitButton.setCursor(new Cursor(12));
         exitButton.addActionListener(actionEvent -> {
             System.exit(0);
         });
@@ -70,6 +69,7 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
         buttonPanel.add(exitButton);
         
         JButton restartButton = new JButton(resizeImage(new ImageIcon("image_jeu/restart.png"),40,40));
+        restartButton.setCursor(new Cursor(12));
         restartButton.addActionListener(actionEvent -> {
             gameController.resetGame();
         });
@@ -91,6 +91,12 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
 
     @Override
     public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght, Mode mode) {
+        if (roundNumber == 5){
+            scrollPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 100, 0));
+        }
+        else{
+            scrollPanel.setBorder(BorderFactory.createEmptyBorder(160, 0, 160, 0));
+        }
         scrollPanel.setBorder(BorderFactory.createEmptyBorder(160, 0, 160, 0));
         scrollPanel.removeAll();
     }

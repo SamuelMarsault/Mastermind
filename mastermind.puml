@@ -184,7 +184,9 @@ abstract class view.HintBox {
 }
 
 class view.NumericHintBox extends view.HintBox {
-    + NumericHintBox(rightPlacedColor : Integer, wrongPlacedColor : Integer)
+    - rightPlacedColor : Color
+    - wrongPlacedColor : Color
+    + NumericHintBox(rightPlacedColor : Color, wrongPlacedColor : Color)
     + setHintsColors(colors : Color[])
 }
 
@@ -224,7 +226,7 @@ MastermindApp ..> "<<uses>>" controller.RoundController
 controller.GameController ..> "<<uses>>" model.Settings
 controller.GameController o--> "1\n-roundController" controller.RoundController : voie >
 controller.GameController o--> "1\n-window" view.MastermindWindow : dirige >
-controller.GameController o--> "1\n-game" model.Game : gère >
+controller.GameController o-> "1\n-game" model.Game : gère >
 controller.RoundController o-> "1\n-round" model.Round : gère >
 controller.RoundController ..> "<<uses>>" model.Combination
 controller.RoundController ..> "<<uses>>" model.Pawn
