@@ -4,17 +4,14 @@ import controler.GameController;
 import model.Mode;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import java.awt.*;
 
 public class StartPanel extends JPanel {
-    private int verticalGap = 70; // Hauteur initiale
+    private int verticalGap = 70; 
     private GroupLayout layout;
     private GroupLayout.SequentialGroup vGroup;
 
@@ -35,13 +32,6 @@ public class StartPanel extends JPanel {
 
     public StartPanel(GameController gameController) {
         setLayout(new BorderLayout());
-
-        /*
-        String[] fontNames = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-        System.out.println("Liste des polices disponibles sur votre système :");
-        for (String fontName : fontNames) {
-            System.out.println(fontName);
-        }*/
 
         JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         startLabel = new JLabel("Mastermind");

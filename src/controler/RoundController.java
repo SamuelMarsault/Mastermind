@@ -4,11 +4,8 @@ import model.Combination;
 import model.Pawn;
 import model.Round;
 import model.RoundObserver;
-import view.GamePanel;
-import view.MastermindWindow;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RoundController {
     private Round round;

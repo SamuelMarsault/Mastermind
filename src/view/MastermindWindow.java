@@ -1,9 +1,5 @@
 package view;
 
-import controler.GameController;
-import controler.RoundController;
-import model.GameObserver;
-
 import javax.swing.*;
 import java.awt.*;
 

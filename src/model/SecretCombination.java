@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 public class SecretCombination extends Combination{
+    
     public SecretCombination(int combinationLength, int pawnNumber){
         super(null);
         Pawn[] pawns = new Pawn[combinationLength];

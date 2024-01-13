@@ -125,12 +125,12 @@ class view.MastermindWindow {
 }
 
 class view.StartPanel {
+    - verticalGap : Integer
     + StartPanel(gameController : GameController)
+    - updateVerticalGap
+    + setSizeWindow(size : Integer)
     + setSlider(slider Jslider)
     + getMode(indexCB : Integer) : Mode
-}
-note left{
-je suis pas sûre pour le setSlider comme il à un Jslider en argument
 }
 
 class view.GamePanel implements model.RoundObserver, model.GameObserver{
@@ -252,7 +252,7 @@ view.MastermindWindow o--> "1\n-endPanel" view.EndPanel : contient >
 view.StartPanel ..> "<<uses>>" model.Mode
 view.EndPanel ..> "<<uses>>" view.RecapRound
 view.EndPanel ..> "<<uses>>" controller.GameController
-view.GamePanel o--> "1\n-displayer" view.HintDisplayMode : utilise >
+view.GamePanel o--> "1\n-displayMode" view.HintDisplayMode : utilise >
 view.GamePanel o--> "1\n-gameBoard" view.GameBoard : utilise >
 view.GamePanel o--> "1\n-gameControlleur" controller.GameController : utilise >
 view.GamePanel ..> "<<uses>>" controller.RoundController
