@@ -7,7 +7,7 @@ public class HintLine {
     private Hint[] hints;
     
     /**
-     * 
+     * HintLine builder (creates an Hint line)
      * @param combination
      * @param secretCombination
      */
@@ -67,7 +67,7 @@ public class HintLine {
     }
 
     /**
-     * 
+     * Recovers an Hint relative to its index
      * @param index
      * @return hints[index]
      */
@@ -76,7 +76,7 @@ public class HintLine {
     }
     
     /**
-     * 
+     * Finds out if a pawn is in the right place
      * @return match
      */
     public boolean perfectMatch(){
@@ -88,7 +88,7 @@ public class HintLine {
     }
 
     /**
-     * 
+     * Retrieves the size of an HintLine
      * @return hints.length
      */
     public int hintLineLength(){

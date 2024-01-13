@@ -8,7 +8,7 @@ import java.util.Random;
 public class SecretCombination extends Combination{
     
     /**
-     * 
+     * Creates a round's secret combination
      * @param combinationLength
      * @param pawnNumber
      */

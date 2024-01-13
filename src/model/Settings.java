@@ -8,7 +8,7 @@ public class Settings {
     private String playerName;
     
     /**
-     * 
+     * Setting builder (retrieves the options defined in startPanel and saves them)
      * @param attemptNumber
      * @param combinationLength
      * @param pawnNumber
@@ -24,7 +24,7 @@ public class Settings {
     }
 
     /**
-     * 
+     * Retrieves the number of attempts for each round of the game
      * @return attemptNumber
      */
     public int getAttemptNumber() {
@@ -32,7 +32,7 @@ public class Settings {
     }
 
     /**
-     * 
+     * Retrieves the player's name
      * @return playerName
      */
     public String getPlayerName() {
@@ -40,7 +40,7 @@ public class Settings {
     }
 
     /**
-     * 
+     * Set game mode (Hint)
      * @param mode
      */
     public void setMode(Mode mode){
@@ -48,7 +48,7 @@ public class Settings {
     }
     
     /**
-     * 
+     * Retrieves the size of the combination
      * @return combinationLength
      */
     public int getCombinationLength() {
@@ -56,7 +56,7 @@ public class Settings {
     }
 
     /**
-     * 
+     * Recovers the number of pawns available at the end of an attempt
      * @return pawnNumber
      */
     public int getPawnNumber() {
@@ -64,7 +64,7 @@ public class Settings {
     }
 
     /**
-     * 
+     * Recovers the game's mode (Hint)
      * @return mode
      */
     public Mode getMode() {

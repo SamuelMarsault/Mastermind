@@ -11,7 +11,7 @@ public class Round {
     private Settings settings;
 
     /**
-     * 
+     * Round builder (set the Round)
      * @param settings
      */
     public Round(Settings settings){
@@ -22,7 +22,7 @@ public class Round {
     }
 
     /**
-     * 
+     * Checks whether the combination is correct
      * @param combination
      * @return perfectMatch
      */
@@ -37,7 +37,7 @@ public class Round {
     }
     
     /**
-     * 
+     * Set the round score
      * @return score
      */
     public int computeScore(){
@@ -54,14 +54,14 @@ public class Round {
     }
     
     /**
-     * 
+     * Abandons the current round
      */
     public void giveUpRound(){
         notifyRoundEnd(false,computeScore());
     }
 
     /**
-     * 
+     * Add classes to observe
      * @param observer
      */
     public void addObserver(RoundObserver observer){
@@ -69,7 +69,7 @@ public class Round {
     }
 
     /**
-     * 
+     * Warns of the end of a verification attempt
      */
     private void notifyAttempt(){
         int index = attemps.size()-1;
@@ -79,7 +79,7 @@ public class Round {
     }
 
     /**
-     * 
+     * Tells you when the round is over
      * @param roundWon
      * @param score
      */

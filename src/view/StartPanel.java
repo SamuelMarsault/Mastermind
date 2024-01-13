@@ -62,7 +62,8 @@ public class StartPanel extends JPanel {
         nameTextField = new JTextField();
         nameTextField.setColumns(13);
         nameTextField.setFont(new Font("Constantia", Font.PLAIN, 16));
-        nameTextField.setText("Anonyme");
+        nameTextField.setText(System.getProperty("user.name"));
+        //System.getenv("COMPUTERNAME"); Pour le nom de l'ordi
 
         nbRoundLabel = new JLabel("Nombre de rounds :");
         nbRoundLabel.setFont(labelFont);

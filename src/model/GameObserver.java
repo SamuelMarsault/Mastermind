@@ -1,9 +1,9 @@
 package model;
 
 public interface GameObserver {
-    
+
     /**
-     * 
+     * Is called when the game starts 
      * @param roundNumber
      * @param attemptNumber
      * @param pawnNumber
@@ -13,7 +13,7 @@ public interface GameObserver {
     public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght, Mode mode);
 
     /**
-     * 
+     * Is colled when the game end
      * @param score
      * @param playerName
      */

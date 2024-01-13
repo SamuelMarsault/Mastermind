@@ -10,13 +10,13 @@ public class Game {
     private List<GameObserver> observers = new ArrayList<>();
 
     /**
-     * 
+     * Game buildeur
      */
     public Game(){
     }
 
     /**
-     * 
+     * Allows you to configure the game at launch 
      * @param settings
      * @param roundNumber
      */
@@ -28,7 +28,7 @@ public class Game {
     }
 
     /**
-     * 
+     * Move on to the next round
      * @return round or null
      */
     public Round nextRound(){
@@ -44,7 +44,7 @@ public class Game {
     }
 
     /**
-     * 
+     * Recovers the score of all combined rounds
      * @return score
      */
     public int getFinalScore(){
@@ -56,14 +56,14 @@ public class Game {
     }
     
     /**
-     * 
+     * Restarts a new game
      */
     public void restartGame(){
         configureGame(settings, roundNumber);
     }
     
     /**
-     * 
+     * Adds a class to be observed
      * @param observer
      */
     public void addObserver(GameObserver observer){
@@ -71,7 +71,7 @@ public class Game {
     }
 
     /**
-     * 
+     * Calls observed methods when the game starts
      */
     private void notifyGameStart(){
         for (GameObserver observer:observers){
@@ -80,7 +80,7 @@ public class Game {
     }
 
     /**
-     * 
+     * Calls observed methods when the game stop
      */
     private void notifyGameEnd(){
         int score = getFinalScore();

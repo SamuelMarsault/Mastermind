@@ -4,7 +4,7 @@ public class Combination {
     private Pawn[] pawns;
 
     /**
-     * 
+     * Combination Builder
      * @param pawns
      */
     public Combination(Pawn[] pawns){
@@ -12,7 +12,7 @@ public class Combination {
     }
 
     /**
-     * 
+     * Define the list of counters in the combination
      * @param pawns
      */
     public void setPawns(Pawn[] pawns) {
@@ -20,20 +20,20 @@ public class Combination {
     }
     
     /**
-     * 
+     * Retrieves the list of pawns in the combination
      * @param index
      * @return pawn[index]
      */
     public Pawn getPawn(int index) {return pawns[index];}
 
     /**
-     * 
+     * Retrieves the list size of the combination
      * @return pawn.lenght
      */
     public int getCombinationLength() {return pawns.length;}
     
     /**
-     * 
+     * Permet de vérifier 2 list de pions ?
      * @param pawn
      * @return contains
      */
