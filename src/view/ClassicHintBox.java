@@ -6,7 +6,7 @@ import java.awt.*;
 public class ClassicHintBox extends HintBox{
 
     /**
-     * 
+     * Define the appearance of Hints
      * @param combinationLength
      */
     public ClassicHintBox(int combinationLength) {
