@@ -5,6 +5,10 @@ import java.awt.*;
 
 public class ClassicHintBox extends HintBox{
 
+    /**
+     * 
+     * @param combinationLength
+     */
     public ClassicHintBox(int combinationLength) {
         setLayout(new FlowLayout(FlowLayout.CENTER, 5, 10));
         int diameter = 25;
@@ -16,6 +20,7 @@ public class ClassicHintBox extends HintBox{
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
+    
     @Override
     public void setHintsColor(Color[] colors) {
         Circle circle;

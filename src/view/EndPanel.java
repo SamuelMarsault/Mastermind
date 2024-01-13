@@ -11,6 +11,10 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
     private JLabel ggLabel;
     private JPanel scrollPanel;
 
+    /**
+     * 
+     * @param gameController
+     */
     public EndPanel(GameController gameController){
         setLayout(new BorderLayout());
 
@@ -82,6 +86,13 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
         setVisible(true);
     }
 
+    /**
+     * 
+     * @param image
+     * @param height
+     * @param width
+     * @return
+     */
     private ImageIcon resizeImage(ImageIcon image,int height, int width){
         Image originalImage = image.getImage();
 

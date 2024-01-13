@@ -8,6 +8,11 @@ public class Circle extends JPanel {
     private Color color;
     private int diameter;
 
+    /**
+     * 
+     * @param diameter
+     * @param color
+     */
     public Circle(int diameter, Color color){
         this.color = color;
         this.diameter = diameter;
@@ -43,11 +48,19 @@ public class Circle extends JPanel {
         g.fillOval(x, y, diameter, diameter);
     }
 
+    /**
+     * 
+     * @param color
+     */
     public void setColor(Color color) {
         this.color = color;
         repaint();
     }
 
+    /**
+     * 
+     * @return color
+     */
     public Color getColor() {
         return color;
     }

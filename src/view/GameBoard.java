@@ -16,6 +16,13 @@ public class GameBoard extends JPanel {
     private JPanel attemptPanel;
     private int currentAttempt;
     
+    /**
+     * 
+     * @param combinationLenght
+     * @param attemptNumber
+     * @param pawnNumber
+     * @param mode
+     */
     public GameBoard(int combinationLenght, int attemptNumber, int pawnNumber, Mode mode) {
         setLayout(new BorderLayout());
 
@@ -73,6 +80,10 @@ public class GameBoard extends JPanel {
         add(attemptPanel,BorderLayout.CENTER);
     }
 
+    /**
+     * 
+     * @param palette
+     */
     public void setUpPalette(CombinationBox palette){
         Color color;
         for (int i=0;i<Pawn.values().length;i++){
@@ -92,6 +103,10 @@ public class GameBoard extends JPanel {
         }
     }
     
+    /**
+     * 
+     * @param attemptId
+     */
     public void prepareAttempt(int attemptId){
         currentAttempt = attemptPanel.getComponents().length-3-attemptId*2;
         int oldAttempt = attemptPanel.getComponents().length-3-(attemptId-1)*2;
@@ -126,6 +141,11 @@ public class GameBoard extends JPanel {
         });
     }
 
+    /**
+     * 
+     * @param hintsId
+     * @param colors
+     */
     public void setHints(int hintsId, Color[] colors){
         int index = attemptPanel.getComponents().length-2-hintsId*2;
         if(index>0){
@@ -134,6 +154,10 @@ public class GameBoard extends JPanel {
         }
     }
 
+    /**
+     * 
+     * @return pawns
+     */
     public Pawn[] getCombination(){
         CombinationBox combinationBox = (CombinationBox) attemptPanel.getComponent(currentAttempt);
         Pawn[] pawns = new Pawn[combinationBox.getComponents().length];
@@ -162,6 +186,10 @@ public class GameBoard extends JPanel {
         return pawns;
     }
 
+    /**
+     * 
+     * @return color
+     */
     public Color[] getColor(){
         CombinationBox combinationBox = (CombinationBox) attemptPanel.getComponent(currentAttempt);
         Color[] color = new Color[combinationBox.getComponents().length];
@@ -172,6 +200,9 @@ public class GameBoard extends JPanel {
         return color;
     }
 
+    /**
+     * 
+     */
     public void resetBoard(){
         for (int i = 0; i < attemptPanel.getComponents().length-1; i++) {
             if (attemptPanel.getComponent(i).getClass()==CombinationBox.class){

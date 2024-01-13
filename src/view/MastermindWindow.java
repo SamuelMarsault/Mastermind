@@ -8,6 +8,12 @@ public class MastermindWindow extends JFrame {
     private GamePanel gamePanel;
     private EndPanel endPanel;
 
+    /**
+     * 
+     * @param endPanel
+     * @param gamePanel
+     * @param startPanel
+     */
     public MastermindWindow(EndPanel endPanel, GamePanel gamePanel, StartPanel startPanel) {
         super("Mastermind");
 
@@ -24,6 +30,9 @@ public class MastermindWindow extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * 
+     */
     public void showStartPanel(){
         add(startPanel);
         startPanel.setVisible(true);
@@ -31,6 +40,9 @@ public class MastermindWindow extends JFrame {
         endPanel.setVisible(false);
     }
 
+    /**
+     * 
+     */
     public void showGamePanel() {
         add(gamePanel);
         startPanel.setVisible(false);
@@ -38,6 +50,9 @@ public class MastermindWindow extends JFrame {
         endPanel.setVisible(false);
     }
 
+    /**
+     * 
+     */
     public void showEndPanel() {
         add(endPanel);
         startPanel.setVisible(false);
@@ -45,15 +60,27 @@ public class MastermindWindow extends JFrame {
         endPanel.setVisible(true);
     }
 
+    /**
+     * 
+     * @return startPanel
+     */
     public StartPanel getStartPanel(){
         return startPanel;
     }
 
-     public GamePanel getGamePanel(){
+    /**
+     * 
+     * @return getGamePanel
+     */
+    public GamePanel getGamePanel(){
         return gamePanel;
     }
 
-     public EndPanel getEndPanel(){
+    /**
+     * 
+     * @return endPanel
+     */
+    public EndPanel getEndPanel(){
         return endPanel;
     }
 }

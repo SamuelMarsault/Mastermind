@@ -127,6 +127,7 @@ class view.MastermindWindow {
 class view.StartPanel {
     - verticalGap : Integer
     + StartPanel(gameController : GameController)
+    - createVGroup() : GroupLayout.SequentialGroup
     - updateVerticalGap
     + setSizeWindow(size : Integer)
     + setSlider(slider Jslider)

@@ -30,6 +30,10 @@ public class StartPanel extends JPanel {
     private JLabel nbAttemptsLabel;
     private JLabel modeLabel;
 
+    /**
+     * 
+     * @param gameController
+     */
     public StartPanel(GameController gameController) {
         setLayout(new BorderLayout());
 
@@ -154,6 +158,10 @@ public class StartPanel extends JPanel {
         setVisible(true);
     }
 
+    /**
+     * 
+     * @return layout.createSequentialGroup()
+     */
     private GroupLayout.SequentialGroup createVGroup() {
         return layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -181,17 +189,28 @@ public class StartPanel extends JPanel {
                         .addComponent(modeList));
     }
 
+    /**
+     * 
+     */
     private void updateVerticalGap() {
         GroupLayout.SequentialGroup newVGroup = createVGroup();
         layout.setVerticalGroup(newVGroup);
         vGroup = newVGroup;
     }
 
+    /**
+     * 
+     * @param size
+     */
     public void setSizeWindow(int size) {
-        this.verticalGap = (size-startLabel.getHeight()-nameLabel.getHeight()-nameTextField.getHeight()-roundSlider.getHeight()-pawnSlider.getHeight()-nbPawnLengthLabel.getHeight()-attemptSlider.getHeight()-modeList.getHeight()-100)/12;
+        this.verticalGap = (size-startLabel.getHeight()-nameLabel.getHeight()-nameTextField.getHeight()-roundSlider.getHeight()-pawnSlider.getHeight()-nbPawnLengthLabel.getHeight()-attemptSlider.getHeight()-modeList.getHeight())/12;
         updateVerticalGap();
     }
 
+    /**
+     * 
+     * @param slider
+     */
     public void setSlider(JSlider slider){
         slider.setPaintLabels(true);
         slider.setPaintTicks(true);
@@ -215,6 +234,11 @@ public class StartPanel extends JPanel {
         });
     }
     
+    /**
+     * 
+     * @param indexCB
+     * @return Mode
+     */
     public Mode getMode(int indexCB){
         switch (indexCB) {
             case 0:

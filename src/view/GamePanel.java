@@ -17,6 +17,11 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
     private JPanel popUp;
     private GameController gameController;
     
+    /**
+     * 
+     * @param roundController
+     * @param gameController
+     */
     public GamePanel(RoundController roundController, GameController gameController){
         setLayout(new BorderLayout());
 
@@ -102,6 +107,13 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         setVisible(true);
     }
 
+    /**
+     * 
+     * @param image
+     * @param height
+     * @param width
+     * @return
+     */
     private ImageIcon resizeImage(ImageIcon image,int height, int width){
         Image originalImage = image.getImage();
 

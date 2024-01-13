@@ -4,7 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RecapRound extends JPanel {
-    
+
+    /**
+     * 
+     * @param roundId
+     * @param colors
+     * @param score
+     * @param victory
+     */
     public RecapRound(int roundId, Color[] colors, int score, boolean victory){
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
