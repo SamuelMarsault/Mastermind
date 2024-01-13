@@ -9,7 +9,6 @@ import java.awt.*;
 public class EndPanel extends JPanel implements GameObserver, RoundObserver {
     private JLabel scoreLabel;
     private JLabel ggLabel;
-    
     private JPanel scrollPanel;
 
     public EndPanel(GameController gameController){
@@ -28,14 +27,18 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
 
         this.ggLabel = new JLabel("GG Joueur");
         ggLabel.setFont(new Font("Constantia", Font.PLAIN, 20));
-
-        // Centrer verticalement chaque composant dans le GridLayout
         JPanel ggLabelPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         ggLabelPanel.add(ggLabel);
+
+        scoreLabel = new JLabel("Score : xxx");
+        scoreLabel.setFont(new Font("Constantia", Font.PLAIN, 25));
+        JPanel scoreLabelPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        scoreLabelPanel.add(scoreLabel);
 
         // Ajout panels au GridLayout
         northPanel.add(endLabelPanel);
         northPanel.add(ggLabelPanel);
+        northPanel.add(scoreLabelPanel);
 
         add(northPanel, BorderLayout.NORTH);
 
@@ -45,10 +48,7 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
         GridLayout gridLayout = new GridLayout(0, 2);
         gridLayout.setHgap(20);
         scrollPanel.setLayout(gridLayout);
-        
-        scoreLabel = new JLabel("tyuioiuyt");
-        scoreLabel.setFont(new Font("Constantia", Font.PLAIN, 20));
-        scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    
 
         JScrollPane jScrollPane = new JScrollPane(scrollPanel);
         jScrollPane.setBorder(BorderFactory.createEmptyBorder(0,50,0,50));
@@ -100,7 +100,7 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
 
     @Override
     public void reactToGameEnd(int score, String playeurName) {
-         scoreLabel.setText("SCORE : "+score);
+         scoreLabel.setText("SCORE FINAL : "+score);
          ggLabel.setText("GG "+playeurName);
     }
 

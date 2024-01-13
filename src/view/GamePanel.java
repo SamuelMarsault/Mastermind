@@ -45,7 +45,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         gamePanel.add(scoreLabel, gameConstraints);
 
         gameConstraints.gridx = 1;
-        JLabel boucheTrou = new JLabel("Ceci permet de combler l'écart entre les labels");
+        JLabel boucheTrou = new JLabel("Ceci permet de comblerlécart entre les labels");
         boucheTrou.setForeground(new Color(0,0,0,0));
         gamePanel.add(boucheTrou, gameConstraints);
 
@@ -63,7 +63,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         });
         gamePanel.add(giveUpButton, gameConstraints);
 
-        gameConstraints.gridx = 2;
+        gameConstraints.gridx = 4;
         JButton validateButton = new JButton(resizeImage(new ImageIcon("image_jeu/check.png"),25,25));
         validateButton.setCursor(new Cursor(12));
         validateButton.addActionListener(actionEvent -> {
