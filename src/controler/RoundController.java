@@ -4,18 +4,23 @@ import model.Combination;
 import model.Pawn;
 import model.Round;
 import model.RoundObserver;
-import view.GamePanel;
-import view.MastermindWindow;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RoundController {
     private Round round;
     private ArrayList<RoundObserver> roundObservers = new ArrayList<>();
-
+    
+    /**
+     * 
+     * @param observer
+     */
     public void addRoundObserver(RoundObserver observer) { roundObservers.add(observer);}
 
+    /**
+     * 
+     * @param round
+     */
     public void setRound(Round round){
         this.round = round;
         System.out.println("changement de round\n---------------\n------------");
@@ -24,12 +29,19 @@ public class RoundController {
                 round.addObserver(observer);
     }
 
+    /**
+     * 
+     * @param pawns
+     */
     public void launchAttempt(Pawn[] pawns){
         System.out.println(round);
         if(round!=null)
             round.checkAttempt(new Combination(pawns));
     }
     
+    /**
+     * 
+     */
     public void giveUpRound(){
         round.giveUpRound();
     }

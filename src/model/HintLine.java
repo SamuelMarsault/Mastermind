@@ -6,6 +6,11 @@ import java.util.Map;
 public class HintLine {
     private Hint[] hints;
     
+    /**
+     * 
+     * @param combination
+     * @param secretCombination
+     */
     public HintLine(Combination combination, SecretCombination secretCombination){
         hints = new Hint[secretCombination.getCombinationLength()];
         Map<Pawn, Integer> secretPawn = new HashMap<>();
@@ -61,10 +66,19 @@ public class HintLine {
 
     }
 
+    /**
+     * 
+     * @param index
+     * @return hints[index]
+     */
     public Hint getHint(int index) {
         return hints[index];
     }
     
+    /**
+     * 
+     * @return match
+     */
     public boolean perfectMatch(){
         boolean match = true;
         for (int i = 0; i < hints.length && match; i++) {
@@ -72,7 +86,11 @@ public class HintLine {
         }
         return match;
     }
-    
+
+    /**
+     * 
+     * @return hints.length
+     */
     public int hintLineLength(){
         return hints.length;
     }

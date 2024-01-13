@@ -4,17 +4,14 @@ import controler.GameController;
 import model.Mode;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import java.awt.*;
 
 public class StartPanel extends JPanel {
-    private int verticalGap = 70; // Hauteur initiale
+    private int verticalGap = 70; 
     private GroupLayout layout;
     private GroupLayout.SequentialGroup vGroup;
 
@@ -33,15 +30,12 @@ public class StartPanel extends JPanel {
     private JLabel nbAttemptsLabel;
     private JLabel modeLabel;
 
+    /**
+     * 
+     * @param gameController
+     */
     public StartPanel(GameController gameController) {
         setLayout(new BorderLayout());
-
-        /*
-        String[] fontNames = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-        System.out.println("Liste des polices disponibles sur votre système :");
-        for (String fontName : fontNames) {
-            System.out.println(fontName);
-        }*/
 
         JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         startLabel = new JLabel("Mastermind");
@@ -164,6 +158,10 @@ public class StartPanel extends JPanel {
         setVisible(true);
     }
 
+    /**
+     * 
+     * @return layout.createSequentialGroup()
+     */
     private GroupLayout.SequentialGroup createVGroup() {
         return layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -191,17 +189,28 @@ public class StartPanel extends JPanel {
                         .addComponent(modeList));
     }
 
+    /**
+     * 
+     */
     private void updateVerticalGap() {
         GroupLayout.SequentialGroup newVGroup = createVGroup();
         layout.setVerticalGroup(newVGroup);
         vGroup = newVGroup;
     }
 
+    /**
+     * 
+     * @param size
+     */
     public void setSizeWindow(int size) {
-        this.verticalGap = (size-startLabel.getHeight()-nameLabel.getHeight()-nameTextField.getHeight()-roundSlider.getHeight()-pawnSlider.getHeight()-nbPawnLengthLabel.getHeight()-attemptSlider.getHeight()-modeList.getHeight()-100)/12;
+        this.verticalGap = (size-startLabel.getHeight()-nameLabel.getHeight()-nameTextField.getHeight()-roundSlider.getHeight()-pawnSlider.getHeight()-nbPawnLengthLabel.getHeight()-attemptSlider.getHeight()-modeList.getHeight())/12;
         updateVerticalGap();
     }
 
+    /**
+     * 
+     * @param slider
+     */
     public void setSlider(JSlider slider){
         slider.setPaintLabels(true);
         slider.setPaintTicks(true);
@@ -225,6 +234,11 @@ public class StartPanel extends JPanel {
         });
     }
     
+    /**
+     * 
+     * @param indexCB
+     * @return Mode
+     */
     public Mode getMode(int indexCB){
         switch (indexCB) {
             case 0:

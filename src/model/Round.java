@@ -10,6 +10,10 @@ public class Round {
     private List<RoundObserver> observers = new ArrayList<>();
     private Settings settings;
 
+    /**
+     * 
+     * @param settings
+     */
     public Round(Settings settings){
         secretCombination = new SecretCombination(settings.getCombinationLength(), settings.getPawnNumber());
         attemps = new ArrayList<>();
@@ -17,6 +21,11 @@ public class Round {
         this.settings = settings;
     }
 
+    /**
+     * 
+     * @param combination
+     * @return perfectMatch
+     */
     public boolean checkAttempt(Combination combination){
         attemps.add(combination);
         HintLine hintLine = new HintLine(combination,secretCombination);
@@ -27,6 +36,10 @@ public class Round {
         return perfectMatch;
     }
     
+    /**
+     * 
+     * @return score
+     */
     public int computeScore(){
         int score = 0;
         if(hintLines.size()-1>=0){
@@ -40,14 +53,24 @@ public class Round {
         return score;
     }
     
+    /**
+     * 
+     */
     public void giveUpRound(){
         notifyRoundEnd(false,computeScore());
     }
 
+    /**
+     * 
+     * @param observer
+     */
     public void addObserver(RoundObserver observer){
         observers.add(observer);
     }
 
+    /**
+     * 
+     */
     private void notifyAttempt(){
         int index = attemps.size()-1;
         for (RoundObserver observer:observers) {
@@ -55,6 +78,11 @@ public class Round {
         }
     }
 
+    /**
+     * 
+     * @param roundWon
+     * @param score
+     */
     private void notifyRoundEnd(boolean roundWon, int score){
         for (RoundObserver observer:observers) {
             observer.reactToRoundEnd(roundWon,score, secretCombination);

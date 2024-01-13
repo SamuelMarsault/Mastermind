@@ -9,6 +9,11 @@ public class NumericHintBox extends HintBox{
     private Color rightPlacedColor;
     private Color wrongPlacedColor;
 
+    /**
+     * 
+     * @param rightPlacedColor
+     * @param wrongPlacedColor
+     */
     public NumericHintBox(Color rightPlacedColor, Color wrongPlacedColor) {
         setLayout(new FlowLayout());
         this.rightPlacedColor = rightPlacedColor;
