@@ -31,7 +31,7 @@ public class StartPanel extends JPanel {
     private JLabel modeLabel;
 
     /**
-     * 
+     * Create and configure start (setting) panel componant
      * @param gameController
      */
     public StartPanel(GameController gameController) {
@@ -159,7 +159,7 @@ public class StartPanel extends JPanel {
     }
 
     /**
-     * 
+     * Allows you to redefine the placement and order of height components in the control panel
      * @return layout.createSequentialGroup()
      */
     private GroupLayout.SequentialGroup createVGroup() {
@@ -190,7 +190,7 @@ public class StartPanel extends JPanel {
     }
 
     /**
-     * 
+     * Updates I change the placement and spacing of components in the height axis
      */
     private void updateVerticalGap() {
         GroupLayout.SequentialGroup newVGroup = createVGroup();
@@ -199,7 +199,7 @@ public class StartPanel extends JPanel {
     }
 
     /**
-     * 
+     * Set new spacing size for start panel components
      * @param size
      */
     public void setSizeWindow(int size) {
@@ -208,7 +208,7 @@ public class StartPanel extends JPanel {
     }
 
     /**
-     * 
+     * Allows you to define the behavior and display of JSliders
      * @param slider
      */
     public void setSlider(JSlider slider){
@@ -235,7 +235,7 @@ public class StartPanel extends JPanel {
     }
     
     /**
-     * 
+     * Recovers the current mode
      * @param indexCB
      * @return Mode
      */

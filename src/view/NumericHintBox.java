@@ -10,7 +10,7 @@ public class NumericHintBox extends HintBox{
     private Color wrongPlacedColor;
 
     /**
-     * 
+     * Configures numerical index display mode
      * @param rightPlacedColor
      * @param wrongPlacedColor
      */

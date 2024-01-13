@@ -18,7 +18,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
     private GameController gameController;
     
     /**
-     * 
+     * Create and configure game panel componant
      * @param roundController
      * @param gameController
      */
@@ -108,7 +108,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
     }
 
     /**
-     * 
+     * Redefine image size
      * @param image
      * @param height
      * @param width

@@ -63,13 +63,12 @@ public class CombinationBox extends JPanel {
     /**
      * 
      */
-    /*
     public void unsetClickEvent(){
         for (Component component : getComponents()) {
             for (MouseListener l : component.getMouseListeners())
                 component.removeMouseListener(l);
         }
-    }*/
+    }
 
     @Override
     public void setEnabled(boolean enabled) {

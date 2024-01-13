@@ -9,7 +9,7 @@ public class MastermindWindow extends JFrame {
     private EndPanel endPanel;
 
     /**
-     * 
+     * Configures the game window
      * @param endPanel
      * @param gamePanel
      * @param startPanel
@@ -31,7 +31,7 @@ public class MastermindWindow extends JFrame {
     }
 
     /**
-     * 
+     * Displays the start panel (settings) and hides the others
      */
     public void showStartPanel(){
         add(startPanel);
@@ -41,7 +41,7 @@ public class MastermindWindow extends JFrame {
     }
 
     /**
-     * 
+     * Displays the game panel and hides the others
      */
     public void showGamePanel() {
         add(gamePanel);
@@ -51,7 +51,7 @@ public class MastermindWindow extends JFrame {
     }
 
     /**
-     * 
+     * Displays the end-of-game panel and hides the others
      */
     public void showEndPanel() {
         add(endPanel);
@@ -61,7 +61,7 @@ public class MastermindWindow extends JFrame {
     }
 
     /**
-     * 
+     * Retrieves the start panel
      * @return startPanel
      */
     public StartPanel getStartPanel(){
@@ -69,7 +69,7 @@ public class MastermindWindow extends JFrame {
     }
 
     /**
-     * 
+     * Retrieves the game panel
      * @return getGamePanel
      */
     public GamePanel getGamePanel(){
@@ -77,7 +77,7 @@ public class MastermindWindow extends JFrame {
     }
 
     /**
-     * 
+     * Retrieves the end panel
      * @return endPanel
      */
     public EndPanel getEndPanel(){

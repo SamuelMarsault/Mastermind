@@ -12,7 +12,7 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
     private JPanel scrollPanel;
 
     /**
-     * 
+     * Create and configure end-of-game panel compoasnat
      * @param gameController
      */
     public EndPanel(GameController gameController){
@@ -87,7 +87,7 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
     }
 
     /**
-     * 
+     * Change image size
      * @param image
      * @param height
      * @param width
