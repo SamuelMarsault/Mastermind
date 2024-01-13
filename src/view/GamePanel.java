@@ -19,19 +19,24 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
     
     public GamePanel(RoundController roundController, GameController gameController){
         setLayout(new BorderLayout());
+
+        JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel gameLabel = new JLabel("A vous de jouer !");
+        gameLabel.setFont(new Font("Constantia", Font.BOLD, 30));
+        northPanel.add(gameLabel);
+        add(northPanel, BorderLayout.NORTH);
+
         JLayeredPane jLayeredPane = new JLayeredPane();
         popUp = new StartPanel(null);
         jLayeredPane.add(popUp);
         add(jLayeredPane,BorderLayout.CENTER);
         jLayeredPane.setLayer(popUp, 1);
 
-        Font labelFont = new Font("Arial", Font.PLAIN, 15);
+        Font labelFont = new Font("Constantia", Font.PLAIN, 15);
         
         gamePanel = new JPanel(new GridBagLayout());
         GridBagConstraints gameConstraints = new GridBagConstraints();
         gameConstraints.fill = GridBagConstraints.BOTH;
-
-        //Pour les boutton on mettra surement des images à la fin et pas du texte mais la c'est pour commencer 
 
         gameConstraints.gridy = 0;
         gameConstraints.gridx = 0;
@@ -39,19 +44,17 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         scoreLabel.setFont(labelFont);
         gamePanel.add(scoreLabel, gameConstraints);
 
+        gameConstraints.gridx = 1;
+        JLabel boucheTrou = new JLabel("Ceci permet de combler l'écart entre les labels");
+        boucheTrou.setForeground(new Color(0,0,0,0));
+        gamePanel.add(boucheTrou, gameConstraints);
+
         gameConstraints.gridx = 3;
         currentRoundLabel = new JLabel();
-        currentRoundLabel.setFont(labelFont);
-        //a faire modifier quand finis design
         gamePanel.add(currentRoundLabel, gameConstraints);
-        //Dans la boucle du nombre de tentatives : + rendre valeurs différentes longueur cobinaisons
-        //Bordure provisoires à modifier + tard et régler problèmes centrage
-
-        //!! A definir comment on veux que les pions soit, c'est à dire plein de pannel dans le pannel en FlowLayout... et pareil pour les indices et définir combien on en vois
-        //!! On peux aussi faire 2 composant coller un pour la combinaison et l'autre pour les indices au lieu d'un seul qui en à 2. du coup gridwitch serais à 2 et pas 3
 
         gameConstraints.gridx = 0;
-        gameConstraints.gridy = 2;
+        gameConstraints.gridy = 3;
         gameConstraints.gridwidth = 1;
         JButton giveUpButton = new JButton(resizeImage(new ImageIcon("image_jeu/give_up.png"),25,25));
         giveUpButton.setCursor(new Cursor(12));
@@ -92,12 +95,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
             roundController.launchAttempt(gameBoard.getCombination());
         });
         
-        //Ajouter action quand le reste sera présent
         gamePanel.add(validateButton, gameConstraints);
-
-        //!! La disposition n'est pas top on est d'accord, tu voie si j'ai oublier un composant à part la combinaison et aide ?
-
-        //Je modifierais la position et complèterais quand on auras vu pour les question au dessus
 
         add(gamePanel, BorderLayout.CENTER);
         this.gameController = gameController;
@@ -144,7 +142,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         GridBagConstraints gameConstraints = new GridBagConstraints();
         gameConstraints.fill = GridBagConstraints.BOTH;
         gameConstraints.gridx = 0;
-        gameConstraints.gridy = 1;
+        gameConstraints.gridy = 2;
         gameConstraints.gridwidth = 5;
         if(mode==Mode.CLASSIC)
             displayMode = new ClassicMode();
@@ -154,6 +152,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
             gamePanel.remove(gameBoard);
         gameBoard = new GameBoard(combinationLenght, attemptNumber, pawnNumber, mode);
         currentRoundLabel.setText("1 / "+roundNumber);
+        currentRoundLabel.setFont(new Font("Constantia", Font.PLAIN, 15));
         scoreLabel.setText("score : 0");
         gamePanel.add(gameBoard, gameConstraints);
     }

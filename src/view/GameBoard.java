@@ -60,7 +60,7 @@ public class GameBoard extends JPanel {
         attemptPanel.add(palette,constraints);
         JButton resetComb = new JButton("Reset combinaison");
         resetComb.setCursor(new Cursor(12));
-        resetComb.setFont(new Font("Arial",Font.PLAIN,15));
+        resetComb.setFont(new Font("Constantia",Font.PLAIN,15));
         resetComb.addActionListener(
                 actionEvent -> {
                     CombinationBox combinationBox = (CombinationBox) attemptPanel.getComponent(currentAttempt);

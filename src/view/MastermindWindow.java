@@ -16,13 +16,14 @@ public class MastermindWindow extends JFrame {
         super("Mastermind");
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(700, (int) screenSize.getHeight() - 50);
+        setSize(700, (int) screenSize.getHeight() - 40);
         setLocation((int) (screenSize.getWidth() / 4), 0);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+        setResizable(false);
         this.startPanel = startPanel;
         this.gamePanel = gamePanel;
         this.endPanel = endPanel;
+        startPanel.setSizeWindow(getHeight());
         showStartPanel();
         setVisible(true);
     }

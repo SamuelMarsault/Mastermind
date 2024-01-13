@@ -9,6 +9,7 @@ import java.awt.*;
 public class EndPanel extends JPanel implements GameObserver, RoundObserver {
     private JLabel scoreLabel;
     private JLabel ggLabel;
+    
     private JPanel scrollPanel;
 
     public EndPanel(GameController gameController){
@@ -16,7 +17,7 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
 
         JPanel northPanel = new JPanel(new GridLayout(0, 1));
         JLabel endLabel = new JLabel("Fin de la partie !");
-        endLabel.setFont(new Font("Arial", Font.PLAIN, 30));
+        endLabel.setFont(new Font("Constantia", Font.BOLD, 30));
 
         // Centrer verticalement chaque composant dans le GridLayout
         JPanel endLabelPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -26,7 +27,7 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
         endLabelPanel.add(Box.createVerticalStrut(10));
 
         this.ggLabel = new JLabel("GG Joueur");
-        ggLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        ggLabel.setFont(new Font("Constantia", Font.PLAIN, 20));
 
         // Centrer verticalement chaque composant dans le GridLayout
         JPanel ggLabelPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -45,8 +46,8 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
         gridLayout.setHgap(20);
         scrollPanel.setLayout(gridLayout);
         
-        scoreLabel = new JLabel();
-        scoreLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        scoreLabel = new JLabel("tyuioiuyt");
+        scoreLabel.setFont(new Font("Constantia", Font.PLAIN, 20));
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JScrollPane jScrollPane = new JScrollPane(scrollPanel);

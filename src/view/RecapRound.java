@@ -16,7 +16,7 @@ public class RecapRound extends JPanel {
         constraints.gridy = 0;
         JLabel roundLabel = new JLabel("Round "+roundId);
         roundLabel.setHorizontalAlignment(JLabel.CENTER);
-        roundLabel.setFont(new Font("Arial",Font.PLAIN,20));
+        roundLabel.setFont(new Font("Constantia",Font.PLAIN,20));
         add(roundLabel, constraints);
         constraints.gridwidth = 3;
         constraints.gridx = 0;
@@ -27,13 +27,13 @@ public class RecapRound extends JPanel {
         constraints.gridy = 2;
         JLabel scoreLabel = new JLabel("score : "+score);
         scoreLabel.setHorizontalAlignment(JLabel.CENTER);
-        scoreLabel.setFont(new Font("Arial",Font.PLAIN,14));
+        scoreLabel.setFont(new Font("Constantia",Font.PLAIN,14));
         add(scoreLabel, constraints);
         constraints.gridy = 3;
         JLabel victoryLabel = new JLabel();
         if(victory) victoryLabel.setText("Victoire");
         else victoryLabel.setText("Défaite");
-        victoryLabel.setFont(new Font("Arial",Font.PLAIN,18));
+        victoryLabel.setFont(new Font("Constantia",Font.PLAIN,18));
         victoryLabel.setHorizontalAlignment(JLabel.CENTER);
         add(victoryLabel, constraints);
         setVisible(true);
