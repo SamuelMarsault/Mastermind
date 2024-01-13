@@ -31,7 +31,6 @@ public class MastermindApp {
 
         } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
-            // Gérer l'exception de manière appropriée
         }
     }
 }

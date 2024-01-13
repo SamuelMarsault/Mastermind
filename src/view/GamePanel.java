@@ -21,7 +21,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         setLayout(new BorderLayout());
 
         JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel gameLabel = new JLabel("A vous de jouer !");
+        JLabel gameLabel = new JLabel("À vous de jouer !");
         gameLabel.setFont(new Font("Constantia", Font.BOLD, 30));
         northPanel.add(gameLabel);
         add(northPanel, BorderLayout.NORTH);
@@ -40,22 +40,22 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
 
         gameConstraints.gridy = 0;
         gameConstraints.gridx = 0;
+        gameConstraints.gridwidth = 1;
+
         scoreLabel = new JLabel("score : 0");
         scoreLabel.setFont(labelFont);
         gamePanel.add(scoreLabel, gameConstraints);
 
-        gameConstraints.gridx = 1;
-        JLabel boucheTrou = new JLabel("Ceci permet de comblerlécart entre les labels");
-        boucheTrou.setForeground(new Color(0,0,0,0));
-        gamePanel.add(boucheTrou, gameConstraints);
-
-        gameConstraints.gridx = 3;
+        gameConstraints.gridx = 4;
+        gameConstraints.fill = GridBagConstraints.CENTER;
         currentRoundLabel = new JLabel();
         gamePanel.add(currentRoundLabel, gameConstraints);
 
+        gameConstraints.fill = GridBagConstraints.BOTH;
+        gameConstraints.gridwidth = 2;
         gameConstraints.gridx = 0;
         gameConstraints.gridy = 3;
-        gameConstraints.gridwidth = 1;
+
         JButton giveUpButton = new JButton(resizeImage(new ImageIcon("image_jeu/give_up.png"),25,25));
         giveUpButton.setCursor(new Cursor(12));
         giveUpButton.addActionListener(actionEvent -> {
@@ -63,7 +63,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         });
         gamePanel.add(giveUpButton, gameConstraints);
 
-        gameConstraints.gridx = 4;
+        gameConstraints.gridx = 3;
         JButton validateButton = new JButton(resizeImage(new ImageIcon("image_jeu/check.png"),25,25));
         validateButton.setCursor(new Cursor(12));
         validateButton.addActionListener(actionEvent -> {
