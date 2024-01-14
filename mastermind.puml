@@ -144,6 +144,7 @@ class view.GamePanel implements model.RoundObserver, model.GameObserver{
 }
 
 class view.EndPanel implements model.GameObserver, model.RoundObserver {
+    - roundsWon : Integer
     + EndPanel(gameController : GameController)
     - resizeImage(image : ImageICon, height : Integer, width : Integer) : ImageICon
     + reactToGameStart(roundNumber : Integer, attemptNumber : Integer, pawnNumber : Integer, combinationLength : Integer, mode : Mode)
