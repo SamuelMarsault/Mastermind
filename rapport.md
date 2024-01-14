@@ -98,3 +98,7 @@ mais aussi de l'abandon de la manche en cours.
 
 CombinationConverter a été développé dans le but de faire le lien entre pions et couleurs à un seul et unique endroit,
 ce qui nous permet d'éviter d'avoir à modifier cette correspondance à plusieurs endroits dans les classes les utilisant.
+
+Nous aurions bien aimé ajouter les choses suivantes à notre projet :
+- Des couleurs aléatoires parmis les 8 possibles à chaque partie
+- Une base de données pour conserver l'historique des parties et des scores en fonction des joueurs
