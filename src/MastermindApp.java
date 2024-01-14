@@ -4,10 +4,11 @@ import model.*;
 import view.*;
 
 import javax.swing.*;
+import java.io.IOException;
 
 public class MastermindApp {
     public static void main(String[] args) {    
-        try {            
+        try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
             SwingUtilities.updateComponentTreeUI(new JFrame());
 
@@ -29,7 +30,8 @@ public class MastermindApp {
             game.addObserver(gamePanel);
             game.addObserver(endPanel);
 
-        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException |
+                 IOException e) {
             e.printStackTrace();
         }
     }

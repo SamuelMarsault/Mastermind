@@ -21,12 +21,15 @@ public class NumericHintBox extends HintBox{
         Font font = new Font("Arial",Font.PLAIN,22);
         rightPlacedPawns.setFont(font);
         wrongPlacedPawns.setFont(font);
-        ImageIcon picture = new ImageIcon("image_jeu/validation.png");
-        add(new JLabel(new ImageIcon(picture.getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH))));
+        add(new JLabel(new ImageIcon(new ImageIcon(
+                        this.getClass().getClassLoader().getResource("validation.png")
+                ).getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH))));
         add(rightPlacedPawns);
         rightPlacedPawns.setBorder(BorderFactory.createEmptyBorder(0,5,0,15));
-        picture = new ImageIcon("image_jeu/question_mark.png");
-        add(new JLabel(new ImageIcon(picture.getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH))));
+        add(new JLabel(new ImageIcon(
+                new ImageIcon(
+                        this.getClass().getClassLoader().getResource("question_mark.png")
+                ).getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH))));
         add(wrongPlacedPawns);
         wrongPlacedPawns.setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));

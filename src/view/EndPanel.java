@@ -61,22 +61,22 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
         add(scorePanel, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton menuButton = new JButton(resizeImage(new ImageIcon("image_jeu/house.png"),40,40));
+        JButton menuButton = new JButton(resizeImage(new ImageIcon(this.getClass().getClassLoader().getResource("house.png")),40,40));
         menuButton.setCursor(new Cursor(12));
         menuButton.addActionListener(actionEvent -> {
             gameController.returnToMenu();
         });
         buttonPanel.add(menuButton);
 
-        JButton exitButton = new JButton(resizeImage(new ImageIcon("image_jeu/exit.png"),40,40));
+        JButton exitButton = new JButton(resizeImage(new ImageIcon(this.getClass().getClassLoader().getResource("exit.png")),40,40));
         exitButton.setCursor(new Cursor(12));
         exitButton.addActionListener(actionEvent -> {
             System.exit(0);
         });
         buttonPanel.add(Box.createHorizontalStrut(223)); //Trouver meilleure méthode plus tard et augmenter taille boutton
         buttonPanel.add(exitButton);
-        
-        JButton restartButton = new JButton(resizeImage(new ImageIcon("image_jeu/restart.png"),40,40));
+
+        JButton restartButton = new JButton(resizeImage(new ImageIcon(this.getClass().getClassLoader().getResource("restart.png")),40,40));
         restartButton.setCursor(new Cursor(12));
         restartButton.addActionListener(actionEvent -> {
             gameController.resetGame();

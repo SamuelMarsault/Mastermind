@@ -4,9 +4,14 @@ import controler.GameController;
 import controler.RoundController;
 import model.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Path;
 
 public class GamePanel extends JLayeredPane implements RoundObserver,GameObserver {
     private JPanel gamePanel;
@@ -22,7 +27,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
      * @param roundController
      * @param gameController
      */
-    public GamePanel(RoundController roundController, GameController gameController){
+    public GamePanel(RoundController roundController, GameController gameController) throws IOException {
         setLayout(new BorderLayout());
 
         JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -61,7 +66,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         gameConstraints.gridx = 0;
         gameConstraints.gridy = 3;
 
-        JButton giveUpButton = new JButton(resizeImage(new ImageIcon("image_jeu/give_up.png"),25,25));
+        JButton giveUpButton = new JButton(resizeImage(new ImageIcon(this.getClass().getClassLoader().getResource("give_up.png")),25,25));
         giveUpButton.setCursor(new Cursor(12));
         giveUpButton.addActionListener(actionEvent -> {
             gameController.giveUpRound();
@@ -69,7 +74,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         gamePanel.add(giveUpButton, gameConstraints);
 
         gameConstraints.gridx = 3;
-        JButton validateButton = new JButton(resizeImage(new ImageIcon("image_jeu/check.png"),25,25));
+        JButton validateButton = new JButton(resizeImage(new ImageIcon(this.getClass().getClassLoader().getResource("check.png")),25,25));
         validateButton.setCursor(new Cursor(12));
         validateButton.addActionListener(actionEvent -> {
             Color[] colors = gameBoard.getColor();
