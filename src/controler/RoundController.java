@@ -23,7 +23,6 @@ public class RoundController {
      */
     public void setRound(Round round){
         this.round = round;
-        System.out.println("changement de round\n---------------\n------------");
         if (round != null)
             for (RoundObserver observer : roundObservers)
                 round.addObserver(observer);
@@ -34,7 +33,6 @@ public class RoundController {
      * @param pawns
      */
     public void launchAttempt(Pawn[] pawns){
-        System.out.println(round);
         if(round!=null)
             round.checkAttempt(new Combination(pawns));
     }

@@ -34,12 +34,6 @@ public class HintLine {
             }
         }
 
-        // Afficher les couples clé-valeur pour secretPawn
-        System.out.println("secretPawn after loop:");
-        for (Map.Entry<Pawn, Integer> entry : secretPawn.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
-        
         for (int i = 0; i < hints.length; i++) {
             if (combination.getPawn(i).equals(secretCombination.getPawn(i))) {
                 hints[i] = Hint.RIGHT_PLACE;
