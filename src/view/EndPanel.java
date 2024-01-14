@@ -10,6 +10,7 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
     private JLabel scoreLabel;
     private JLabel ggLabel;
     private JPanel scrollPanel;
+    private int roundsWon;
 
     /**
      * Create and configure end-of-game panel component
@@ -115,6 +116,7 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
     public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght, Mode mode) {
         scrollPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 100, 0));
         scrollPanel.removeAll();
+        roundsWon = 0;
     }
 
     /**
@@ -125,7 +127,10 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
     @Override
     public void reactToGameEnd(int score, String playeurName) {
          scoreLabel.setText("SCORE FINAL : "+score);
-         ggLabel.setText("GG "+playeurName);
+         if(roundsWon>=scrollPanel.getComponentCount()/2)
+             ggLabel.setText("Bravo "+playeurName+"\nVous avez gagné");
+         else
+             ggLabel.setText("Vous avez perdu "+playeurName+"...\nMais ne vous découragez pas !");
     }
 
     /**
@@ -159,5 +164,6 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
             }
         }
         scrollPanel.add(new RecapRound(scrollPanel.getComponentCount()+1, colors, score, roundWon));
+        if (roundWon) this.roundsWon++;
     }
 }
