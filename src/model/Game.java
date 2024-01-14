@@ -10,7 +10,7 @@ public class Game {
     private List<GameObserver> observers = new ArrayList<>();
 
     /**
-     * Game buildeur
+     * Game builder
      */
     public Game(){
     }
@@ -63,7 +63,7 @@ public class Game {
     }
     
     /**
-     * Adds a class to be observed
+     * Adds an observer
      * @param observer
      */
     public void addObserver(GameObserver observer){
@@ -71,7 +71,7 @@ public class Game {
     }
 
     /**
-     * Calls observed methods when the game starts
+     * Calls observer method when the game starts
      */
     private void notifyGameStart(){
         for (GameObserver observer:observers){
@@ -80,7 +80,7 @@ public class Game {
     }
 
     /**
-     * Calls observed methods when the game stop
+     * Calls observer method when the game stop
      */
     private void notifyGameEnd(){
         int score = getFinalScore();

@@ -33,7 +33,7 @@ public class Combination {
     public int getCombinationLength() {return pawns.length;}
     
     /**
-     * Permet de vérifier 2 list de pions ?
+     * Check whether the combination contains the specified pawn
      * @param pawn
      * @return contains
      */

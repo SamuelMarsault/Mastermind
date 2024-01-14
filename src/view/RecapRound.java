@@ -6,7 +6,7 @@ import java.awt.*;
 public class RecapRound extends JPanel {
 
     /**
-     * Create a panel that displays a summary of the completed round 
+     * RecapRound builder
      * @param roundId
      * @param colors
      * @param score

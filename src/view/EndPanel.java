@@ -12,7 +12,7 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
     private JPanel scrollPanel;
 
     /**
-     * Create and configure end-of-game panel compoasnat
+     * Create and configure end-of-game panel component
      * @param gameController
      */
     public EndPanel(GameController gameController){
@@ -91,7 +91,7 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
      * @param image
      * @param height
      * @param width
-     * @return
+     * @return new imageIcon
      */
     private ImageIcon resizeImage(ImageIcon image,int height, int width){
         Image originalImage = image.getImage();
@@ -103,21 +103,45 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
         return new ImageIcon(resizedImage);
     }
 
+    /**
+     * React to game start
+     * @param roundNumber
+     * @param attemptNumber
+     * @param pawnNumber
+     * @param combinationLenght
+     * @param mode
+     */
     @Override
     public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght, Mode mode) {
         scrollPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 100, 0));
         scrollPanel.removeAll();
     }
 
+    /**
+     * React at end of game
+     * @param score
+     * @param playeurName
+     */
     @Override
     public void reactToGameEnd(int score, String playeurName) {
          scoreLabel.setText("SCORE FINAL : "+score);
          ggLabel.setText("GG "+playeurName);
     }
 
+    /**
+     * React to attempt
+     * @param attemptId
+     * @param hintLine
+     */
     @Override
     public void reactToAttempt(int attemptId, HintLine hintLine) {}
 
+    /**
+     * React at end of round
+     * @param roundWon
+     * @param score
+     * @param secretCombination
+     */
     @Override
     public void reactToRoundEnd(boolean roundWon, int score, Combination secretCombination) {
         Color[] colors = new Color[secretCombination.getCombinationLength()];

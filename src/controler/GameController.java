@@ -11,7 +11,7 @@ public class GameController {
     private MastermindWindow window;
     
     /**
-     * 
+     * GameController builder
      * @param roundController
      * @param game
      */
@@ -21,7 +21,7 @@ public class GameController {
     }
 
     /**
-     * 
+     * Set MastermindWindow
      * @param window
      */
     public void setWindow(MastermindWindow window) {
@@ -29,7 +29,7 @@ public class GameController {
     }
 
     /**
-     * 
+     * Start the game
      * @param attemptNumber
      * @param combinationLength
      * @param pawnNumber
@@ -44,7 +44,7 @@ public class GameController {
     }
 
     /**
-     * 
+     * Reset the game
      */
     public void resetGame(){
         game.restartGame();
@@ -53,28 +53,28 @@ public class GameController {
     }
 
     /**
-     * 
+     * Change round and give it to roundController
      */
     public void nextRound(){
         roundController.setRound(game.nextRound());
     }
 
     /**
-     * 
+     * Give up current round
      */
     public void giveUpRound(){
         roundController.giveUpRound();
     }
 
     /**
-     * 
+     * Show the end-of-game panel
      */
     public void endGame(){
         window.showEndPanel();
     }
 
     /**
-     * 
+     * Show the start panel
      */
     public void returnToMenu(){
         window.showStartPanel();

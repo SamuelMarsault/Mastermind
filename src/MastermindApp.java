@@ -12,7 +12,7 @@ public class MastermindApp {
             SwingUtilities.updateComponentTreeUI(new JFrame());
 
             Game game = new Game();
-
+            
             RoundController roundController = new RoundController();
             GameController gameController = new GameController(roundController, game);
 

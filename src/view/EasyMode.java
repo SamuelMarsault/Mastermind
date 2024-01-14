@@ -5,7 +5,12 @@ import model.HintLine;
 import java.awt.*;
 
 public class EasyMode implements HintDisplayMode{
-    
+
+    /**
+     *
+     * @param hintLine
+     * @return
+     */
     @Override
     public Color[] convertHintLine(HintLine hintLine) {
         Color[] colors = new Color[hintLine.hintLineLength()];

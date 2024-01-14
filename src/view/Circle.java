@@ -9,7 +9,7 @@ public class Circle extends JPanel {
     private int diameter;
 
     /**
-     * Create the circle
+     * Circle builder
      * @param diameter
      * @param color
      */
@@ -40,7 +40,8 @@ public class Circle extends JPanel {
     }
     
     /**
-     * Allows you to color the circle and not the entire JPanel
+     * Allows you to color the circle
+     * @param g
      */
     @Override
     protected void paintComponent(Graphics g) {
@@ -61,7 +62,7 @@ public class Circle extends JPanel {
     }
 
     /**
-     * Recovers circle color
+     * Retrieves circle color
      * @return color
      */
     public Color getColor() {

@@ -17,7 +17,7 @@ public class GameBoard extends JPanel {
     private int currentAttempt;
     
     /**
-     * Configure each round's attempts
+     * GameBoard builder
      * @param combinationLenght
      * @param attemptNumber
      * @param pawnNumber
@@ -81,7 +81,7 @@ public class GameBoard extends JPanel {
     }
 
     /**
-     * Define the possible colors to choose for the part
+     * Set possible colors to play with
      * @param palette
      */
     public void setUpPalette(CombinationBox palette){
@@ -104,7 +104,7 @@ public class GameBoard extends JPanel {
     }
     
     /**
-     * 
+     * Prepare the window for the player
      * @param attemptId
      */
     public void prepareAttempt(int attemptId){
@@ -142,7 +142,7 @@ public class GameBoard extends JPanel {
     }
 
     /**
-     * Définis les intices qu'on on essai une combinaison ?
+     * Set hints on the window
      * @param hintsId
      * @param colors
      */
@@ -201,7 +201,7 @@ public class GameBoard extends JPanel {
     }
 
     /**
-     * Put the board back and it's variables and components at 0
+     * Reset board
      */
     public void resetBoard(){
         for (int i = 0; i < attemptPanel.getComponents().length-1; i++) {

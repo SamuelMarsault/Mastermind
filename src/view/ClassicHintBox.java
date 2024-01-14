@@ -6,7 +6,7 @@ import java.awt.*;
 public class ClassicHintBox extends HintBox{
 
     /**
-     * Define the appearance of Hints
+     * ClassicHintBox builder
      * @param combinationLength
      */
     public ClassicHintBox(int combinationLength) {
@@ -20,7 +20,11 @@ public class ClassicHintBox extends HintBox{
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
-    
+
+    /**
+     * Set hints color
+     * @param colors
+     */
     @Override
     public void setHintsColor(Color[] colors) {
         Circle circle;

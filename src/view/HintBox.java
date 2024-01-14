@@ -7,7 +7,7 @@ public abstract class HintBox extends JPanel {
     static public Color defaultColor = Color.LIGHT_GRAY;
     
     /**
-     * Redefine index colors and displays according to the class
+     * Redefines index colors and displays according to the class
      * @param colors
      */
     public abstract void setHintsColor(Color[] colors);

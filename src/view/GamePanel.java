@@ -18,7 +18,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
     private GameController gameController;
     
     /**
-     * Create and configure game panel componant
+     * Create and configure game panel component
      * @param roundController
      * @param gameController
      */
@@ -112,7 +112,7 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
      * @param image
      * @param height
      * @param width
-     * @return
+     * @return resized imageIcon
      */
     private ImageIcon resizeImage(ImageIcon image,int height, int width){
         Image originalImage = image.getImage();
@@ -124,12 +124,23 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         return new ImageIcon(resizedImage);
     }
 
+    /**
+     * React to attempt
+     * @param attemptId
+     * @param hintLine
+     */
     @Override
     public void reactToAttempt(int attemptId, HintLine hintLine) {
         gameBoard.setHints(attemptId-1, displayMode.convertHintLine(hintLine));
         gameBoard.prepareAttempt(attemptId);
     }
 
+    /**
+     * React at the end of round
+     * @param roundWon
+     * @param score
+     * @param secretCombination
+     */
     @Override
     public void reactToRoundEnd(boolean roundWon, int score, Combination secretCombination) {
         gameBoard.resetBoard();
@@ -149,6 +160,14 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         this.gameController.nextRound();
     }
 
+    /**
+     * React at the start of the game
+     * @param roundNumber
+     * @param attemptNumber
+     * @param pawnNumber
+     * @param combinationLenght
+     * @param mode
+     */
     @Override
     public void reactToGameStart(int roundNumber, int attemptNumber, int pawnNumber, int combinationLenght, Mode mode) {
         GridBagConstraints gameConstraints = new GridBagConstraints();
@@ -169,6 +188,11 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         gamePanel.add(gameBoard, gameConstraints);
     }
 
+    /**
+     * React at the end of the game
+     * @param score
+     * @param playeurName
+     */
     @Override
     public void reactToGameEnd(int score, String playeurName) {
         gameController.endGame();

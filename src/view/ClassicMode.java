@@ -5,7 +5,12 @@ import model.HintLine;
 import java.awt.*;
 
 public class ClassicMode implements HintDisplayMode{
-    
+
+    /**
+     * Convert HintLine into Colors
+     * @param hintLine
+     * @return a vector containing colors
+     */
     @Override
     public Color[] convertHintLine(HintLine hintLine) {
         Color[] colors = new Color[hintLine.hintLineLength()];

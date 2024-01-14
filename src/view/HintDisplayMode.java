@@ -6,9 +6,9 @@ import java.awt.*;
 public interface HintDisplayMode {
     
     /**
-     * 
+     * Convert HintLine into colors
      * @param hintLine
-     * @return
+     * @return a vector containing colors
      */
     Color[] convertHintLine(HintLine hintLine);
 }

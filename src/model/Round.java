@@ -11,7 +11,7 @@ public class Round {
     private Settings settings;
 
     /**
-     * Round builder (set the Round)
+     * Round builder
      * @param settings
      */
     public Round(Settings settings){
@@ -61,7 +61,7 @@ public class Round {
     }
 
     /**
-     * Add classes to observe
+     * Add an observer
      * @param observer
      */
     public void addObserver(RoundObserver observer){
@@ -69,7 +69,7 @@ public class Round {
     }
 
     /**
-     * Warns of the end of a verification attempt
+     * Warns of the end of an attempt
      */
     private void notifyAttempt(){
         int index = attemps.size()-1;
@@ -79,7 +79,7 @@ public class Round {
     }
 
     /**
-     * Tells you when the round is over
+     * Warns when the round is over
      * @param roundWon
      * @param score
      */

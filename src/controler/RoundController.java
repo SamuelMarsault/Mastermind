@@ -12,13 +12,13 @@ public class RoundController {
     private ArrayList<RoundObserver> roundObservers = new ArrayList<>();
     
     /**
-     * 
+     * Adds an observer
      * @param observer
      */
     public void addRoundObserver(RoundObserver observer) { roundObservers.add(observer);}
 
     /**
-     * 
+     * Set current round
      * @param round
      */
     public void setRound(Round round){
@@ -30,7 +30,7 @@ public class RoundController {
     }
 
     /**
-     * 
+     * Give the player combination to the round class
      * @param pawns
      */
     public void launchAttempt(Pawn[] pawns){
@@ -40,7 +40,7 @@ public class RoundController {
     }
     
     /**
-     * 
+     * Warns the round class to give up
      */
     public void giveUpRound(){
         round.giveUpRound();

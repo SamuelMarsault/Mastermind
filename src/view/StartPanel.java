@@ -31,7 +31,7 @@ public class StartPanel extends JPanel {
     private JLabel modeLabel;
 
     /**
-     * Create and configure start (setting) panel componant
+     * StartPanel builder
      * @param gameController
      */
     public StartPanel(GameController gameController) {
@@ -63,7 +63,6 @@ public class StartPanel extends JPanel {
         nameTextField.setColumns(13);
         nameTextField.setFont(new Font("Constantia", Font.PLAIN, 16));
         nameTextField.setText(System.getProperty("user.name"));
-        //System.getenv("COMPUTERNAME"); Pour le nom de l'ordi
 
         nbRoundLabel = new JLabel("Nombre de rounds :");
         nbRoundLabel.setFont(labelFont);

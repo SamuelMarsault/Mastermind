@@ -8,7 +8,7 @@ import java.awt.event.MouseListener;
 public class CombinationBox extends JPanel {
 
     /**
-     * Define the appearance of the combination box and what's inside it
+     * CombinationBox builder
      * @param combinationLenght
      * @param defaultColor
      */
@@ -25,7 +25,7 @@ public class CombinationBox extends JPanel {
     }
 
     /**
-     * Define the appearance of the combination box for the summary
+     * CombinationBox builder
      * @param colors
      */
     public CombinationBox(Color[] colors) {
@@ -40,7 +40,7 @@ public class CombinationBox extends JPanel {
     }
 
     /**
-     * Define the color of one of the circles in the combination
+     * Set the color of the circle at the specified index
      * @param n
      * @param color
      */
@@ -52,7 +52,7 @@ public class CombinationBox extends JPanel {
     }
 
     /**
-     * Create event to retrieve or give color
+     * Set mouseListener to every component
      * @param mouseAdapter
      */
     public void setClickEvent(MouseAdapter mouseAdapter){
@@ -61,7 +61,7 @@ public class CombinationBox extends JPanel {
     }
 
     /**
-     * 
+     * Unset every mouseListener of every component
      */
     public void unsetClickEvent(){
         for (Component component : getComponents()) {
@@ -70,6 +70,10 @@ public class CombinationBox extends JPanel {
         }
     }
 
+    /**
+     * Set whether components are enabled
+     * @param enabled
+     */
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);

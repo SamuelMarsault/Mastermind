@@ -9,7 +9,7 @@ public class MastermindWindow extends JFrame {
     private EndPanel endPanel;
 
     /**
-     * Configures the game window
+     * MastermindWindow builder
      * @param endPanel
      * @param gamePanel
      * @param startPanel
@@ -70,7 +70,7 @@ public class MastermindWindow extends JFrame {
 
     /**
      * Retrieves the game panel
-     * @return getGamePanel
+     * @return gamePanel
      */
     public GamePanel getGamePanel(){
         return gamePanel;
