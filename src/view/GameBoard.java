@@ -15,7 +15,8 @@ public class GameBoard extends JPanel {
     private Color defaultColor = Color.WHITE;
     private JPanel attemptPanel;
     private int currentAttempt;
-    
+    private CombinationConverter converter = new CombinationConverter();
+
     /**
      * GameBoard builder
      * @param combinationLenght
@@ -88,18 +89,7 @@ public class GameBoard extends JPanel {
         Color color;
         for (int i=0;i<Pawn.values().length;i++){
             Pawn pawn = Pawn.values()[i];
-            switch (pawn){
-                case RED -> color = Color.RED;
-                case GREEN -> color = Color.GREEN;
-                case BLUE -> color = Color.BLUE;
-                case YELLOW -> color = Color.YELLOW;
-                case BLACK -> color = Color.BLACK;
-                case ORANGE -> color = Color.ORANGE;
-                case PURPLE -> color = Color.MAGENTA;
-                case PINK -> color = Color.PINK;
-                default -> color = Color.WHITE;
-            }
-            palette.setPawnColor(i,color);
+            palette.setPawnColor(i,converter.pawnToColor(pawn));
         }
     }
     
@@ -159,38 +149,14 @@ public class GameBoard extends JPanel {
      * @return pawns
      */
     public Pawn[] getCombination(){
-        CombinationBox combinationBox = (CombinationBox) attemptPanel.getComponent(currentAttempt);
-        Pawn[] pawns = new Pawn[combinationBox.getComponents().length];
-        for (int i=0;i<combinationBox.getComponents().length;i++){
-            Circle circle = (Circle) combinationBox.getComponent(i);
-            //Il n'était pas possible de mettre de switch car Color n'est pas une énum
-            if (circle.getColor().equals(Color.RED))
-                pawns[i] = Pawn.RED;
-            else if (circle.getColor().equals(Color.GREEN))
-                pawns[i] = Pawn.GREEN;
-            else if (circle.getColor().equals(Color.BLUE))
-                pawns[i] = Pawn.BLUE;
-            else if (circle.getColor().equals(Color.YELLOW))
-                pawns[i] = Pawn.YELLOW;
-            else if (circle.getColor().equals(Color.BLACK))
-                pawns[i] = Pawn.BLACK;
-            else if (circle.getColor().equals(Color.ORANGE))
-                pawns[i] = Pawn.ORANGE;
-            else if (circle.getColor().equals(Color.MAGENTA))
-                pawns[i] = Pawn.PURPLE;
-            else if (circle.getColor().equals(Color.PINK))
-                pawns[i] = Pawn.PINK;
-            else if (circle.getColor().equals(Color.BLACK))
-                pawns[i] = Pawn.BLACK;
-        }
-        return pawns;
+        return converter.colorsToPawns(getColors());
     }
 
     /**
      * Recovers attempt colors
-     * @return color
+     * @return colors
      */
-    public Color[] getColor(){
+    public Color[] getColors(){
         CombinationBox combinationBox = (CombinationBox) attemptPanel.getComponent(currentAttempt);
         Color[] color = new Color[combinationBox.getComponents().length];
         for (int i=0;i<combinationBox.getComponents().length;i++){

@@ -62,3 +62,39 @@ Cependant, ils sont corrélés dans 'GameController'.
 'Announcer' a été retiré car il ne servait que pour l'affichage non graphique dans le rendu 1.
 --
 
+## Rapport 3 - 14 janvier
+
+Le modèle ayant été terminé il y a plusieurs semaines, nos efforts se sont concentrés sur les vues et les contrôleurs.
+Nous avons notamment mis en place différentes classes graphiques, en premier lieu MastermindWindow, qui hérite des JFrame.
+Cette classe se compose de 3 JPanel personnalisés, StartPanel, GamePanel et EndPanel, ils ont pour responsabilités
+de contenir les éléments graphiques des 3 phases de l'application, à savoir : le démarrage, avec le choix des paramètres,
+le jeu, avec le choix des pions et la possibilités d'abandonner la partie, ainsi que la fin de partie, avec l'affichage
+des scores.
+
+Nous avons fais le choix d'1 seule et unique fenêtre afin d'éviter les potentiels conflits (une fenêtre qui ne se ferme pas)
+mais aussi aussi afin de ne pas faire subir à l'utilisateur la gestion de ces dernières, ou leur apparition et disparition 
+qui aurait pu être troublant.
+
+Nous avons également développés plusieurs classes graphiques, par exemple CombinationBox, qui contient des composants appellés
+Circle, également développés par nous, le principe étant de pouvoir afficher les combinaisons à l'écran a l'aide de cercle de couleur.
+
+L'interface HintBox a été développée afin de fournir une abstraction permettant d'ajouter ou d'autres manière de représenter 
+les indices à l'écran, nous avons 2 classes concrètes qui ont ce rôle, ClassicHintBox et NumericHintBox.
+
+Pour ce qui est de la logique relatives aux indices, des classes concrètes impleméntant HintDisplayMode permettent de renvoyer 
+une tableau de couleur en fonction des indices qui lui sont donnés, il n'y a que 2 modes, car le mode numérique se base
+sur le mode facile et utilise une NumericHintBox afin de ne pas comptabiliser les +4 points du mode classique.
+
+La classe GameBoard sert de plateau de jeu, une notion explicitement absente du modèle, mais qui se retrouve implicitement
+dans l'implémentation sous forme de liste des combinaisons et des lignes d'indices, le plateau se rempli au fur et à mesure
+que la partie se déroule, retraçant chaque tentative du joueur jusqu'à ce qu'il trouve la bonne combinaison.
+
+Les contrôleurs sont au nombre de 2, GameController a un rôle assez large de gestion, c'est à lui qu'est confié la tâche
+d'ordonner l'affichage d'un panel à la MastermindWindow, il gère également les ordres de configuration et de passage de tour
+vis à vis de la classe Game.
+Le roundController a des responsabilités qui portent uniquement sur les rounds, il récupère le round avec lequel il travail
+du GameController, et il veille à la communication de l'utilisateur avec ce dernier, notamment dans la gestion des combinaisons
+mais aussi de l'abandon de la manche en cours.
+
+CombinationConverter a été développé dans le but de faire le lien entre pions et couleurs à un seul et unique endroit,
+ce qui nous permet d'éviter d'avoir à modifier cette correspondance à plusieurs endroits dans les classes les utilisant.

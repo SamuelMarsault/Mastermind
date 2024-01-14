@@ -4,14 +4,10 @@ import controler.GameController;
 import controler.RoundController;
 import model.*;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.*;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Path;
 
 public class GamePanel extends JLayeredPane implements RoundObserver,GameObserver {
     private JPanel gamePanel;
@@ -77,13 +73,12 @@ public class GamePanel extends JLayeredPane implements RoundObserver,GameObserve
         JButton validateButton = new JButton(resizeImage(new ImageIcon(this.getClass().getClassLoader().getResource("check.png")),25,25));
         validateButton.setCursor(new Cursor(12));
         validateButton.addActionListener(actionEvent -> {
-            Color[] colors = gameBoard.getColor();
+            Color[] colors = gameBoard.getColors();
             boolean hasIncompleteCombination = false;
-        
-            for (int i = 0; i < colors.length; i++) {
+
+            for (int i = 0; i < colors.length && !hasIncompleteCombination; i++) {
                 if (colors[i].equals(Color.WHITE) || colors[i].equals(Color.LIGHT_GRAY)) {
                     hasIncompleteCombination = true;
-                    break;
                 }
             }
 

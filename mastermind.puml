@@ -163,7 +163,7 @@ class view.GameBoard {
     + prepareAttempt(attemptId : Integer)
     + setHints(hintsId : Integer, colors : Color[])
     + getCombination() : Pawn[]
-    + getColor() : Color[]
+    + getColors() : Color[]
     + resetBoard()
 
 }
@@ -217,6 +217,11 @@ class view.EasyMode implements view.HintDisplayMode {
     + convertHintLine(hintLine : HintLine) : Color[]
 }
 
+class view.CombinationConverter {
+    + colorsToPawns(colors : Color[]) : Pawn[]
+    + pawnToColor(pawn : Pawn) : Color
+}
+
 MastermindApp ..> "<<uses>>" view.MastermindWindow
 MastermindApp ..> "<<uses>>" view.EndPanel
 MastermindApp ..> "<<uses>>" view.StartPanel
@@ -262,6 +267,8 @@ view.GameBoard ..> "<<uses>>" view.Circle
 view.GameBoard ..> "<<uses>>" model.Pawn
 view.GameBoard *--> "*\n-attempts" CombinationBox
 view.GameBoard *--> "*\n-hints" HintBox
+view.GameBoard *--> "1\n-converter" view.CombinationConverter
+view.CombinationConverter ..> "<<uses>>" model.Pawn
 view.ClassicHintBox ..> "<<uses>>" view.Circle
 view.RecapRound ...> "<<uses>>" view.CombinationBox
 
