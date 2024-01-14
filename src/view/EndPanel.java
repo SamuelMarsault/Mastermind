@@ -128,9 +128,9 @@ public class EndPanel extends JPanel implements GameObserver, RoundObserver {
     public void reactToGameEnd(int score, String playeurName) {
          scoreLabel.setText("SCORE FINAL : "+score);
          if(roundsWon>=scrollPanel.getComponentCount()/2)
-             ggLabel.setText("Bravo "+playeurName+"\nVous avez gagné");
+             ggLabel.setText("Bravo "+playeurName+" Vous avez gagné");
          else
-             ggLabel.setText("Vous avez perdu "+playeurName+"...\nMais ne vous découragez pas !");
+             ggLabel.setText("Vous avez perdu "+playeurName+"... Mais ne vous découragez pas !");
     }
 
     /**
