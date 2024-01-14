@@ -3,7 +3,7 @@
 ## Rapport 1 - 3 décembre
 
 Ce diagramme représente l'avancement actuel du projet
-![](image_rapport/image_rapport_3decembre.svg)
+![](src/image_rapport/image_rapport_3decembre.svg)
 
 On y retrouve 'Game', qui représente une partie, mais aussi 'Round', qui correspond à une manche. 
 Une partie possède de 3 à 5 manches et a un attribut statique décrivant le nombre de manches.
@@ -15,7 +15,7 @@ elles-mêmes se servant d'énumérations.
 La combinaison secrète est un attribut de type 'Combination' d'une manche. C'est à la manche de générer sa combinaison secrète.
 
 ## Rapport 1 - 10 décembre
-![](image_rapport/image_rapport_10decembre.svg)
+![](src/image_rapport/image_rapport_10decembre.svg)
 
 Voici donc notre UML pour le rendu 1. On y retrouve un modèle retravaillé dans lequel 'AttemptLine' n'apparaît plus. 
 En effet, son rôle était limité à la synchronisation, elle n'était donc pas réellement utile.
